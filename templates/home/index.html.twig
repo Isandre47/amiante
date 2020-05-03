@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<!-- Preloader Start -->
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="preloader-circle"></div>
+            <div class="preloader-img pere-text">
+                <img src="assets/img/logo/loder-logo.png" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Preloader Start -->
+<header>
+    <!-- Header Start -->
+    {% include 'header.html.twig' %}
+    <!-- Header End -->
+</header>
+<main>
+    <!-- slider Area Start-->
+    {% include 'slider.html.twig' %}
+    <!-- slider Area End-->
+    <!-- Services Area Start -->
+    {% include 'services.html.twig' %}
+    <!-- Services Area End -->
+    <!-- About Area Start -->
+    {% include 'about.html.twig' %}
+    <!-- About Area End -->
+    <!-- Project Area Start -->
+    {% include 'project.html.twig' %}
+    <!-- Project Area End -->
+    <!-- contact with us Start -->
+    {% include 'contact_with.html.twig' %}
+    <!-- contact with us End-->
+    <!-- CountDown Area Start -->
+    {% include 'count.html.twig' %}
+    <!-- CountDown Area End -->
+    <!-- Team Start -->
+    {% include 'team.html.twig' %}
+    <!-- Team End -->
+    <!-- Testimonial Start -->
+    {% include 'testimonial.html.twig' %}
+    <!-- Testimonial End -->
+    <!--latest Nnews Area start -->
+    {% include 'news.html.twig' %}
+    <!--latest News Area End -->
+</main>
+{% endblock %}
