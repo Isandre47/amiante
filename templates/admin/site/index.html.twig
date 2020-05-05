@@ -9,7 +9,7 @@
     <ul>
         {% if sites is not empty %}
             {% for site in sites %}
-                <li>{{ site.id }} - <a href="{{ path('user_edit',{'id':site.id}) }}">Editer</a></li>
+                <li>{{ site.id }} - <a href="{{ path('site_edit',{'id':site.id}) }}">Editer</a></li>
             {% endfor %}
 
         {% else %}
