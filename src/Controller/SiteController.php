@@ -29,6 +29,28 @@ class SiteController extends AbstractController
     }
 
     /**
+     * @Route("new", name="site_new")
+     */
+    public function new(Request $request)
+    {
+        $site = new Site();
+        $formSite = $this->createForm(SiteType::class, $site);
+        $formSite->handleRequest($request);
+
+        if ($formSite->isSubmitted() && $formSite->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($site);
+            $em->flush();
+
+            return $this->redirectToRoute('site_index');
+        }
+
+        return $this->render('admin/site/new.html.twig', [
+            'formSite' => $formSite->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/edit/{id}", name="site_edit")
      */
     public function edit(Request $request, Site $site): Response

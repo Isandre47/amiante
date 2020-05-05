@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block right %}
-    Chantier index
+    Chantier index - <a href="{{ path('site_new') }}">Ajouter un site</a>
     <ul>
         {% if sites is not empty %}
             {% for site in sites %}
-                <li>{{ site.id }} - <a href="{{ path('site_edit',{'id':site.id}) }}">Editer</a></li>
+                <li>{{ site.id }} - {{ site.name }}<a href="{{ path('site_edit',{'id':site.id}) }}">Editer</a></li>
             {% endfor %}
 
         {% else %}
