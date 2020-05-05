@@ -1,0 +1,14 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}
+Admin Users
+{% endblock %}
+
+{% block right %}
+    User index
+    <ul>
+        {% for user in users %}
+            <li>{{ user.id }} - {{ user.email }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
