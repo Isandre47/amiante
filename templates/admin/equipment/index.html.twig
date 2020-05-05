@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block right %}
-    Matériels index
+    Matériels index <a href="{{ path('equipment_new') }}">Ajouter un matériel</a>
     <ul>
         {% if equipments is not empty %}
             {% for equipment in equipments %}
-                <li>{{ equipment.id }} - <a href="{{ path('user_edit',{'id':equipment.id}) }}">Editer</a></li>
+                <li>{{ equipment.id }} - {{ equipment.name }}<a href="{{ path('equipment_edit',{'id':equipment.id}) }}">Editer</a></li>
             {% endfor %}
         {% else %}
             Aucun matériels d'enregistré

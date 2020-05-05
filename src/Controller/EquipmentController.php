@@ -46,4 +46,26 @@ class EquipmentController extends AbstractController
             'formEquipment' => $formEquipment->createView(),
         ]);
     }
+
+    /**
+     * @Route("new", name="equipment_new")
+     */
+    public function new(Request $request)
+    {
+        $equipment = new Equipment();
+        $formEquipment = $this->createForm(EquipmentType::class, $equipment);
+        $formEquipment->handleRequest($request);
+
+        if ($formEquipment->isSubmitted() && $formEquipment->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($equipment);
+            $em->flush();
+
+            return $this->redirectToRoute('equipment_index');
+        }
+
+        return $this->render('admin/equipment/new.html.twig', [
+            'formEquipment' => $formEquipment->createView(),
+        ]);
+    }
 }
