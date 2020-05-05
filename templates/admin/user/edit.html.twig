@@ -1,0 +1,10 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}
+    Edition d'un utilisateur
+{% endblock %}
+
+{% block right %}
+    Edition d'un utilisateur ( statut actuel : {{ userRole[0] }} )
+    {{ form(formUser) }}
+{% endblock %}
