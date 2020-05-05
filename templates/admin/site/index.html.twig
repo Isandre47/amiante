@@ -1,0 +1,19 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}
+    Admin Chantiers
+{% endblock %}
+
+{% block right %}
+    Chantier index
+    <ul>
+        {% if sites is not empty %}
+            {% for site in sites %}
+                <li>{{ site.id }} - <a href="{{ path('user_edit',{'id':site.id}) }}">Editer</a></li>
+            {% endfor %}
+
+        {% else %}
+            Aucun chantier d'enregistré
+        {% endif %}
+    </ul>
+{% endblock %}
