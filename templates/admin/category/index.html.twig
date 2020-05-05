@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block right %}
-    Catégories index
+    Catégories index - <a href="{{ path('category_new') }}">Ajouter une catégorie</a>
     <ul>
         {% if categories is not empty %}
             {% for categorie in categories %}
-                <li>{{ categorie.id }} - <a href="{{ path('user_edit',{'id':categorie.id}) }}">Editer</a></li>
+                <li>{{ categorie.id }} - {{ categorie.name }}<a href="{{ path('category_edit',{'id':categorie.id}) }}">Editer</a></li>
             {% endfor %}
         {% else %}
             Aucune catégorie d'enregistrée

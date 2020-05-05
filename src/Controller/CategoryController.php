@@ -23,6 +23,29 @@ class CategoryController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("new", name="category_new")
+     */
+    public function new(Request $request)
+    {
+        $category = new Category();
+        $formCategory = $this->createForm(CategoryType::class, $category);
+        $formCategory->handleRequest($request);
+
+        if ($formCategory->isSubmitted() && $formCategory->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+
+            return $this->redirectToRoute('category_index');
+        }
+
+        return $this->render('admin/category/new.html.twig', [
+            'formCategory' => $formCategory->createView(),
+        ]);
+    }
+
     /**
      * @Route("/category/edit/{id}", name="category_edit")
      */
@@ -34,7 +57,7 @@ class CategoryController extends AbstractController
         if ($formCategory->isSubmitted() && $formCategory->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('site_index');
+            return $this->redirectToRoute('category_index');
         }
 
         return $this->render('admin/category/edit.html.twig',[
