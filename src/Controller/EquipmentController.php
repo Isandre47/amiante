@@ -2,18 +2,25 @@
 
 namespace App\Controller;
 
+use App\Repository\EquipmentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class EquipmentController
+ * @package App\Controller
+ * @Route("/equipment")
+ */
 class EquipmentController extends AbstractController
 {
     /**
-     * @Route("/equipment", name="equipment")
+     * @Route("/", name="equipment_index")
      */
-    public function index()
+    public function index(EquipmentRepository $equipmentRepository)
     {
-        return $this->render('equipment/index.html.twig', [
+        return $this->render('admin/equipment/index.html.twig', [
             'controller_name' => 'EquipmentController',
+            'equipments' => $equipmentRepository->findAll(),
         ]);
     }
 }

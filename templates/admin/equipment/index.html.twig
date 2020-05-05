@@ -1,0 +1,18 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}
+    Admin Matériels
+{% endblock %}
+
+{% block right %}
+    Matériels index
+    <ul>
+        {% if equipments is not empty %}
+            {% for equipment in equipments %}
+                <li>{{ equipment.id }} - <a href="{{ path('user_edit',{'id':equipment.id}) }}">Editer</a></li>
+            {% endfor %}
+        {% else %}
+            Aucun matériels d'enregistré
+        {% endif %}
+    </ul>
+{% endblock %}
