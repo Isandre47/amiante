@@ -9,7 +9,7 @@
     <ul>
         {% if equipments is not empty %}
             {% for equipment in equipments %}
-                <li>{{ equipment.id }} - {{ equipment.name }}<a href="{{ path('equipment_edit',{'id':equipment.id}) }}">Editer</a></li>
+                <li>{{ equipment.id }} - {{ equipment.name }} - {{ equipment.site.name }} <a href="{{ path('equipment_edit',{'id':equipment.id}) }}">Editer</a></li>
             {% endfor %}
         {% else %}
             Aucun matériels d'enregistré

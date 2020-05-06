@@ -28,9 +28,15 @@ class Site
      */
     private $users;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Equipment", mappedBy="site")
+     */
+    private $equipment;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->equipment = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,6 +81,37 @@ class Site
             // set the owning side to null (unless already changed)
             if ($user->getSite() === $this) {
                 $user->setSite(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Equipment[]
+     */
+    public function getEquipment(): Collection
+    {
+        return $this->equipment;
+    }
+
+    public function addEquipment(Equipment $equipment): self
+    {
+        if (!$this->equipment->contains($equipment)) {
+            $this->equipment[] = $equipment;
+            $equipment->setSite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipment(Equipment $equipment): self
+    {
+        if ($this->equipment->contains($equipment)) {
+            $this->equipment->removeElement($equipment);
+            // set the owning side to null (unless already changed)
+            if ($equipment->getSite() === $this) {
+                $equipment->setSite(null);
             }
         }
 

@@ -21,6 +21,11 @@ class Equipment
      */
     private $name;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="equipment")
+     */
+    private $site;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -34,6 +39,18 @@ class Equipment
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSite(): ?Site
+    {
+        return $this->site;
+    }
+
+    public function setSite(?Site $site): self
+    {
+        $this->site = $site;
 
         return $this;
     }

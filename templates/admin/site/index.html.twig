@@ -5,14 +5,21 @@
 {% endblock %}
 
 {% block right %}
-    Chantier index - <a href="{{ path('site_new') }}">Ajouter un site</a>
+    Chantier index - <a href="{{ path('site_new') }}">Ajouter un chantier</a>
     <ul>
         {% if sites is not empty %}
             {% for site in sites %}
                 <li>{{ site.id }} - {{ site.name }}<a href="{{ path('site_edit',{'id':site.id}) }}">Editer</a></li>
+                    Personnel
                     <ul>
-                        {% for site_user in site.users %}
-                            <li>{{ site_user.firstname }} {{ site_user.lastname }}</li>
+                        {% for siteUser in site.users %}
+                            <li>{{ siteUser.firstname }} {{ siteUser.lastname }}</li>
+                        {% endfor %}
+                    </ul>
+                    Matériels
+                    <ul>
+                        {% for siteEquipment in site.equipment %}
+                            <li>{{ siteEquipment.name }}</li>
                         {% endfor %}
                     </ul>
             {% endfor %}
