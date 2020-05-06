@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Site;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -27,7 +29,13 @@ class UserType extends AbstractType
                 'multiple' => false,
                 'mapped' => false,
             ])
-            ->add('password')
+            ->add('firstname')
+            ->add('lastname')
+            ->add('site', EntityType::class, [
+                'class' => Site::class,
+                'choice_label' => 'name'
+            ])
+//            ->add('password')
             ->add('Envoyer', SubmitType::class)
         ;
     }
