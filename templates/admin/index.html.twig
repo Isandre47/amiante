@@ -2,6 +2,10 @@
 
 {% block title %}Hello AdminController Index !{% endblock %}
 
-{% block body %}
-
+{% block right %}
+    {{ users|length }} utilisateurs
+    <hr>
+    {{ equipments|length }} matériels
+    <hr>
+    {{ sites|length }} chantiers
 {% endblock %}
