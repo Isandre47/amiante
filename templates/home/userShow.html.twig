@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Information{% endblock %}
+
+{% block body %}
+    {% include 'header.html.twig' %}
+
+    <main>
+        <!-- slider Area Start-->
+        <div class="slider-area ">
+            <div class="single-slider hero-overly slider-height2 d-flex align-items-center" data-background="assets/img/hero/about.jpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="slider-area">
+                                Bonjour {{ user.username }}
+
+                                Votre coffre-fort numérique -> <a href="https://www.myprimobox.net/Login" target="_blank">MyPrimoBox</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- slider Area End-->
+
+
+    </main>
+
+{% endblock %}

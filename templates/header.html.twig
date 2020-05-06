@@ -58,7 +58,12 @@
                                         </ul>
                                     </li>
                                     {% if app.user %}
-                                        <li><a href="{{ path('app_logout') }}">{{ app.user.username }}, Logout</a></li>
+                                        <li><a href="#">{{ app.user.username }}</a>
+                                            <ul class="submenu">
+                                                <li><a href="{{ path('user_show',{'id': app.user.id}) }}">Vos informations Details</a></li>
+                                                <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                                            </ul>
+                                        </li>
                                         {% else %}
                                         <li><a href="{{ path('app_login')}}">Connexion</a></li>
                                     {% endif %}

@@ -46,4 +46,15 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+
+    /**
+     * @Route("/user-show/{id}", name="user_show")
+     */
+    public function show()
+    {
+        return $this->render('home/userShow.html.twig', [
+            'controller_name' => 'HomeController',
+            'user' => $this->getUser(),
+        ]);
+    }
 }
