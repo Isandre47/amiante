@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Site;
+use App\Entity\Zone;
+use App\Form\CategoryType;
 use App\Form\SiteType;
 use App\Repository\SiteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,7 +36,12 @@ class SiteController extends AbstractController
     public function new(Request $request)
     {
         $site = new Site();
+        $category = new Zone();
         $formSite = $this->createForm(SiteType::class, $site);
+        $formCategory = $this->createForm(CategoryType::class, $category, [
+            'data_class' => Zone::class,
+            'action' => '/category/new'
+            ]);
         $formSite->handleRequest($request);
 
         if ($formSite->isSubmitted() && $formSite->isValid()) {
@@ -47,6 +54,7 @@ class SiteController extends AbstractController
 
         return $this->render('admin/site/new.html.twig', [
             'formSite' => $formSite->createView(),
+            'formCategory' => $formCategory->createView(),
         ]);
     }
 

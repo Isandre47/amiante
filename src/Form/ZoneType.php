@@ -2,33 +2,30 @@
 
 namespace App\Form;
 
-use App\Entity\Category;
-use App\Entity\Site;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Zone;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SiteType extends AbstractType
+class ZoneType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('zones', EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => 'name',
-                'label' => 'listes des zones habituelles'
+            ->add('name', TextType::class, [
+                'label' => 'on sait pas encore'
             ])
-            ->add('Envoyer', SubmitType::class)
+            ->add('Envoyer',SubmitType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Site::class,
+            'data_class' => Zone::class,
+            'action' => '/zone/new'
         ]);
     }
 }
