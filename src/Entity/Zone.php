@@ -19,7 +19,7 @@ class Zone
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
 
@@ -42,6 +42,11 @@ class Zone
      * @ORM\OneToMany(targetEntity="App\Entity\Output", mappedBy="Zone")
      */
     private $outputs;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="zones")
+     */
+    private $category;
 
     public function __construct()
     {
@@ -168,6 +173,18 @@ class Zone
                 $output->setZone(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Site;
 use App\Entity\Zone;
 use App\Form\CategoryType;
 use App\Form\SiteType;
+use App\Repository\CategoryRepository;
 use App\Repository\SiteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,20 +35,25 @@ class SiteController extends AbstractController
     /**
      * @Route("new", name="site_new")
      */
-    public function new(Request $request)
+    public function new(Request $request , CategoryRepository $categoryRepository)
     {
         $site = new Site();
-        $category = new Zone();
+        $category = new Category();
+        $zone = new Zone();
         $formSite = $this->createForm(SiteType::class, $site);
         $formCategory = $this->createForm(CategoryType::class, $category, [
-            'data_class' => Zone::class,
             'action' => '/category/new'
             ]);
         $formSite->handleRequest($request);
 
-        if ($formSite->isSubmitted() && $formSite->isValid()) {
+        if ($formSite->isSubmitted()) {
+            $zone->setSite($site);
+            $zoneName = $categoryRepository->find($request->request->get('site')["zones"]);
+            $zone->setCategory($zoneName);
+//            dd($site, $request, $zone,$request->request->get('site')["zones"]);
             $em = $this->getDoctrine()->getManager();
             $em->persist($site);
+            $em->persist($zone);
             $em->flush();
 
             return $this->redirectToRoute('site_index');
