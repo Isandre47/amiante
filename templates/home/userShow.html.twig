@@ -15,7 +15,12 @@
                             <div class="slider-area">
                                 Bonjour {{ user.username }} <br>
 
-                                vous êtes affecté sur le chantier de {{ user.site.name }}
+                                vous êtes affecté
+                                {% if user.site.name is defined %}
+                                    sur le chantier de {{ user.site.name }}
+                                {% else %}
+                                 nulle part
+                                {% endif %}
                                 <hr>
 
                                 Votre coffre-fort numérique -> <a href="https://www.myprimobox.net/Login" target="_blank">MyPrimoBox</a>

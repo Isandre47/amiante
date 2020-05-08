@@ -8,7 +8,12 @@ Admin Users
     User index
     <ul>
         {% for user in users %}
-            <li>{{ user.id }} - {{ user.email }} - {{ user.firstname }} {{ user.lastname }} - {{ user.site.name }}
+            <li>{{ user.id }} - {{ user.email }} - {{ user.firstname }} {{ user.lastname }} -
+                {% if user.site.name is defined %}
+                    {{ user.site.name }}
+                {% else %}
+                    nulle part
+                {% endif %}
                 <a href="{{ path('user_edit',{'id':user.id}) }}">Editer</a>
             </li>
         {% endfor %}

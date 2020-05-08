@@ -38,6 +38,8 @@ class SecurityController extends AbstractController
         if ($request->isMethod('POST')){
             $user = new User();
             $user->setEmail($request->request->get('email'));
+            $user->setFirstname($request->request->get('firstname'));
+            $user->setLastname($request->request->get('lastname'));
             $user->setRoles(["ROLE_USER"]);
             $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
             $em = $this->getDoctrine()->getManager();
