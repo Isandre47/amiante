@@ -23,28 +23,45 @@ class CategoryController extends AbstractController
         ]);
     }
 
-
     /**
-     * @Route("new", name="category_new")
+     * @Route("category/new", name="category_new")
      */
     public function new(Request $request)
     {
         $category = new Category();
-        $formCategory = $this->createForm(CategoryType::class, $category);
-        $formCategory->handleRequest($request);
-
-        if ($formCategory->isSubmitted() && $formCategory->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($category);
-            $em->flush();
-
-            return $this->redirectToRoute('category_index');
-        }
-
-        return $this->render('admin/category/new.html.twig', [
-            'formCategory' => $formCategory->createView(),
+        $formCategory = $this->createForm(CategoryType::class, $category, [
+            'data_class' => Category::class,
         ]);
+        $formCategory->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($category);
+        $em->flush();
+
+        return $this->redirectToRoute('site_new');
+
     }
+
+//    /**
+//     * @Route("new", name="category_new")
+//     */
+//    public function new(Request $request)
+//    {
+//        $category = new Category();
+//        $formCategory = $this->createForm(CategoryType::class, $category);
+//        $formCategory->handleRequest($request);
+//
+//        if ($formCategory->isSubmitted() && $formCategory->isValid()) {
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($category);
+//            $em->flush();
+//
+//            return $this->redirectToRoute('category_index');
+//        }
+//
+//        return $this->render('admin/category/new.html.twig', [
+//            'formCategory' => $formCategory->createView(),
+//        ]);
+//    }
 
     /**
      * @Route("/category/edit/{id}", name="category_edit")
