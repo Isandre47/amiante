@@ -6,7 +6,21 @@
 
 {% block right %}
     Edition d'un chantier
+    <br>
+    Données actuelles:
+    {{ site.name }}
+    <br>
+    <ul>
+        {% for sitePhase in site.zones %}
+            <li>{{ sitePhase.category.name }}</li>
+        {% endfor %}
+    </ul>
+    <hr>
     {{ form(formSite) }}
+    <hr>
+    Votre zone n'est pas présente ?
+    Ajoutez ci-dessous
+    {{ form(formCategory) }}
 
 {% endblock %}
 

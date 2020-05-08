@@ -28,6 +28,11 @@ class Category
      */
     private $zones;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Type;
+
     public function __construct()
     {
         $this->zones = new ArrayCollection();
@@ -77,6 +82,18 @@ class Category
                 $zone->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->Type;
+    }
+
+    public function setType(string $Type): self
+    {
+        $this->Type = $Type;
 
         return $this;
     }

@@ -18,7 +18,6 @@ class CategoryController extends AbstractController
     public function index(CategoryRepository $categoryRepository): Response
     {
         return $this->render('admin/category/index.html.twig', [
-            'controller_name' => 'CategoryController',
             'categories' => $categoryRepository->findAll(),
         ]);
     }
@@ -26,7 +25,7 @@ class CategoryController extends AbstractController
     /**
      * @Route("category/new", name="category_new")
      */
-    public function new(Request $request)
+    public function new(Request $request): Response
     {
         $category = new Category();
         $formCategory = $this->createForm(CategoryType::class, $category, [
@@ -36,6 +35,9 @@ class CategoryController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->persist($category);
         $em->flush();
+        if ($request->request->get('category')['origin']) {
+            return $this->redirectToRoute('site_edit', ['id' => $request->request->get('category')['origin'] ]);
+        }
 
         return $this->redirectToRoute('site_new');
 

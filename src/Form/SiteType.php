@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Site;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,8 +20,12 @@ class SiteType extends AbstractType
             ->add('name', TextType::class)
             ->add('zones', EntityType::class, [
                 'class' => Category::class,
-                'choice_label' => 'name',
-                'mapped' => false
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.name', 'ASC');
+                },
+                'mapped' => false,
+                'choice_label' => 'name'
             ])
             ->add('Envoyer', SubmitType::class)
         ;

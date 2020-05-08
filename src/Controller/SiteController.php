@@ -10,6 +10,7 @@ use App\Form\SiteType;
 use App\Repository\CategoryRepository;
 use App\Repository\SiteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,7 +36,7 @@ class SiteController extends AbstractController
     /**
      * @Route("new", name="site_new")
      */
-    public function new(Request $request , CategoryRepository $categoryRepository)
+    public function new(Request $request , CategoryRepository $categoryRepository): Response
     {
         $site = new Site();
         $category = new Category();
@@ -50,7 +51,6 @@ class SiteController extends AbstractController
             $zone->setSite($site);
             $zoneName = $categoryRepository->find($request->request->get('site')["zones"]);
             $zone->setCategory($zoneName);
-//            dd($site, $request, $zone,$request->request->get('site')["zones"]);
             $em = $this->getDoctrine()->getManager();
             $em->persist($site);
             $em->persist($zone);
@@ -68,19 +68,41 @@ class SiteController extends AbstractController
     /**
      * @Route("/edit/{id}", name="site_edit")
      */
-    public function edit(Request $request, Site $site): Response
+    public function edit(Request $request, Site $site, CategoryRepository $categoryRepository): Response
     {
+        $category = new Category();
+        $zone = new Zone();
         $formSite = $this->createForm(SiteType::class, $site);
         $formSite->handleRequest($request);
 
+        /*
+         * Ajout d'une valeur "origin" afin de pouvoir récuperer cette valeur dans le formulaire d'ajout de catégorie
+         * Sa valeur est l'id du site qui sera passé en paramètre de la redirection après ajout du champ
+         */
+        $formCategory = $this->createForm(CategoryType::class, $category, [
+            'action' => '/category/new',
+        ])->add('origin', HiddenType::class, [
+            'mapped' => false,
+            'attr' => ['value' => $site->getId()]
+        ]);
+
         if ($formSite->isSubmitted() && $formSite->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $zone->setSite($site);
+            $zoneName = $categoryRepository->find($request->request->get('site')["zones"]);
+            $zone->setCategory($zoneName);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($site);
+            $em->persist($zone);
+            $em->flush();
+
 
             return $this->redirectToRoute('site_index');
         }
 
         return $this->render('admin/site/edit.html.twig',[
             'formSite' => $formSite->createView(),
+            'formCategory' => $formCategory->createView(),
+            'site' => $site,
         ]);
     }
 }

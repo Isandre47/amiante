@@ -22,11 +22,6 @@ class Removal
     private $phase;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="removals")
-     */
-    private $site;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $location;
@@ -49,18 +44,6 @@ class Removal
     public function setPhase(string $phase): self
     {
         $this->phase = $phase;
-
-        return $this;
-    }
-
-    public function getSite(): ?Site
-    {
-        return $this->site;
-    }
-
-    public function setSite(?Site $site): self
-    {
-        $this->site = $site;
 
         return $this;
     }
