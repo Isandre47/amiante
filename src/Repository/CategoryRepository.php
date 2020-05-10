@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Category;
+use App\Entity\Zone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Category|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +20,36 @@ class CategoryRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Category::class);
+    }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function test($siteId)
+    {
+        $subquery = $this->getEntityManager()->getRepository(Zone::class)->createQueryBuilder('zone');
+        $subquery->where('zone.site = ?1');
+
+        $result = $this->createQueryBuilder('category')
+            ->where($this->createQueryBuilder('category')->expr()->notIn('category.id', $subquery->getDQL()))
+            ->setParameter('1', $siteId)
+            ->orderBy('category.name', 'ASC')
+        ;
+
+        return $result;
+    }
+
+    /**
+     * @return Query
+     */
+    public function test2($siteId)
+    {
+        // Sélection de toutes les catégories auxquelles on enleve ( NOT IN ) les catégories déjà présentes pour le chantier en cours d'édition
+        $em = $this->getEntityManager();
+        $query = $em->createQuery('SELECT c FROM App\Entity\Category c WHERE c.Type = \'Phase\' AND c.id NOT IN (SELECT zc.id FROM App\Entity\Zone z LEFT JOIN z.category zc WHERE z.site = ?1) ORDER BY c.name ASC');
+        $query->setParameter(1, $siteId);
+
+        return $query->getResult();
     }
 
     // /**

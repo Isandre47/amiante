@@ -33,13 +33,20 @@ class CategoryController extends AbstractController
         ]);
         $formCategory->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
+        // Si le formulaire d'ajout de catégorie contient un point d'origine, on le traite
+        if ($request->request->get('category')['origin'] == 'site_new') {
+            $route = 'site_new';
+            $site = [];
+            $category->setType('Phase');
+        } elseif ($request->request->get('category')['origin'] == 'site_edit') {
+            $route = 'site_edit';
+            $site = ['id' => $request->request->get('category')['siteId']];
+            $category->setType('Phase');
+        }
         $em->persist($category);
         $em->flush();
-        if ($request->request->get('category')['origin']) {
-            return $this->redirectToRoute('site_edit', ['id' => $request->request->get('category')['origin'] ]);
-        }
 
-        return $this->redirectToRoute('site_new');
+        return $this->redirectToRoute($route, $site);
 
     }
 

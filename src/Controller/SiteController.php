@@ -44,6 +44,12 @@ class SiteController extends AbstractController
         $formSite = $this->createForm(SiteType::class, $site);
         $formCategory = $this->createForm(CategoryType::class, $category, [
             'action' => '/category/new'
+            ])
+            ->add('origin', HiddenType::class, [
+                'attr' => [
+                    'value' => 'site_new'
+                ],
+                'mapped' => false,
             ]);
         $formSite->handleRequest($request);
 
@@ -72,7 +78,7 @@ class SiteController extends AbstractController
     {
         $category = new Category();
         $zone = new Zone();
-        $formSite = $this->createForm(SiteType::class, $site);
+        $formSite = $this->createForm(SiteType::class, $site, ['siteId' => $site->getId()]);
         $formSite->handleRequest($request);
 
         /*
@@ -82,9 +88,18 @@ class SiteController extends AbstractController
         $formCategory = $this->createForm(CategoryType::class, $category, [
             'action' => '/category/new',
         ])->add('origin', HiddenType::class, [
-            'mapped' => false,
-            'attr' => ['value' => $site->getId()]
-        ]);
+                'mapped' => false,
+                'attr' => [
+                    'value' => 'site_edit'
+                ]
+            ])
+            ->add('siteId', HiddenType::class, [
+                'mapped' => false,
+                'attr' => [
+                    'value' => $site->getId()
+                ]
+            ])
+        ;
 
         if ($formSite->isSubmitted() && $formSite->isValid()) {
             $zone->setSite($site);
