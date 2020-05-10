@@ -28,7 +28,9 @@
                         Phase
                         <ul>
                             {% for siteZone in site.zones %}
+                                {% if siteZone.category.name is defined %}
                                 <li>{{ siteZone.category.name }}</li>
+                                {% endif %}
                             {% endfor %}
                         </ul>
                         <hr>

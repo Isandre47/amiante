@@ -31,10 +31,12 @@ class SiteType extends AbstractType
             ->add('name', TextType::class)
             ->add('zones', EntityType::class, [
                 'class' => Category::class,
-                'choices' => $this->categoryRepository->test2($options['siteId'])
+                'choices' => $this->categoryRepository->categoryNotSelectedBySiteId($options['siteId'])
                 ,
                 'mapped' => false,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'required' => false
+
             ])
             ->add('Envoyer', SubmitType::class)
         ;

@@ -42,7 +42,7 @@ class CategoryRepository extends ServiceEntityRepository
     /**
      * @return Query
      */
-    public function test2($siteId)
+    public function categoryNotSelectedBySiteId($siteId)
     {
         // Sélection de toutes les catégories auxquelles on enleve ( NOT IN ) les catégories déjà présentes pour le chantier en cours d'édition
         $em = $this->getEntityManager();
