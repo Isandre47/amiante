@@ -12,7 +12,7 @@
     <br>
     <ul>
         {% for sitePhase in site.zones %}
-            <li>{{ sitePhase.category.name }}</li>
+            <li class="mb-2">{{ sitePhase.category.name }}  - {{ include('admin/site/_deleteform.html.twig') }}</li>
         {% endfor %}
     </ul>
     <hr>

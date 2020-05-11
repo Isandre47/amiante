@@ -15,7 +15,10 @@ class CategoryType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'ducon le nom de la caté'
+                'label' => 'le nom de la caté',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('Envoyer', SubmitType::class)
         ;

@@ -23,4 +23,12 @@ class ZoneController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/delete/{id}", name="zone_delete")
+     */
+    public function delete()
+    {
+
+    }
+
 }

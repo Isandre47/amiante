@@ -78,7 +78,9 @@ class SiteController extends AbstractController
     {
         $category = new Category();
         $zone = new Zone();
-        $formSite = $this->createForm(SiteType::class, $site, ['siteId' => $site->getId()]);
+        $formSite = $this->createForm(SiteType::class, $site, [
+            'siteId' => $site->getId()
+        ]);
         $formSite->handleRequest($request);
 
         /*
@@ -107,9 +109,12 @@ class SiteController extends AbstractController
             $zone->setCategory($zoneName);
             $em = $this->getDoctrine()->getManager();
             $em->persist($site);
-            $em->persist($zone);
+            // Pour le cas ou l'utilisateur n'ajoute aucune zone à modifier, du coup, ce champ sera vide dans la requête
+            // Et aucun besoin de modifier l'entité Zone
+            if ($request->request->get('site')["zones"] != "") {
+                $em->persist($zone);
+            }
             $em->flush();
-
 
             return $this->redirectToRoute('site_index');
         }
@@ -119,5 +124,18 @@ class SiteController extends AbstractController
             'formCategory' => $formCategory->createView(),
             'site' => $site,
         ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="delete_zone")
+     */
+    public function deleteZone(Request $request, Zone $zone)
+    {
+        if ($this->isCsrfTokenValid('delete'.$zone->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($zone);
+            $em->flush();
+        }
+        return $this->redirectToRoute('site_index');
     }
 }

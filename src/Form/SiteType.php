@@ -28,8 +28,15 @@ class SiteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('zones', EntityType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
                 'class' => Category::class,
                 'choices' => $this->categoryRepository->categoryNotSelectedBySiteId($options['siteId'])
                 ,
