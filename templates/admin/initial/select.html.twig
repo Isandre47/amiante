@@ -1,0 +1,6 @@
+<select name="phase-select" id="phase-select">
+    <option value="">--Please choose an option--</option
+    {% for item in list %}
+        <option value="{{ item.category.id }}">{{ item.category.name }}</option>
+    {% endfor %}
+</select>
