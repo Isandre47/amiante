@@ -1,0 +1,41 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}Fiche utilisateur {% endblock %}
+
+{% block right %}
+    <div class="row">
+        <div class="col-6">
+            {{ user.firstname }} {{ user.lastname }} <br>
+            Chantier actuel : {{ user.site.name }} <br>
+            <hr>
+            Zones en cours:
+            <hr>
+            {% for zone in user.site.zones %}
+                Phase : {{ zone.category.name }}
+                <br>
+                Analyse initiale:
+                <br>
+                {% for initial in zone.initials %}
+                    {{ initial.location }}
+                {% endfor %}
+
+                Analyse en cours de retrait:
+                <br>
+                {% for removal in zone.removals %}
+                    {{ removal.location }}
+                {% endfor %}
+
+                Analyse finale:
+                <br>
+                {% for output in zone.outputs %}
+                    {{ output.location }}
+                {% endfor %}
+                {{ zone.name }}
+                <hr>
+            {% endfor %}
+        </div>
+        <div class="col-4">
+            zone à définir
+        </div>
+    </div>
+{% endblock %}
