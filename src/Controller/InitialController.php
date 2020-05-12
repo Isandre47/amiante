@@ -56,6 +56,16 @@ class InitialController extends AbstractController
     }
 
     /**
+     * @Route("/show/{id}", name="initial_show")
+     */
+    public function show(Initial $initial)
+    {
+        return $this->render('admin/initial/show.html.twig', [
+            'initial' => $initial,
+        ]);
+    }
+
+    /**
      * @Route("/zonebysiteid/{id}", name="zonebysiteid")
      */
     public function zoneBySiteId(Site $site)
