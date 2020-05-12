@@ -1,0 +1,40 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}
+    Ajout d'une analyse
+{% endblock %}
+
+{% block right %}
+    Ajout d'une analyse en cours de travaux de retrait
+    {{ form_start(formOutput) }}
+    {{ form_widget(formOutput.location) }}
+    <br>
+    {{ form_widget(formOutput.zone) }}
+    <br>
+    Zone à associer à l'analyse:
+    <div id="select_zone">
+        <select class="form-control" name="phase-select" id="phase-select" disabled>
+            <option value="">Choisir la zone ci-dessus</option>
+        </select>
+    </div>
+    {{ form_end(formOutput) }}
+    <hr>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        $("#output_zone").change(function () {
+            var zone = $(this);
+
+            console.log($("#output_zone").val(), zone.val());
+            $.ajax({
+                url: '/initial/zonebysiteid/' + zone.val(),
+                dataType: 'html',
+                success: function (html) {
+                    console.log(html)
+                    $('#select_zone').html(html);
+                }
+            })
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}
+    Ajout d'une analyse initiale
+{% endblock %}
+
+{% block right %}
+    Ajout d'un point zéro
+    {{ form_start(formRemoval) }}
+    {{ form_widget(formRemoval.location) }}
+    <br>
+    {{ form_widget(formRemoval.zone) }}
+    <br>
+    Zone à associer à l'analyse:
+    <div id="select_zone">
+        <select class="form-control" name="phase-select" id="phase-select" disabled>
+            <option value="">Choisir la zone ci-dessus</option>
+        </select>
+    </div>
+    {{ form_end(formRemoval) }}
+    <hr>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        $("#removal_zone").change(function () {
+            var zone = $(this);
+
+            console.log($("#removal_zone").val(), zone.val());
+            $.ajax({
+                url: '/initial/zonebysiteid/' + zone.val(),
+                dataType: 'html',
+                success: function (html) {
+                    console.log(html)
+                    $('#select_zone').html(html);
+                }
+            })
+        })
+    </script>
+{% endblock %}

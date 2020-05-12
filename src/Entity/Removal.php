@@ -19,11 +19,6 @@ class Removal
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $phase;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $location;
 
     /**
@@ -34,18 +29,6 @@ class Removal
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getPhase(): ?string
-    {
-        return $this->phase;
-    }
-
-    public function setPhase(string $phase): self
-    {
-        $this->phase = $phase;
-
-        return $this;
     }
 
     public function getLocation(): ?string

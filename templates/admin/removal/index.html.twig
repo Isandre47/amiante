@@ -1,0 +1,24 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}Hello RemovalController!{% endblock %}
+
+{% block right %}
+    <div class="row">
+        <div class="col-6">
+            <a href="{{ path('removal_new') }}">Ajouter une analyse</a>
+            <hr>
+            {% if removals is not empty %}
+                {% for removal in removals %}
+                    Lieu: {{ removal.location }} <br>
+                    Phase: {{ removal.zone.category.name }} <br>
+                    <hr>
+                {% endfor %}
+            {% else %}
+                Aucune analyse
+            {% endif %}
+        </div>
+        <div class="col-4">
+            toto
+        </div>
+    </div>
+{% endblock %}
