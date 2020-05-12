@@ -1,0 +1,19 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}Analse initiale {% endblock %}
+
+{% block right %}
+    <div class="row">
+        <div class="col-6">
+            Lieu de l'analyse:
+            {{ removal.location }} <br>
+            Phase:
+            {{ removal.zone.category.name }} <br>
+            Chantier:
+            {{ removal.zone.site.name }} <br>
+        </div>
+        <div class="col-4">
+            zone à définir
+        </div>
+    </div>
+{% endblock %}
