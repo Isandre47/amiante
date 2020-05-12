@@ -52,4 +52,14 @@ class OutputController extends AbstractController
             'formOutput' => $formOutput->createView(),
         ]);
     }
+
+    /**
+     * @Route("/show/{id}", name="output_show")
+     */
+    public function show(Output $output)
+    {
+        return $this->render('admin/output/show.html.twig', [
+            'output' => $output,
+        ]);
+    }
 }

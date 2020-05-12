@@ -52,4 +52,14 @@ class RemovalController extends AbstractController
             'formRemoval' => $formRemoval->createView(),
         ]);
     }
+
+    /**
+     * @Route("/show/{id}", name="removal_show")
+     */
+    public function show(Removal $removal)
+    {
+        return $this->render('admin/removal/show.html.twig', [
+            'removal' => $removal,
+        ]);
+    }
 }

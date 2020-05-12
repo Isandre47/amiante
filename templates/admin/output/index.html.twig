@@ -8,9 +8,9 @@
             <a href="{{ path('output_new') }}">Ajouter une analyse</a>
             <hr>
             {% if outputs is not empty %}
-                {% for ouput in outputs %}
-                    Lieu: {{ ouput.location }} <br>
-                    Phase: {{ ouput.zone.category.name }} <br>
+                {% for output in outputs %}
+                    Lieu: {{ output.location }} <br>
+                    Phase: {{ output.zone.category.name }} <a href="{{ path('output_show', {'id': output.id}) }}">... en savoir plus</a><br>
                     <hr>
                 {% endfor %}
             {% else %}

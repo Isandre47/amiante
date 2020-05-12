@@ -9,9 +9,10 @@
             <hr>
             {% for initial in initials %}
                 Lieu: {{ initial.location }} <br>
-                Phase: {{ initial.zone.category.name }} <br>
+                Phase: {{ initial.zone.category.name }} <a href="{{ path('initial_show',{'id': initial.id}) }}">... plus de détails</a> <br>
                 <hr>
-            {% endfor %}        </div>
+            {% endfor %}
+        </div>
         <div class="col-4">
             toto
         </div>

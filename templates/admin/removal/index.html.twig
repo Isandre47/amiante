@@ -10,7 +10,7 @@
             {% if removals is not empty %}
                 {% for removal in removals %}
                     Lieu: {{ removal.location }} <br>
-                    Phase: {{ removal.zone.category.name }} <br>
+                    Phase: {{ removal.zone.category.name }} - <a href="{{ path('removal_show', {'id' : removal.id}) }}">... en savoir plus</a><br>
                     <hr>
                 {% endfor %}
             {% else %}
