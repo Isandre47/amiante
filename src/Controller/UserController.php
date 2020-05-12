@@ -49,4 +49,14 @@ class UserController extends AbstractController
             'formUser' => $formUser->createView(),
         ]);
     }
+
+    /**
+     * @Route("/show/{id}", name="user_show_admin")
+     */
+    public function show(User $user)
+    {
+        return $this->render('admin/user/show.html.twig', [
+            'user' => $user,
+        ]);
+    }
 }

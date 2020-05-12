@@ -15,6 +15,8 @@ Admin Users
                     Affecté à aucun chantier
                 {% endif %}
                 <a href="{{ path('user_edit',{'id':user.id}) }}">Editer</a>
+                <br>
+                <a href="{{ path('user_show_admin',{'id':user.id}) }}">Plus d'informations</a>
             </li>
         {% endfor %}
     </ul>
