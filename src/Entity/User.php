@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface
 {
@@ -50,6 +51,16 @@ class User implements UserInterface
      * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="users")
      */
     private $site;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
 
     public function getId(): ?int
     {
@@ -161,6 +172,40 @@ class User implements UserInterface
     public function setSite(?Site $site): self
     {
         $this->site = $site;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTimeInterface $createdAt
+     * @return $this
+     * @ORM\PrePersist()
+     */
+    public function setCreatedAt(): self
+    {
+        $this->createdAt = new \DateTime();
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTimeInterface $updatedAt
+     * @return $this
+     * @ORM\PreFlush()
+     */
+    public function setUpdatedAt(): self
+    {
+        $this->updatedAt = new \DateTime();
 
         return $this;
     }
