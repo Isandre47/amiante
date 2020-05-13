@@ -23,9 +23,9 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("category/new", name="category_new")
+     * @Route("category/new-by-site", name="category_new_by_site")
      */
-    public function new(Request $request): Response
+    public function newBySite(Request $request): Response
     {
         $category = new Category();
         $formCategory = $this->createForm(CategoryType::class, $category, [
@@ -37,11 +37,11 @@ class CategoryController extends AbstractController
         if ($request->request->get('category')['origin'] == 'site_new') {
             $route = 'site_new';
             $site = [];
-            $category->setType('Phase');
+            $category->setType(SiteController::PHASE);
         } elseif ($request->request->get('category')['origin'] == 'site_edit') {
             $route = 'site_edit';
             $site = ['id' => $request->request->get('category')['siteId']];
-            $category->setType('Phase');
+            $category->setType(SiteController::PHASE);
         }
         $em->persist($category);
         $em->flush();
@@ -50,27 +50,27 @@ class CategoryController extends AbstractController
 
     }
 
-//    /**
-//     * @Route("new", name="category_new")
-//     */
-//    public function new(Request $request)
-//    {
-//        $category = new Category();
-//        $formCategory = $this->createForm(CategoryType::class, $category);
-//        $formCategory->handleRequest($request);
-//
-//        if ($formCategory->isSubmitted() && $formCategory->isValid()) {
-//            $em = $this->getDoctrine()->getManager();
-//            $em->persist($category);
-//            $em->flush();
-//
-//            return $this->redirectToRoute('category_index');
-//        }
-//
-//        return $this->render('admin/category/new.html.twig', [
-//            'formCategory' => $formCategory->createView(),
-//        ]);
-//    }
+    /**
+     * @Route("new", name="category_new")
+     */
+    public function new(Request $request)
+    {
+        $category = new Category();
+        $formCategory = $this->createForm(CategoryType::class, $category);
+        $formCategory->handleRequest($request);
+
+        if ($formCategory->isSubmitted() && $formCategory->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+
+            return $this->redirectToRoute('category_index');
+        }
+
+        return $this->render('admin/category/new.html.twig', [
+            'formCategory' => $formCategory->createView(),
+        ]);
+    }
 
     /**
      * @Route("/category/edit/{id}", name="category_edit")

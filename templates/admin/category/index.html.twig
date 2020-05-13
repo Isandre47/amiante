@@ -9,7 +9,7 @@
     <ul>
         {% if categories is not empty %}
             {% for categorie in categories %}
-                <li>{{ categorie.id }} - {{ categorie.name }}<a href="{{ path('category_edit',{'id':categorie.id}) }}">Editer</a></li>
+                <li>{{ categorie.id }} - {{ categorie.name }} {{ categorie.type }}<a href="{{ path('category_edit',{'id':categorie.id}) }}">Editer</a></li>
             {% endfor %}
         {% else %}
             Aucune catégorie d'enregistrée

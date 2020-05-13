@@ -11,7 +11,7 @@
             <ul>
                 {% if sites is not empty %}
                     {% for site in sites %}
-                        <li>{{ site.id }} - {{ site.name }} - <a href="{{ path('site_edit',{'id':site.id}) }}">Editer</a> -
+                        <li>{{ site.id }} - {{ site.name }} - Personnels: {{ site.users|length }} <a href="{{ path('site_edit',{'id':site.id}) }}">Editer</a> -
                         <a href="{{ path('show_site',{'id':site.id}) }}">Plus d'informations</a></li>
                         <hr>
                     {% endfor %}

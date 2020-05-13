@@ -20,6 +20,12 @@ class CategoryType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
+            ->add('type', TextType::class, [
+                'label' => 'type',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('Envoyer', SubmitType::class)
         ;
     }

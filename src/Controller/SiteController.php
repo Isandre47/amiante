@@ -22,6 +22,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SiteController extends AbstractController
 {
+    const PHASE = 'Phase Chantier';
+
     /**
      * @Route("/", name="site_index")
      */
@@ -43,8 +45,9 @@ class SiteController extends AbstractController
         $zone = new Zone();
         $formSite = $this->createForm(SiteType::class, $site);
         $formCategory = $this->createForm(CategoryType::class, $category, [
-            'action' => '/category/new'
+            'action' => '/category/new-by-site'
             ])
+            ->remove('type')
             ->add('origin', HiddenType::class, [
                 'attr' => [
                     'value' => 'site_new'
@@ -88,7 +91,7 @@ class SiteController extends AbstractController
          * Sa valeur est l'id du site qui sera passé en paramètre de la redirection après ajout du champ
          */
         $formCategory = $this->createForm(CategoryType::class, $category, [
-            'action' => '/category/new',
+            'action' => '/category/new-by-site',
         ])->add('origin', HiddenType::class, [
                 'mapped' => false,
                 'attr' => [
@@ -101,6 +104,7 @@ class SiteController extends AbstractController
                     'value' => $site->getId()
                 ]
             ])
+            ->remove('type')
         ;
 
         if ($formSite->isSubmitted() && $formSite->isValid()) {
