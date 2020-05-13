@@ -1,0 +1,64 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}Chantier ? {% endblock %}
+
+{% block right %}
+    <div class="row">
+        <div class="col-6">
+            {% if site is not empty %}
+                    <li>{{ site.id }} - {{ site.name }} - <a href="{{ path('site_edit',{'id':site.id}) }}">Editer</a></li>
+                    Personnel
+                    <ul>
+                        {% for siteUser in site.users %}
+                            <li>{{ siteUser.firstname }} {{ siteUser.lastname }}</li>
+                        {% endfor %}
+                    </ul>
+                    Matériels
+                    <ul>
+                        {% for siteEquipment in site.equipment %}
+                            <li>{{ siteEquipment.name }}</li>
+                        {% endfor %}
+                    </ul>
+                    <hr>
+                    Phase
+                    <ul>
+                        {% for siteZone in site.zones %}
+                            {% if siteZone.category.name is defined %}
+                                <li>{{ siteZone.category.name }}</li>
+                                {% if siteZone.initials.count > 0 %}
+                                    Analyse initiale: nb ( {{ siteZone.initials.count }} )
+                                    <ul>
+                                        {% for initial in siteZone.initials %}
+                                            <li>{{ initial.location }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                                {% if siteZone.removals.count > 0 %}
+                                    Analyse en cours de retrait: nb ( {{ siteZone.removals.count }} )
+                                    <ul>
+                                        {% for removal in siteZone.removals %}
+                                            <li>{{ removal.location }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                                {% if siteZone.outputs.count > 0 %}
+                                    Analyse repli: nb ( {{ siteZone.outputs.count }} )
+                                    <ul>
+                                        {% for output in siteZone.outputs %}
+                                            <li>{{ output.location }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                    <hr>
+            {% else %}
+                Aucun chantier d'enregistré
+            {% endif %}
+        </div>
+        <div class="col-4">
+            zone à définir
+        </div>
+    </div>
+{% endblock %}

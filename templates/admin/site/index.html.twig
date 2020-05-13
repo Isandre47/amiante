@@ -11,52 +11,8 @@
             <ul>
                 {% if sites is not empty %}
                     {% for site in sites %}
-                        <li>{{ site.id }} - {{ site.name }} - <a href="{{ path('site_edit',{'id':site.id}) }}">Editer</a></li>
-                        Personnel
-                        <ul>
-                            {% for siteUser in site.users %}
-                                <li>{{ siteUser.firstname }} {{ siteUser.lastname }}</li>
-                            {% endfor %}
-                        </ul>
-                        Matériels
-                        <ul>
-                            {% for siteEquipment in site.equipment %}
-                                <li>{{ siteEquipment.name }}</li>
-                            {% endfor %}
-                        </ul>
-                        <hr>
-                        Phase
-                        <ul>
-                            {% for siteZone in site.zones %}
-                                {% if siteZone.category.name is defined %}
-                                <li>{{ siteZone.category.name }}</li>
-                                    {% if siteZone.initials.count > 0 %}
-                                        Analyse initiale: nb ( {{ siteZone.initials.count }} )
-                                        <ul>
-                                        {% for initial in siteZone.initials %}
-                                            <li>{{ initial.location }}</li>
-                                        {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                    {% if siteZone.removals.count > 0 %}
-                                        Analyse en cours de retrait: nb ( {{ siteZone.removals.count }} )
-                                        <ul>
-                                        {% for removal in siteZone.removals %}
-                                            <li>{{ removal.location }}</li>
-                                        {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                    {% if siteZone.outputs.count > 0 %}
-                                        Analyse repli: nb ( {{ siteZone.outputs.count }} )
-                                        <ul>
-                                        {% for output in siteZone.outputs %}
-                                            <li>{{ output.location }}</li>
-                                        {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
+                        <li>{{ site.id }} - {{ site.name }} - <a href="{{ path('site_edit',{'id':site.id}) }}">Editer</a> -
+                        <a href="{{ path('show_site',{'id':site.id}) }}">Plus d'informations</a></li>
                         <hr>
                     {% endfor %}
                 {% else %}

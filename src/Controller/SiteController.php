@@ -138,4 +138,14 @@ class SiteController extends AbstractController
         }
         return $this->redirectToRoute('site_index');
     }
+
+    /**
+     * @Route("/show/{id}", name="show_site")
+     */
+    public function show(Site $site)
+    {
+        return $this->render('admin/site/show.html.twig', [
+            'site' => $site,
+        ]);
+    }
 }
