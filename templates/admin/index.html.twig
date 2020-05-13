@@ -7,5 +7,11 @@
     <hr>
     {{ equipments|length }} matériels
     <hr>
-    {{ sites|length }} chantiers
+    {{ sites|length }} chantiers <br>
+    <ul>
+        {% for site in sites %}
+            {{ site.name }} - {{ site.users|length }} personnes affectées <br>
+        {% endfor %}
+    </ul>
+
 {% endblock %}

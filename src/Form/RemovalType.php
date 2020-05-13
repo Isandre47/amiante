@@ -24,7 +24,7 @@ class RemovalType extends AbstractType
             ->add('zone', EntityType::class, [
                 'class' => Site::class,
                 'choice_label' => 'name',
-                'placeholder' => 'Choisissez une zone',
+                'placeholder' => 'Choisissez un chantier',
                 // A voir si avec un form dédié pour la zone et son select, en passant une variable issu d'ici cela
                 // ne serait pas mieux, à voir
                 'mapped' => false,

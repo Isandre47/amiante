@@ -8,7 +8,8 @@
             <a href="{{ path('initial_new') }}">Ajouter un point zéro</a>
             <hr>
             {% for initial in initials %}
-                Lieu: {{ initial.location }} <br>
+                Lieu du prélèvement: {{ initial.location }} <br>
+                Chantier: {{ initial.zone.site.name }} <br>
                 Phase: {{ initial.zone.category.name }} <a href="{{ path('initial_show',{'id': initial.id}) }}">... plus de détails</a> <br>
                 <hr>
             {% endfor %}

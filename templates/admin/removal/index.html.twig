@@ -9,7 +9,8 @@
             <hr>
             {% if removals is not empty %}
                 {% for removal in removals %}
-                    Lieu: {{ removal.location }} <br>
+                    Lieu du prélèvement: {{ removal.location }} <br>
+                    Chantier:  {{ removal.zone.site.name }}
                     Phase: {{ removal.zone.category.name }} - <a href="{{ path('removal_show', {'id' : removal.id}) }}">... en savoir plus</a><br>
                     <hr>
                 {% endfor %}

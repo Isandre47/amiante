@@ -6,9 +6,11 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class UserController
@@ -57,6 +59,35 @@ class UserController extends AbstractController
     {
         return $this->render('admin/user/show.html.twig', [
             'user' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/new", name="user_new")
+     */
+    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $user = new User();
+        $formUser = $this->createForm(UserType::class, $user);
+        $formUser->add('password', PasswordType::class, [
+            'attr' => [
+                'class' => 'form-control'
+            ]
+        ]);
+        $formUser->handleRequest($request);
+
+        if ($formUser->isSubmitted() && $formUser->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
+            $user->setRoles(["ROLE_USER"]);
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute('user_index');
+        }
+
+        return $this->render('admin/user/new.html.twig', [
+            'formUser' => $formUser->createView(),
         ]);
     }
 }

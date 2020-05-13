@@ -55,7 +55,6 @@ class UserType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-//            ->add('password')
             ->add('Envoyer', SubmitType::class)
         ;
     }

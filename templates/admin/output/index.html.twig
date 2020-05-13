@@ -9,7 +9,8 @@
             <hr>
             {% if outputs is not empty %}
                 {% for output in outputs %}
-                    Lieu: {{ output.location }} <br>
+                    Lieu du prélèvement: {{ output.location }} <br>
+                    Chantier:  {{ output.zone.site.name }}
                     Phase: {{ output.zone.category.name }} <a href="{{ path('output_show', {'id': output.id}) }}">... en savoir plus</a><br>
                     <hr>
                 {% endfor %}

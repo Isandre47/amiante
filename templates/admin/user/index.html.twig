@@ -6,17 +6,16 @@ Admin Users
 
 {% block right %}
     User index
+    <a href="{{ path('user_new') }}">Ajouter un utilisateur</a>
     <ul>
         {% for user in users %}
             <li>{{ user.id }} - {{ user.email }} - {{ user.firstname }} {{ user.lastname }} -
                 {% if user.site.name is defined %}
-                    {{ user.site.name }}
+                    affecté sur le chantier {{ user.site.name }}
                 {% else %}
                     Affecté à aucun chantier
                 {% endif %}
-                <a href="{{ path('user_edit',{'id':user.id}) }}">Editer</a>
-                <br>
-                <a href="{{ path('user_show_admin',{'id':user.id}) }}">Plus d'informations</a>
+                <a href="{{ path('user_edit',{'id':user.id}) }}">Editer</a> - <a href="{{ path('user_show_admin',{'id':user.id}) }}">Plus d'informations</a>
             </li>
         {% endfor %}
     </ul>
