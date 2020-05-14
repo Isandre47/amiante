@@ -28,6 +28,11 @@ class Client
      */
     private $site;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="client", cascade={"persist", "remove"})
+     */
+    private $user;
+
     public function __construct()
     {
         $this->site = new ArrayCollection();
@@ -76,6 +81,24 @@ class Client
             if ($site->getClient() === $this) {
                 $site->setClient(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newClient = null === $user ? null : $this;
+        if ($user->getClient() !== $newClient) {
+            $user->setClient($newClient);
         }
 
         return $this;

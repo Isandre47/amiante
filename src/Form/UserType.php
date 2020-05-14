@@ -30,6 +30,7 @@ class UserType extends AbstractType
                 'choices' => [
                     'Utilisateur' => User::ROLE_USER,
                     'Administrateur' => User::ROLE_ADMIN,
+                    'Client' => User::ROLE_CLIENT,
                 ],
                 'expanded' => false,
                 'multiple' => false,
