@@ -12,7 +12,7 @@
     <a href="{{ path('client_new') }}">Ajouter un client </a>
     <hr>
     {% for client in clients %}
-        Client: {{ client.name }}
+        Client: {{ client.name }} <a href="{{ path('client_edit', { 'id': client.id }) }}">Editer</a>
     {% endfor %}
     <hr>
 </div>

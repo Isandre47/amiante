@@ -54,7 +54,8 @@ class UserType extends AbstractType
                 'choice_label' => 'name',
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ],
+                'required' => false,
             ])
             ->add('Envoyer', SubmitType::class)
         ;
