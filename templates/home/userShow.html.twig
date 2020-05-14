@@ -13,39 +13,46 @@
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="slider-area">
-                                Bonjour {{ user.username }} <br>
+                                Bonjour {{ user.username }} {{ app.user.roles[0]}} <br>
 
-                                vous êtes affecté
-                                {% if user.site.name is defined %}
-                                    sur le chantier de {{ user.site.name }}
-                                    <hr>
-                                    {% for zone in user.site.zones %}
-                                        Phase : {{ zone.category.name }}
-                                        <br>
-                                        Analyse initiale:
-                                        <br>
-                                        {% for initial in zone.initials %}
-                                            {{ initial.location }}
-                                        {% endfor %}
-
-                                        Analyse en cours de retrait:
-                                        <br>
-                                        {% for removal in zone.removals %}
-                                            {{ removal.location }}
-                                        {% endfor %}
-
-                                        Analyse finale:
-                                        <br>
-                                        {% for output in zone.outputs %}
-                                            {{ output.location }}
-                                        {% endfor %}
-                                        {{ zone.name }}
+                                {% if app.user.roles[0] == 'ROLE_USER' %}
+                                    vous êtes affecté
+                                    {% if user.site.name is defined %}
+                                        sur le chantier de {{ user.site.name }}
                                         <hr>
-                                    {% endfor %}
-                                {% else %}
-                                 nulle part
+                                        {% for zone in user.site.zones %}
+                                            Phase : {{ zone.category.name }}
+                                            <br>
+                                            Analyse initiale:
+                                            <br>
+                                            {% for initial in zone.initials %}
+                                                {{ initial.location }}
+                                            {% endfor %}
+
+                                            Analyse en cours de retrait:
+                                            <br>
+                                            {% for removal in zone.removals %}
+                                                {{ removal.location }}
+                                            {% endfor %}
+
+                                            Analyse finale:
+                                            <br>
+                                            {% for output in zone.outputs %}
+                                                {{ output.location }}
+                                            {% endfor %}
+                                            {{ zone.name }}
+                                            <hr>
+                                        {% endfor %}
+                                    {% else %}
+                                     nulle part
+                                    {% endif %}
+                                    Votre coffre-fort numérique -> <a href="https://www.myprimobox.net/Login" target="_blank">MyPrimoBox</a>
                                 {% endif %}
-                                Votre coffre-fort numérique -> <a href="https://www.myprimobox.net/Login" target="_blank">MyPrimoBox</a>
+
+                                {% if app.user.roles[0] == 'ROLE_CLIENT' %}
+                                    Salut {{ user.username }}
+                                    <hr>
+                                {% endif %}
                                 <br>
                             </div>
                         </div>

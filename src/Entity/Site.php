@@ -38,6 +38,11 @@ class Site
      */
     private $zones;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="site")
+     */
+    private $client;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -151,6 +156,18 @@ class Site
                 $zone->setSite(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
 
         return $this;
     }

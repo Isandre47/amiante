@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface
 {
     const ROLE_USER = "ROLE_USER";
+    const ROLE_CLIENT = "ROLE_CLIENT";
     const ROLE_ADMIN = "ROLE_ADMIN";
 
     /**

@@ -53,7 +53,6 @@ class HomeController extends AbstractController
     public function show()
     {
         return $this->render('home/userShow.html.twig', [
-            'controller_name' => 'HomeController',
             'user' => $this->getUser(),
         ]);
     }
