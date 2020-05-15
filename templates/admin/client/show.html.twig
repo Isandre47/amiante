@@ -1,0 +1,16 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}Détail client{% endblock %}
+
+{% block right %}
+    <div class="row">
+        <div class="col-6">
+            Client:
+            {{ client.name }} <br>
+            {{ client.user.lastname }} {{ client.user.firstname }} <br>
+        </div>
+        <div class="col-4">
+            zone à définir
+        </div>
+    </div>
+{% endblock %}

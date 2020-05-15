@@ -1,17 +1,18 @@
 {% extends 'admin/adminBase.html.twig' %}
 
-{% block title %}Hello AdminController Index !{% endblock %}
+{% block title %}Panneau général{% endblock %}
 
 {% block right %}
-    {{ users|length }} utilisateurs
-    <hr>
-    {{ equipments|length }} matériels
-    <hr>
-    {{ sites|length }} chantiers <br>
-    <ul>
-        {% for site in sites %}
-            {{ site.name }} - {{ site.users|length }} personnes affectées <br>
-        {% endfor %}
-    </ul>
-
+    <div>
+        {{ users|length }} utilisateurs
+        <hr>
+        {{ equipments|length }} matériels
+        <hr>
+        {{ sites|length }} chantiers <br>
+        <ul>
+            {% for site in sites %}
+                {{ site.name }} - {{ site.users|length }} personnes affectées <br>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
