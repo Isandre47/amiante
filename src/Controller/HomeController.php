@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Site;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -50,10 +52,21 @@ class HomeController extends AbstractController
     /**
      * @Route("/user-show/{id}", name="user_show")
      */
-    public function show()
+    public function show(User $user)
     {
+        $siteClient = "";
+
+        if ($user->getRoles()[0]) {
+            $em = $this->getDoctrine()->getManager();
+            $siteClient = $em->getRepository(Site::class)->findBy([
+                'client' => $user->getClient()->getId(),
+                ]
+            );
+        }
+
         return $this->render('home/userShow.html.twig', [
             'user' => $this->getUser(),
+            'siteClient' => $siteClient,
         ]);
     }
 }

@@ -50,7 +50,44 @@
                                 {% endif %}
 
                                 {% if app.user.roles[0] == 'ROLE_CLIENT' %}
-                                    Salut {{ user.username }}
+                                    <br>
+                                    {% for site in siteClient %}
+                                        Votre chantier:
+                                        {{ site.name }}
+                                        {% for zone in site.zones %}
+                                            {{ zone.name }} <br>
+                                                Phase : {{ zone.category.name }}
+                                                <br>
+                                                Analyse initiale:
+                                            {% if zone.initials is not empty %}
+                                                {% for initial in zone.initials %}
+                                                    {{ initial.location }} <br>
+                                                {% endfor %}
+                                            {% else %}
+                                                Rien pour le moment <br>
+                                            {% endif %}
+
+                                            Analyse en cours de retrait:
+                                            {% if zone.removals is not empty %}
+                                                {% for removal in zone.removals %}
+                                                    {{ removal.location }} <br>
+                                                {% endfor %}
+                                            {% else %}
+                                                Rien pour le moment <br>
+                                            {% endif %}
+
+                                            Analyse finale:
+                                            {% if zone.outputs is not empty %}
+                                                {% for output in zone.outputs %}
+                                                    {{ output.location }} <br>
+                                                {% endfor %}
+                                            {% else %}
+                                                Rien pour le moment <br>
+                                            {% endif %}
+                                                {{ zone.name }}
+                                                <hr>
+                                        {% endfor %}
+                                    {% endfor %}
                                     <hr>
                                 {% endif %}
                                 <br>
