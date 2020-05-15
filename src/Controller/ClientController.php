@@ -68,16 +68,16 @@ class ClientController extends AbstractController
     /**
      * @Route("/edit/{id}", name="client_edit")
      */
-    public function edit(Request $request, User $user)
+    public function edit(Request $request, Client $client)
     {
-        $client = $this->getDoctrine()->getRepository(Client::class)->find($user->getClient()->getId());
+        $user = $client->getUser();
         $formClient = $this->createForm(UserType::class, $user);
         $formClient->remove('site');
         $formClient->remove('roles');
         $formClient->add('name', TextType::class, [
             'mapped' => false,
             'attr' => [
-                'value' => $user->getClient()->getName(),
+                'value' => $client->getName(),
             ]
         ]);
         $formClient->handleRequest($request);
