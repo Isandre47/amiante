@@ -5,6 +5,10 @@
 {% endblock %}
 
 {% block right %}
-    Edition d'une fiche client
+    Edition d'une fiche client <br>
+    Ce client gère déjà les sites suivants: <br>
+    {% for site in sites %}
+        {{ site.name }}
+    {% endfor %}
     {{ form(formClient) }}
 {% endblock %}

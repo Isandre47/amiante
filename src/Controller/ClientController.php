@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Client;
+use App\Entity\Site;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\ClientRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -74,6 +76,12 @@ class ClientController extends AbstractController
         $formClient = $this->createForm(UserType::class, $user);
         $formClient->remove('site');
         $formClient->remove('roles');
+        $formClient->add('site', EntityType::class, [
+            'class' => Site::class,
+            'choice_label' => 'name',
+            'expanded' => true,
+            'multiple' => false,
+        ]);
         $formClient->add('name', TextType::class, [
             'mapped' => false,
             'attr' => [
@@ -83,6 +91,9 @@ class ClientController extends AbstractController
         $formClient->handleRequest($request);
 
         if ($formClient->isSubmitted() && $formClient->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $site = $em->getRepository(Site::class)->find($request->request->get('user')['site']);
+            $site->setClient($client);
             $client->setName($request->request->get('user')['name']);
             $em = $this->getDoctrine()->getManager();
             $em->flush();
@@ -92,6 +103,7 @@ class ClientController extends AbstractController
 
         return $this->render('admin/client/edit.html.twig', [
             'formClient' => $formClient->createView(),
+            'sites' => $client->getSite(),
         ]);
     }
 }
