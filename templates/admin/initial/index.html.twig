@@ -1,8 +1,16 @@
 {% extends 'admin/adminBase.html.twig' %}
 
-{% block title %}Hello InitialController!{% endblock %}
+{% block title %}Index des analyses initiales{% endblock %}
 
 {% block right %}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Index des analyses initiales</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
     <div class="row">
         <div class="col-6">
             <a href="{{ path('initial_new') }}">Ajouter un point zéro</a>

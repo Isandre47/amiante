@@ -1,31 +1,60 @@
 {% extends 'admin/adminBase.html.twig' %}
 
 {% block title %}
-Admin Users
+    Index des utilisateurs
 {% endblock %}
 
 {% block right %}
-    User index
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Index des utilisateurs</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div>
+
+    </div>
     <a href="{{ path('user_new') }}">Ajouter un utilisateur</a>
-    <ul>
-        {% for user in users %}
-            <li>{{ user.id }} - {{ user.email }} - {{ user.firstname }} {{ user.lastname }} -
-                {% if user.roles[0] == 'ROLE_CLIENT' %}
-                    gère des chantiers
-                {% else %}
-                    {% if user.site.name is defined %}
-                        affecté sur le chantier {{ user.site.name }}
-                    {% else %}
-                        Affecté à aucun chantier
-                    {% endif %}
-                {% endif %}
-                {% if user.roles[0] == 'ROLE_CLIENT' %}
-                    <a href="{{ path('client_edit',{'id':user.client.id }) }}">Editer</a> -
-{#                    <a href="{{ path('user_show_admin',{'id':user.id}) }}">Plus d'informations</a>#}
-                {% else %}
-                        <a href="{{ path('user_edit',{'id':user.id}) }}">Editer</a> - <a href="{{ path('user_show_admin',{'id':user.id}) }}">Plus d'informations</a>
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="row m-3">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>email</td>
+                    <td>Nom prénom</td>
+                    <td>Chantier</td>
+                    <td>Gestion</td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.firstname }} {{ user.lastname }}</td>
+                    <td>
+                        {% if user.roles[0] == 'ROLE_CLIENT' %}
+                            gère des chantiers
+                        {% else %}
+                            {% if user.site.name is defined %}
+                                {{ user.site.name }}
+                            {% else %}
+                                Affecté à aucun chantier
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user.roles[0] == 'ROLE_CLIENT' %}
+                            <a href="{{ path('client_edit',{'id':user.client.id }) }}">Editer</a> -
+                        {% else %}
+                            <a href="{{ path('user_edit',{'id':user.id}) }}">Editer</a> - <a href="{{ path('user_show_admin',{'id':user.id}) }}">Plus d'informations</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

@@ -1,10 +1,18 @@
 {% extends 'admin/adminBase.html.twig' %}
 
 {% block title %}
-    Admin Chantiers
+    Index des chantiers
 {% endblock %}
 
 {% block right %}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Index des chantiers</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
     <div class="row">
         <div class="col-6">
             Chantier index - <a href="{{ path('site_new') }}">Ajouter un chantier</a>

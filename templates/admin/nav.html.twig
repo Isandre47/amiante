@@ -1,17 +1,32 @@
-    <a href="{{ path('admin') }}">Logo</a><br>
-<hr>
-    <a href="{{ path('user_index') }}">Gestion utilisateur</a>
-<hr>
-    <a href="{{ path('client_index') }}">Gestion client</a>
-<hr>
-    <a href="{{ path('site_index') }}">Gestion chantier</a>
-<hr>
-    <a href="{{ path('equipment_index') }}">Gestion matériel</a>
-<hr>
-    <a href="{{ path('category_index') }}">Gestion catégories</a>
-<hr>
-    <a href="{{ path('initial') }}">Gestion analyse initiale</a>
-<hr>
-    <a href="{{ path('removal') }}">Gestion analyse en cours de retrait</a>
-<hr>
-    <a href="{{ path('output') }}">Gestion analyse avant et après repli</a>
+<nav class="navbar bg-light">
+    <br>
+    <a href="{{ path('admin') }}">
+    <img class="img-fluid" src="https://loremflickr.com/320/240/logo" alt="">
+    </a>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('user_index') }}">Gestion utilisateur</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('client_index') }}">Gestion client</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('site_index') }}">Gestion chantier</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('equipment_index') }}">Gestion matériel</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('category_index') }}">Gestion catégories</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('initial') }}">Gestion analyse initiale</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('removal') }}">Gestion analyse en cours de retrait</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('output') }}">Gestion analyse avant et après repli</a>
+        </li>
+    </ul>
+</nav>

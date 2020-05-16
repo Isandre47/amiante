@@ -1,10 +1,18 @@
 {% extends 'admin/adminBase.html.twig' %}
 
 {% block title %}
-    Admin catégories
+    Index des catégories
 {% endblock %}
 
 {% block right %}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Index des catégories</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
     Catégories index - <a href="{{ path('category_new') }}">Ajouter une catégorie</a>
     <ul>
         {% if categories is not empty %}

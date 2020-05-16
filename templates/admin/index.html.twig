@@ -3,16 +3,40 @@
 {% block title %}Panneau général{% endblock %}
 
 {% block right %}
-    <div>
-        {{ users|length }} utilisateurs
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 5vh">
+            <div class="col-12 text-center">
+                <h1>Infos générales</h1>
+            </div>
+        </div>
         <hr>
-        {{ equipments|length }} matériels
+        <div class="row justify-content-around m-3">
+            <div class="col-4">
+                {{ users|length }} utilisateurs
+            </div>
+            <div class="col-4">
+                {{ equipments|length }} matériels
+            </div>
+            <div class="col-3">
+
+            </div>
+        </div>
         <hr>
-        {{ sites|length }} chantiers <br>
-        <ul>
-            {% for site in sites %}
-                {{ site.name }} - {{ site.users|length }} personnes affectées <br>
-            {% endfor %}
-        </ul>
+        <div class="row justify-content-around m-3">
+            <div class="col-10">
+                {{ sites|length }} chantiers
+                <ul>
+                    {% for site in sites %}
+                        {{ site.name }} -
+                            {% if site.users|length == 0 %}
+                                <span class="text-danger">Aucune personne d'affectée pour le moment</span>
+                            {% else %}
+                                <span>{{ site.users|length }} personnes affectées</span>
+                            {% endif %}
+                        <br>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     </div>
 {% endblock %}
