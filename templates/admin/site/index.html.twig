@@ -15,18 +15,32 @@
     <hr>
     <div class="row">
         <div class="col-6">
-            Chantier index - <a href="{{ path('site_new') }}">Ajouter un chantier</a>
-            <ul>
-                {% if sites is not empty %}
-                    {% for site in sites %}
-                        <li>{{ site.id }} - {{ site.name }} - Personnels: {{ site.users|length }} <a href="{{ path('site_edit',{'id':site.id}) }}">Editer</a> -
-                        <a href="{{ path('show_site',{'id':site.id}) }}">Plus d'informations</a></li>
-                        <hr>
-                    {% endfor %}
-                {% else %}
-                    Aucun chantier d'enregistré
-                {% endif %}
-            </ul>
+            <a href="{{ path('site_new') }}">Ajouter un chantier</a>
+            {% if sites is not empty %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Nom</td>
+                        <td>Personnels</td>
+                        <td>Gérer</td>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for site in sites %}
+                    <tr>
+                        <td>{{ site.name }}</td>
+                        <td>{{ site.users|length }}</td>
+                        <td>
+                            <a href="{{ path('site_edit',{'id':site.id}) }}">Editer</a> -
+                            <a href="{{ path('show_site',{'id':site.id}) }}">Plus d'informations</a>
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+            {% else %}
+                Aucun chantier d'enregistré
+            {% endif %}
         </div>
         <div class="col-4">
             toto

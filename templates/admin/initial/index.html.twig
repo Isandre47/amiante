@@ -14,13 +14,26 @@
     <div class="row">
         <div class="col-6">
             <a href="{{ path('initial_new') }}">Ajouter un point zéro</a>
-            <hr>
-            {% for initial in initials %}
-                Lieu du prélèvement: {{ initial.location }} <br>
-                Chantier: {{ initial.zone.site.name }} <br>
-                Phase: {{ initial.zone.category.name }} <a href="{{ path('initial_show',{'id': initial.id}) }}">... plus de détails</a> <br>
-                <hr>
-            {% endfor %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>Lieu du prélèvement</td>
+                    <td>Chantier</td>
+                    <td>Gérer</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for initial in initials %}
+                <tr>
+                    <td>{{ initial.location }}</td>
+                    <td>{{ initial.zone.site.name }}</td>
+                    <td>
+                        <a href="{{ path('initial_show',{'id': initial.id}) }}">... plus de détails</a>
+                    </td>
+                </tr>
+                </tbody>
+                {% endfor %}
+            </table>
         </div>
         <div class="col-4">
             toto

@@ -14,14 +14,29 @@
     <div class="row">
         <div class="col-6">
             <a href="{{ path('output_new') }}">Ajouter une analyse</a>
-            <hr>
             {% if outputs is not empty %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>Lieu du prélèvement</td>
+                    <td>Chantier</td>
+                    <td>Phase</td>
+                    <td>Gérer</td>
+                </tr>
+                </thead>
+                <tbody>
                 {% for output in outputs %}
-                    Lieu du prélèvement: {{ output.location }} <br>
-                    Chantier:  {{ output.zone.site.name }}
-                    Phase: {{ output.zone.category.name }} <a href="{{ path('output_show', {'id': output.id}) }}">... en savoir plus</a><br>
-                    <hr>
+                <tr>
+                    <td>{{ output.location }}</td>
+                    <td>{{ output.zone.site.name }}</td>
+                    <td>{{ output.zone.category.name }}</td>
+                    <td>
+                        <a href="{{ path('output_show', {'id': output.id}) }}">... plus de détails</a>
+                    </td>
+                </tr>
+                </tbody>
                 {% endfor %}
+            </table>
             {% else %}
                 Aucune analyse
             {% endif %}

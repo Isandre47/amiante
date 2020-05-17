@@ -13,20 +13,41 @@
         </div>
     </div>
     <hr>
-    Matériels index <a href="{{ path('equipment_new') }}">Ajouter un matériel</a>
-    <ul>
-        {% if equipments is not empty %}
-            {% for equipment in equipments %}
-                <li>{{ equipment.id }} - {{ equipment.name }} -
-                    {% if equipment.site.name is defined %}
-                        {{ equipment.site.name }}
-                    {% else %}
-                        Affecté à aucun chantier
-                    {% endif %}
-                     <a href="{{ path('equipment_edit',{'id':equipment.id}) }}">Editer</a></li>
-            {% endfor %}
-        {% else %}
-            Aucun matériels d'enregistré
-        {% endif %}
-    </ul>
+    <div class="row">
+        <div class="col-6">
+            <a href="{{ path('equipment_new') }}">Ajouter un matériel</a>
+            {% if equipments is not empty %}
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Nom</td>
+                        <td>Chantier</td>
+                        <td>Gérer</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for equipment in equipments %}
+                    <tr>
+                        <td>{{ equipment.name }}</td>
+                        <td>{% if equipment.site.name is defined %}
+                                {{ equipment.site.name }}
+                            {% else %}
+                                Affecté à aucun chantier
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path('equipment_edit',{'id':equipment.id}) }}">Editer</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            {% else %}
+                Aucun chantier d'enregistré
+            {% endif %}
+        </div>
+        <div class="col-4">
+            toto
+        </div>
+    </div>
 {% endblock %}

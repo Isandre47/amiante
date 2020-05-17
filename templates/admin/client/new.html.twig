@@ -5,6 +5,31 @@
 {% endblock %}
 
 {% block right %}
-    Ajout d'un client
-    {{ form(formClient) }}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Ajout d'un client</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {{ form_start(formClient) }}
+                <div class="row">
+                    <div class="col-6">
+                        {{ form_row(formClient.firstname) }}
+                    </div>
+                    <div class="col-6">
+                        {{ form_row(formClient.lastname) }}
+                    </div>
+                </div>
+                {{ form_row(formClient.password) }}
+                {{ form_row(formClient.email) }}
+                {{ form_row(formClient.name) }}
+                {{ form_end(formClient) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

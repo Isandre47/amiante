@@ -22,8 +22,9 @@ class UserType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'attr' => [
-                    'class' => 'form-control'
-                ]
+                    'class' => 'form-control m-1'
+                ],
+                'label' => 'Email'
             ])
             ->add('roles', ChoiceType::class, [
                 'label' => 'Droit',
@@ -36,28 +37,35 @@ class UserType extends AbstractType
                 'multiple' => false,
                 'mapped' => false,
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control m-1'
                 ]
             ])
             ->add('firstname', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
-                ]
+                    'class' => 'form-control m-1'
+                ],
+                'label' => 'Prénom'
             ])
             ->add('lastname', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
-                ]
+                    'class' => 'form-control m-1'
+                ],
+                'label' => 'Nom'
             ])
             ->add('site', EntityType::class, [
                 'class' => Site::class,
                 'choice_label' => 'name',
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control m-1'
                 ],
                 'required' => false,
+                'label' => 'Chantier',
             ])
-            ->add('Envoyer', SubmitType::class)
+            ->add('Envoyer', SubmitType::class, [
+                'attr' => [
+                    'class' => 'm-1 btn btn-primary'
+                ]
+            ])
         ;
     }
 

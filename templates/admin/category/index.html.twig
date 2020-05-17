@@ -13,14 +13,36 @@
         </div>
     </div>
     <hr>
-    Catégories index - <a href="{{ path('category_new') }}">Ajouter une catégorie</a>
-    <ul>
-        {% if categories is not empty %}
-            {% for categorie in categories %}
-                <li>{{ categorie.id }} - {{ categorie.name }} {{ categorie.type }}<a href="{{ path('category_edit',{'id':categorie.id}) }}">Editer</a></li>
-            {% endfor %}
-        {% else %}
-            Aucune catégorie d'enregistrée
-        {% endif %}
-    </ul>
+    <div class="row">
+        <div class="col-6">
+            <a href="{{ path('category_new') }}">Ajouter une catégorie</a>
+            {% if categories is not empty %}
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Nom</td>
+                        <td>Type</td>
+                        <td>Gérer</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for categorie in categories %}
+                    <tr>
+                        <td>{{ categorie.name }}</td>
+                        <td>{{ categorie.type }}</td>
+                        <td>
+                            <a href="{{ path('category_edit',{'id':categorie.id}) }}">Editer</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            {% else %}
+                Aucune catégorie d'enregistrée
+            {% endif %}
+        </div>
+        <div class="col-4">
+            toto
+        </div>
+    </div>
 {% endblock %}

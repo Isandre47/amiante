@@ -34,10 +34,12 @@
                     <td>{{ user.id }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.firstname }} {{ user.lastname }}</td>
-                    <td>
+
                         {% if user.roles[0] == 'ROLE_CLIENT' %}
+                    <td class="bg-primary">
                             gère des chantiers
                         {% else %}
+                    <td>
                             {% if user.site.name is defined %}
                                 {{ user.site.name }}
                             {% else %}

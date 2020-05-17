@@ -42,9 +42,18 @@ class ClientController extends AbstractController
         $formClient = $this->createForm(UserType::class, $user);
         $formClient->remove('site');
         $formClient->remove('roles');
-        $formClient->add('password', PasswordType::class);
+        $formClient->add('password', PasswordType::class, [
+            'label' => 'Mot de passe',
+            'attr' => [
+                'class' => 'form-control m-1'
+            ],
+        ]);
         $formClient->add('name', TextType::class, [
-            'mapped' => false
+            'mapped' => false,
+            'label' => 'Nom de l\'entreprise',
+            'attr' => [
+                'class' => 'form-control m-1'
+            ],
         ]);
         $formClient->handleRequest($request);
 

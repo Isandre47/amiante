@@ -71,8 +71,9 @@ class UserController extends AbstractController
         $formUser = $this->createForm(UserType::class, $user);
         $formUser->add('password', PasswordType::class, [
             'attr' => [
-                'class' => 'form-control'
-            ]
+                'class' => 'form-control m-1'
+            ],
+            'label' => 'Mot de passe'
         ]);
         $formUser->handleRequest($request);
 

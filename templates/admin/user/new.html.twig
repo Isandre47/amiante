@@ -1,10 +1,36 @@
 {% extends 'admin/adminBase.html.twig' %}
 
 {% block title %}
-    Ajout d'un chantier
+    Ajout d'un utilisateur
 {% endblock %}
 
 {% block right %}
-    Ajout d'un utilisateur
-    {{ form(formUser) }}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Ajout d'un utilisateur</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {{ form_start(formUser) }}
+                <div class="row">
+                    <div class="col-6">
+                        {{ form_row(formUser.firstname) }}
+                    </div>
+                    <div class="col-6">
+                        {{ form_row(formUser.lastname) }}
+                    </div>
+                </div>
+                {{ form_row(formUser.password) }}
+                {{ form_row(formUser.email) }}
+                {{ form_row(formUser.roles) }}
+                {{ form_row(formUser.site) }}
+                {{ form_end(formUser) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}
