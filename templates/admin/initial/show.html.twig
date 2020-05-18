@@ -3,17 +3,27 @@
 {% block title %}Analse initiale {% endblock %}
 
 {% block right %}
-    <div class="row">
-        <div class="col-6">
-            Lieu de l'analyse:
-            {{ initial.location }} <br>
-            Phase:
-            {{ initial.zone.name }} <br>
-            Chantier:
-            {{ initial.zone.site.name }} <br>
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Détails d'une analyse</h1>
+            </div>
         </div>
-        <div class="col-4">
-            zone à définir
+    </div>
+    <hr>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                Lieu de l'analyse:
+                {{ initial.location }} <br>
+                Phase:
+                {{ initial.zone.name }} <br>
+                Chantier:
+                {{ initial.zone.site.name }} <br>
+            </div>
+            <div class="col-4">
+                zone à définir
+            </div>
         </div>
     </div>
 {% endblock %}

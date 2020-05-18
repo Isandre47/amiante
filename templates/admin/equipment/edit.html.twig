@@ -5,6 +5,23 @@
 {% endblock %}
 
 {% block right %}
-    Edition d'une fiche matériel
-    {{ form(formEquipment) }}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Ajouter un matériel</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="form-row">
+            <div class="col-12">
+                {{ form_start(formEquipment) }}
+                {{ form_row(formEquipment.site) }}
+                {{ form_row(formEquipment.name) }}
+                <br>
+                {{ form_end(formEquipment) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

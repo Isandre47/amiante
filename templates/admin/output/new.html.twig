@@ -5,20 +5,33 @@
 {% endblock %}
 
 {% block right %}
-    Ajout d'une analyse en cours de travaux de retrait
-    {{ form_start(formOutput) }}
-    {{ form_widget(formOutput.location) }}
-    <br>
-    {{ form_widget(formOutput.zone) }}
-    <br>
-    Zone à associer à l'analyse:
-    <div id="select_zone">
-        <select class="form-control" name="phase-select" id="phase-select" disabled>
-            <option value="">Choisir la zone ci-dessus</option>
-        </select>
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Nouvelle analyse</h1>
+            </div>
+        </div>
     </div>
-    {{ form_end(formOutput) }}
     <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {{ form_start(formOutput) }}
+                {{ form_widget(formOutput.location) }}
+                <br>
+                {{ form_widget(formOutput.zone) }}
+                <br>
+                Zone à associer à l'analyse:
+                <div id="select_zone">
+                    <select class="form-control" name="phase-select" id="phase-select" disabled>
+                        <option value="">Choisir la zone ci-dessus</option>
+                    </select>
+                </div>
+                <br>
+                {{ form_end(formOutput) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block script %}

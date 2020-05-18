@@ -5,6 +5,19 @@
 {% endblock %}
 
 {% block right %}
-    Ajout d'un matériel
-    {{ form(formEquipment) }}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Ajouter un matériel</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        {{ form_start(formEquipment) }}
+        {{ form_row(formEquipment.name) }}
+        {{ form_row(formEquipment.site) }}
+        <br>
+        {{ form_end(formEquipment) }}
+    </div>
 {% endblock %}

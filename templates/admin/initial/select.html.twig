@@ -1,5 +1,5 @@
 <select class="form-control" name="phase-select" id="phase-select">
-    <option value="">--Please choose an option--</option>
+    <option value="">--Choisir une zone--</option>
     {% for item in list %}
         <option value="{{ item.category.id }}">{{ item.category.id }} - {{ item.category.name }}</option>
     {% endfor %}

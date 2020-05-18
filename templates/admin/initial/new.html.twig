@@ -5,20 +5,32 @@
 {% endblock %}
 
 {% block right %}
-    Ajout d'un point zéro
-    {{ form_start(formInitial) }}
-    {{ form_widget(formInitial.location) }}
-    <br>
-    {{ form_widget(formInitial.zone) }}
-    <br>
-    Zone à associer à l'analyse:
-    <div id="select_zone">
-        <select class="form-control" name="phase-select" id="phase-select" disabled>
-            <option value="">Choisir la zone ci-dessus</option>
-        </select>
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Ajout d'un point zéro</h1>
+            </div>
+        </div>
     </div>
-    {{ form_end(formInitial) }}
     <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {{ form_start(formInitial) }}
+                {{ form_row(formInitial.location) }}
+                {{ form_row(formInitial.zone) }}
+                <br>
+                Zone à associer à l'analyse:
+                <div id="select_zone">
+                    <select class="form-control" name="phase-select" id="phase-select" disabled>
+                        <option value="">Choisir la zone ci-dessus</option>
+                    </select>
+                </div>
+                <br>
+                {{ form_end(formInitial) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block script %}

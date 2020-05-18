@@ -5,6 +5,24 @@
 {% endblock %}
 
 {% block right %}
-    Ajout d'une catégorie
-    {{ form(formCategory) }}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Ajout d'une catégorie</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {{ form_start(formCategory) }}
+                {{ form_row(formCategory.name) }}
+                {{ form_row(formCategory.type) }}
+                <br>
+                {{ form_end(formCategory) }}
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
