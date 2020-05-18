@@ -3,10 +3,19 @@
 {% block title %}Chantier ? {% endblock %}
 
 {% block right %}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>{{ site.name }}</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
     <div class="row">
         <div class="col-6">
             {% if site is not empty %}
-                    <li>{{ site.id }} - {{ site.name }} - <a href="{{ path('site_edit',{'id':site.id}) }}">Editer</a></li>
+                <a href="{{ path('site_edit',{'id':site.id}) }}">Editer</a>
+                <br>
                     Personnel
                     <ul>
                         {% for siteUser in site.users %}

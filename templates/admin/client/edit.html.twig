@@ -5,10 +5,39 @@
 {% endblock %}
 
 {% block right %}
-    Edition d'une fiche client <br>
-    Ce client gère déjà les sites suivants: <br>
-    {% for site in sites %}
-        {{ site.name }}
-    {% endfor %}
-    {{ form(formClient) }}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Edition d'un client</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                {{ form_start(formClient) }}
+                <div class="row">
+                    <div class="col-6">
+                        {{ form_row(formClient.firstname) }}
+                    </div>
+                    <div class="col-6">
+                        {{ form_row(formClient.lastname) }}
+                    </div>
+                </div>
+                {{ form_row(formClient.name) }}
+                {{ form_row(formClient.site) }}
+                {{ form_end(formClient) }}
+            </div>
+            <div class="col-6">
+                Ce client gère déjà les sites suivants: <br>
+                <ul>
+                    {% for site in sites %}
+                        <li>{{ site.name }}</li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -5,10 +5,34 @@
 {% endblock %}
 
 {% block right %}
-    Ajout d'un chantier
-    {{ form(formSite) }}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Ajouter un chantier</h1>
+            </div>
+        </div>
+    </div>
     <hr>
-    Votre zone n'est pas présente ?
-    Ajoutez ci-dessous
-    {{ form(formCategory) }}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {{ form_start(formSite) }}
+                {{ form_row(formSite.name) }}
+                {{ form_row(formSite.zones) }}
+                {{ form_end(formSite) }}
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                Votre zone n'est pas présente ?
+                Ajoutez ci-dessous la vôtre: <br>
+                {{ form_start(formCategory) }}
+                {{ form_row(formCategory.name) }}
+                {{ form_end(formCategory) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

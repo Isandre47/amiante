@@ -5,23 +5,54 @@
 {% endblock %}
 
 {% block right %}
-    Edition d'un chantier
-    <br>
-    Données actuelles:
-    {{ site.name }}
-    <br>
-    <ul>
-        {% for sitePhase in site.zones %}
-            <li class="mb-2">{{ sitePhase.category.name }}  - {{ include('admin/site/_deleteform.html.twig') }}</li>
-        {% endfor %}
-    </ul>
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Edition du chantier {{ site.name }}</h1>
+            </div>
+        </div>
+    </div>
     <hr>
-    {{ form(formSite) }}
-    <hr>
-    Votre zone n'est pas présente ?
-    Ajoutez ci-dessous
-    {{ form(formCategory) }}
+    <div class="container">
+        <div class="row">
+            <div class="col-5">
+                <div class="row">
+                    <div class="col-12">
+                        {{ form_start(formSite) }}
+                        {{ form_row(formSite.name) }}
+                        {{ form_row(formSite.zones) }}
+                        {{ form_end(formSite) }}
+                    </div>
+                    <div class="col-12">
+                        Votre zone n'est pas présente ?
+                        Ajoutez ci-dessous la vôtre: <br>
+                        {{ form_start(formCategory) }}
+                        {{ form_row(formCategory.name) }}
+                        {{ form_end(formCategory) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-5">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Phases en cours</td>
+                        <td>Gestion</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for sitePhase in site.zones %}
+                        <tr>
+                            <td>{{ sitePhase.category.name }}</td>
+                            <td>{{ include('admin/site/_deleteform.html.twig') }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
+    </div>
 {% endblock %}
 
 {% block script %}

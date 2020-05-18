@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Controller\SiteController;
 use App\Entity\Category;
 use App\Entity\Zone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -46,8 +47,9 @@ class CategoryRepository extends ServiceEntityRepository
     {
         // Sélection de toutes les catégories auxquelles on enleve ( NOT IN ) les catégories déjà présentes pour le chantier en cours d'édition
         $em = $this->getEntityManager();
-        $query = $em->createQuery('SELECT c FROM App\Entity\Category c WHERE c.Type = \'Phase\' AND c.id NOT IN (SELECT zc.id FROM App\Entity\Zone z LEFT JOIN z.category zc WHERE z.site = ?1) ORDER BY c.name ASC');
+        $query = $em->createQuery('SELECT c FROM App\Entity\Category c WHERE c.Type = ?2 AND c.id NOT IN (SELECT zc.id FROM App\Entity\Zone z LEFT JOIN z.category zc WHERE z.site = ?1) ORDER BY c.name ASC');
         $query->setParameter(1, $siteId);
+        $query->setParameter(2, SiteController::PHASE);
 
         return $query->getResult();
     }

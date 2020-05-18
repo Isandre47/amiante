@@ -30,8 +30,9 @@ class SiteType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
-                ]
+                    'class' => 'form-control m-1'
+                ],
+                'label' =>  'Nom du chantier',
             ])
             ->add('zones', EntityType::class, [
                 'attr' => [
@@ -42,10 +43,13 @@ class SiteType extends AbstractType
                 ,
                 'mapped' => false,
                 'choice_label' => 'name',
-                'required' => false
-
+                'required' => false,
             ])
-            ->add('Envoyer', SubmitType::class)
+            ->add('Envoyer', SubmitType::class, [
+                'attr' => [
+                    'class' => 'm-1 btn btn-primary'
+                ]
+            ])
         ;
     }
 

@@ -90,12 +90,18 @@ class ClientController extends AbstractController
             'choice_label' => 'name',
             'expanded' => true,
             'multiple' => false,
+            'label' => 'Chantier à ajouter',
+            'attr' => [
+                'class' => 'form-check m-1'
+            ]
         ]);
         $formClient->add('name', TextType::class, [
             'mapped' => false,
             'attr' => [
                 'value' => $client->getName(),
-            ]
+                'class' =>  'form-control m-1'
+            ],
+            'label' => 'Nom de l\'entreprise',
         ]);
         $formClient->handleRequest($request);
 

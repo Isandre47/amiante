@@ -30,7 +30,6 @@ class SiteController extends AbstractController
     public function index(SiteRepository $siteRepository): Response
     {
         return $this->render('admin/site/index.html.twig', [
-            'controller_name' => 'SiteController',
             'sites' => $siteRepository->findAll(),
         ]);
     }
