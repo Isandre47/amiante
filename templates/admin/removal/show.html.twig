@@ -16,6 +16,8 @@
             <div class="col-6">
                 Lieu de l'analyse:
                 {{ removal.location }} <br>
+                Date:
+                {{ removal.date|format_date }} <br>
                 Phase:
                 {{ removal.zone.category.name }} <br>
                 Chantier:

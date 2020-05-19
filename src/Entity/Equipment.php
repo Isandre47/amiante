@@ -26,6 +26,11 @@ class Equipment
      */
     private $site;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $number;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,18 @@ class Equipment
     public function setSite(?Site $site): self
     {
         $this->site = $site;
+
+        return $this;
+    }
+
+    public function getNumber(): ?int
+    {
+        return $this->number;
+    }
+
+    public function setNumber(int $number): self
+    {
+        $this->number = $number;
 
         return $this;
     }

@@ -21,6 +21,7 @@
                     <td>Lieu du prélèvement</td>
                     <td>Chantier</td>
                     <td>Phase</td>
+                    <td>Date</td>
                     <td>Gérer</td>
                 </tr>
                 </thead>
@@ -30,6 +31,7 @@
                     <td>{{ output.location }}</td>
                     <td>{{ output.zone.site.name }}</td>
                     <td>{{ output.zone.category.name }}</td>
+                    <td>{{ output.date|format_date }}</td>
                     <td>
                         <a href="{{ path('output_show', {'id': output.id}) }}">... plus de détails</a>
                     </td>

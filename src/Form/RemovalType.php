@@ -6,6 +6,7 @@ use App\Entity\Removal;
 use App\Entity\Site;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,6 +32,15 @@ class RemovalType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ]
+            ])
+            ->add('date', DateType::class, [
+                'label' => 'Date',
+                'html5'=> false,
+                'widget' => 'single_text',
+                'attr' => [
+                    'class' => 'form-control m-1',
+                ],
+                'format' => 'dd-MM-yyyy',
             ])
             ->add('Ajouter', SubmitType ::class)
         ;

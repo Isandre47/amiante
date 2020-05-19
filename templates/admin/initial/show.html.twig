@@ -15,7 +15,9 @@
         <div class="row">
             <div class="col-6">
                 Lieu de l'analyse:
-                {{ initial.location }} <br>
+                {{ initial.location }}<br>
+                Date:
+                {{ initial.date|format_date }} <br>
                 Phase:
                 {{ initial.zone.name }} <br>
                 Chantier:

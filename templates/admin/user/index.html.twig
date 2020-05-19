@@ -13,15 +13,11 @@
         </div>
     </div>
     <hr>
-    <div>
-
-    </div>
     <a href="{{ path('user_new') }}">Ajouter un utilisateur</a>
     <div class="row m-3">
         <table class="table">
             <thead>
                 <tr>
-                    <td>Id</td>
                     <td>email</td>
                     <td>Nom prénom</td>
                     <td>Chantier</td>
@@ -31,7 +27,6 @@
             <tbody>
             {% for user in users %}
                 <tr>
-                    <td>{{ user.id }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.firstname }} {{ user.lastname }}</td>
 

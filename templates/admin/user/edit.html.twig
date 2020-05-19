@@ -5,6 +5,33 @@
 {% endblock %}
 
 {% block right %}
-    Edition d'un utilisateur ( statut actuel : {{ userRole[0] }} )
-    {{ form(formUser) }}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Edition d'un utilisateur</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {{ form_start(formUser) }}
+                <div class="row">
+                    <div class="col-6">
+                        {{ form_row(formUser.firstname) }}
+                    </div>
+                    <div class="col-6">
+                        {{ form_row(formUser.lastname) }}
+                    </div>
+                </div>
+                ( statut actuel : {{ userRole[0] }} )
+                {{ form_row(formUser.roles) }}
+                {{ form_row(formUser.site) }}
+                {{ form_row(formUser.email) }}
+                <br>
+                {{ form_end(formUser) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

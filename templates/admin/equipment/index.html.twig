@@ -22,6 +22,7 @@
                     <tr>
                         <td>Nom</td>
                         <td>Chantier</td>
+                        <td>Quantité</td>
                         <td>Gérer</td>
                     </tr>
                     </thead>
@@ -35,6 +36,7 @@
                                 Affecté à aucun chantier
                             {% endif %}
                         </td>
+                        <td>{{ equipment.number }}</td>
                         <td>
                             <a href="{{ path('equipment_edit',{'id':equipment.id}) }}">Editer</a>
                         </td>

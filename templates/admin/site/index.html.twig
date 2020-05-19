@@ -29,7 +29,12 @@
                 {% for site in sites %}
                     <tr>
                         <td>{{ site.name }}</td>
-                        <td>{{ site.users|length }}</td>
+                        {% if site.users|length == 0 %}
+                        <td class="bg-warning">
+                        {% else %}
+                        <td>
+                        {% endif %}
+                            {{ site.users|length }}</td>
                         <td>
                             <a href="{{ path('site_edit',{'id':site.id}) }}">Editer</a> -
                             <a href="{{ path('show_site',{'id':site.id}) }}">Plus d'informations</a>

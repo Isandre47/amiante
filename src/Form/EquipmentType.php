@@ -6,6 +6,7 @@ use App\Entity\Equipment;
 use App\Entity\Site;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,17 +19,29 @@ class EquipmentType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
-                ]
+                    'class' => 'form-control m-1'
+                ],
+                'label' => 'Nom',
             ])
             ->add('site', EntityType::class, [
                 'class' => Site::class,
                 'choice_label' =>  'name',
                 'attr' => [
                     'class' => 'form-control'
+                ],
+                'label' => 'Chantier',
+            ])
+            ->add('number', IntegerType::class, [
+                'label' => 'Nombre',
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+            ])
+            ->add('Envoyer', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-primary'
                 ]
             ])
-            ->add('Envoyer', SubmitType::class)
         ;
     }
 
