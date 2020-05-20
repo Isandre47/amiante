@@ -42,13 +42,12 @@ class UserController extends AbstractController
         if ($formUser->isSubmitted() && $formUser->isValid()) {
             $user->setRoles([$request->request->get('user')['roles']]);
             if ($siteOrigin != $request->attributes->get('user')->getSite()->getName()) {
-                $test_json = [
-                    'date_arrivée' => new \DateTime('2007-04-19 12:50 GMT'),
-                    'date_départ' => new \DateTime(),
-                    'Chantier' => $request->attributes->get('user')->getSite()->getName(),
+                $newSite = [
+                    'date_arrived' => new \DateTime(),
+                    'site' => $request->attributes->get('user')->getSite()->getName(),
                 ];
-                $new = $old_json = $user->getHistory();
-                $new[] = $test_json;
+                $new = $user->getHistory();
+                $new[] = $newSite;
                 $user->setHistory($new);
             }
             $this->getDoctrine()->getManager()->flush();

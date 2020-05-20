@@ -35,9 +35,10 @@
             {% endfor %}
         </div>
         <div class="col-4">
+            Historique: <br>
             {% for item in user.history %}
-                Historique:
-                {{ item['Chantier'] }} du {{ item['date_départ']['date']|format_date }} au {{ item['date_arrivée']['date']|format_date }}
+                Nombre de chantier: {{ user.history|length }} <br>
+                {{ item['site'] }}, à partir du {{ item['date_arrived']['date']|format_date }}
                 <br>
             {% endfor %}
         </div>
