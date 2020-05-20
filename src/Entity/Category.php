@@ -33,9 +33,15 @@ class Category
      */
     private $Type;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Equipment", mappedBy="category")
+     */
+    private $equipment;
+
     public function __construct()
     {
         $this->zones = new ArrayCollection();
+        $this->equipment = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -94,6 +100,37 @@ class Category
     public function setType(string $Type): self
     {
         $this->Type = $Type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Equipment[]
+     */
+    public function getEquipment(): Collection
+    {
+        return $this->equipment;
+    }
+
+    public function addEquipment(Equipment $equipment): self
+    {
+        if (!$this->equipment->contains($equipment)) {
+            $this->equipment[] = $equipment;
+            $equipment->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipment(Equipment $equipment): self
+    {
+        if ($this->equipment->contains($equipment)) {
+            $this->equipment->removeElement($equipment);
+            // set the owning side to null (unless already changed)
+            if ($equipment->getCategory() === $this) {
+                $equipment->setCategory(null);
+            }
+        }
 
         return $this;
     }
