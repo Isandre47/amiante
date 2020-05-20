@@ -37,6 +37,12 @@ class EquipmentType extends AbstractType
                     'class' => 'form-control'
                 ],
             ])
+            ->add('status', TextType::class, [
+                'label' => 'Etat',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('Envoyer', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary'

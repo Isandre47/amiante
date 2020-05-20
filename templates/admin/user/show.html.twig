@@ -35,7 +35,11 @@
             {% endfor %}
         </div>
         <div class="col-4">
-            zone à définir
+            {% for item in user.history %}
+                Historique:
+                {{ item['Chantier'] }} du {{ item['date_départ']['date']|format_date }} au {{ item['date_arrivée']['date']|format_date }}
+                <br>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

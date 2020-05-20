@@ -34,12 +34,23 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
+        $siteOrigin = $user->getSite()->getName();
         $formUser = $this->createForm(UserType::class, $user);
         $formUser->handleRequest($request);
         $userRole = $user->getRoles();
 
         if ($formUser->isSubmitted() && $formUser->isValid()) {
             $user->setRoles([$request->request->get('user')['roles']]);
+            if ($siteOrigin != $request->attributes->get('user')->getSite()->getName()) {
+                $test_json = [
+                    'date_arrivée' => new \DateTime('2007-04-19 12:50 GMT'),
+                    'date_départ' => new \DateTime(),
+                    'Chantier' => $request->attributes->get('user')->getSite()->getName(),
+                ];
+                $new = $old_json = $user->getHistory();
+                $new[] = $test_json;
+                $user->setHistory($new);
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('user_index');

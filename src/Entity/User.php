@@ -68,6 +68,11 @@ class User implements UserInterface
      */
     private $client;
 
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $history = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -224,6 +229,18 @@ class User implements UserInterface
     public function setClient(?Client $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    public function getHistory(): ?array
+    {
+        return $this->history;
+    }
+
+    public function setHistory(?array $history): self
+    {
+        $this->history = $history;
 
         return $this;
     }
