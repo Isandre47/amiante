@@ -62,7 +62,7 @@ class EquipmentController extends AbstractController
     }
 
     /**
-     * @Route("new", name="equipment_new")
+     * @Route("/new", name="equipment_new")
      */
     public function new(Request $request)
     {
@@ -80,6 +80,18 @@ class EquipmentController extends AbstractController
 
         return $this->render('admin/equipment/new.html.twig', [
             'formEquipment' => $formEquipment->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/show", name="equipment_show")
+     */
+    public function show(Request $request, EquipmentRepository $equipmentRepository)
+    {
+        $equipment = $request->get('search');
+        $equipment = $equipmentRepository->findOneBy(['id' => $equipment]);
+        return $this->render('admin/equipment/show.html.twig', [
+            'equipment' => $equipment,
         ]);
     }
 }
