@@ -56,7 +56,7 @@ class HomeController extends AbstractController
     {
         $siteClient = "";
 
-        if ($user->getRoles()[0]) {
+        if ($user->getRoles()[0] == 'ROLE_CLIENT') {
             $em = $this->getDoctrine()->getManager();
             $siteClient = $em->getRepository(Site::class)->findBy([
                 'client' => $user->getClient()->getId(),
