@@ -11,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category
 {
+    const PHASE = 'Phase Chantier';
+    const EQUIPMENT = 'Matériel';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -31,7 +34,7 @@ class Category
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Type;
+    private $type;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Equipment", mappedBy="category")
@@ -92,14 +95,14 @@ class Category
         return $this;
     }
 
-    public function getType(): ?string
+    public function gettype(): ?string
     {
-        return $this->Type;
+        return $this->type;
     }
 
-    public function setType(string $Type): self
+    public function settype(string $type): self
     {
-        $this->Type = $Type;
+        $this->type = $type;
 
         return $this;
     }

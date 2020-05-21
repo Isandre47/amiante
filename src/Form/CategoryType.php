@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,12 +16,16 @@ class CategoryType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'le nom de la caté',
+                'label' => 'Label',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
-            ->add('type', TextType::class, [
+            ->add('type', ChoiceType::class, [
+                'choices' => [
+                    Category::EQUIPMENT => Category::EQUIPMENT,
+                    Category::PHASE => Category::PHASE,
+                ],
                 'label' => 'type',
                 'attr' => [
                     'class' => 'form-control'

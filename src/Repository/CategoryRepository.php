@@ -24,20 +24,13 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     /**
+     * Sélection de tout les matériels dans la table 'catégory'
      * @return \Doctrine\ORM\QueryBuilder
+     *
      */
-    public function test($siteId)
+    public function categoryEquipment()
     {
-        $subquery = $this->getEntityManager()->getRepository(Zone::class)->createQueryBuilder('zone');
-        $subquery->where('zone.site = ?1');
-
-        $result = $this->createQueryBuilder('category')
-            ->where($this->createQueryBuilder('category')->expr()->notIn('category.id', $subquery->getDQL()))
-            ->setParameter('1', $siteId)
-            ->orderBy('category.name', 'ASC')
-        ;
-
-        return $result;
+        return $this->findBy(['type' => 'Matériel']);
     }
 
     /**
