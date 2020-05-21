@@ -41,6 +41,11 @@ class Equipment
      */
     private $category;
 
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $history = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,6 +107,18 @@ class Equipment
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getHistory(): ?array
+    {
+        return $this->history;
+    }
+
+    public function setHistory(array $history): self
+    {
+        $this->history = $history;
 
         return $this;
     }

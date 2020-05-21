@@ -24,6 +24,7 @@
                         <td>Chantier</td>
                         <td>Type</td>
                         <td>Quantité</td>
+                        <td>Historique</td>
                         <td>Gérer</td>
                     </tr>
                     </thead>
@@ -39,6 +40,13 @@
                         </td>
                         <td>{{ equipment.category.name }}</td>
                         <td>{{ equipment.number }}</td>
+                        <td>
+                            {% for item in equipment.history %}
+                                Nombre de chantier: {{ equipment.history|length }} <br>
+                                {{ item['site'] }}, à partir du {{ item['date_arrived']['date']|format_date }}
+                                <br>
+                            {% endfor %}
+                        </td>
                         <td>
                             <a href="{{ path('equipment_edit',{'id':equipment.id}) }}">Editer</a>
                         </td>

@@ -32,10 +32,20 @@ class EquipmentController extends AbstractController
      */
     public function edit(Request $request, Equipment $equipment): Response
     {
+        $siteOrigin = $equipment->getSite()->getName();
         $formEquipment = $this->createForm(EquipmentType::class, $equipment);
         $formEquipment->handleRequest($request);
 
         if ($formEquipment->isSubmitted() && $formEquipment->isValid()) {
+            if ($siteOrigin != $request->attributes->get('equipment')->getSite()->getName()) {
+                $newSite = [
+                    'date_arrived' => new \DateTime(),
+                    'site' => $request->attributes->get('equipment')->getSite()->getName(),
+                ];
+                $new = $equipment->getHistory();
+                $new[] = $newSite;
+                $equipment->setHistory($new);
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('equipment_index');
