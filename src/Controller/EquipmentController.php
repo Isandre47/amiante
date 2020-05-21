@@ -32,7 +32,12 @@ class EquipmentController extends AbstractController
      */
     public function edit(Request $request, Equipment $equipment): Response
     {
-        $siteOrigin = $equipment->getSite()->getName();
+        if ($equipment->getSite() != null) {
+            $siteOrigin = $equipment->getSite()->getName();
+        } else {
+            $siteOrigin = "Dépôt";
+        }
+
         $formEquipment = $this->createForm(EquipmentType::class, $equipment);
         $formEquipment->handleRequest($request);
 
