@@ -56,10 +56,12 @@ class InitialController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="initial_show")
+     * @Route("/show", name="initial_show")
      */
-    public function show(Initial $initial)
+    public function show(Request $request, InitialRepository $initialRepository)
     {
+        $initial = $request->get('search');
+        $initial = $initialRepository->findOneById($initial);
         return $this->render('admin/initial/show.html.twig', [
             'initial' => $initial,
         ]);

@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row m-3" style="height: 10vh">
             <div class="col-12 text-center">
-                <h1>Index des anlyses fin de chantier et repli</h1>
+                <h1>Index des analyses fin de chantier et repli</h1>
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@
                 </thead>
                 <tbody>
                 {% for output in outputs %}
-                <tr>
+                <tr data-type="{{ output.id }}">
                     <td>{{ output.location }}</td>
                     <td>{{ output.zone.site.name }}</td>
                     <td>{{ output.zone.category.name }}</td>
@@ -43,8 +43,33 @@
                 Aucune analyse
             {% endif %}
         </div>
-        <div class="col-4">
+        <div id="info" class="col-4">
             toto
         </div>
     </div>
+{% endblock %}
+{% block script %}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>
+        $( function () {
+            $('tr').click(function () {
+                var elemId = $(this).attr('data-type');
+                console.log('tableau', elemId);
+                $.ajax( {
+                    type: 'POST',
+                    url: 'show',
+                    data: {
+                        search: elemId
+                    },
+                    success: function(html) {
+                        $('#info').html(html);
+                    },
+                    error: function (data) {
+                        console.log('error');
+
+                    }
+                } );
+            })
+        })
+    </script>
 {% endblock %}

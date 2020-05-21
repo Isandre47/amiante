@@ -27,7 +27,7 @@
                 </thead>
                 <tbody>
                 {% for removal in removals %}
-                <tr>
+                <tr data-type="{{ removal.id}}">
                     <td>{{ removal.location }}</td>
                     <td>{{ removal.zone.site.name }}</td>
                     <td>{{ removal.zone.category.name }}</td>
@@ -43,8 +43,33 @@
                 Aucune analyse
             {% endif %}
         </div>
-        <div class="col-4">
+        <div id="info" class="col-4">
             toto
         </div>
     </div>
+{% endblock %}
+{% block script %}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>
+        $( function () {
+            $('tr').click(function () {
+                var elemId = $(this).attr('data-type');
+                console.log('tableau', elemId);
+                $.ajax( {
+                    type: 'POST',
+                    url: 'show',
+                    data: {
+                        search: elemId
+                    },
+                    success: function(html) {
+                        $('#info').html(html);
+                    },
+                    error: function (data) {
+                        console.log('error');
+
+                    }
+                } );
+            })
+        })
+    </script>
 {% endblock %}

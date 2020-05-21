@@ -54,10 +54,12 @@ class OutputController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="output_show")
+     * @Route("/show", name="output_show")
      */
-    public function show(Output $output)
+    public function show(Request $request, OutputRepository $outputRepository)
     {
+        $output = $request->get('search');
+        $output = $outputRepository->findOneById($output);
         return $this->render('admin/output/show.html.twig', [
             'output' => $output,
         ]);

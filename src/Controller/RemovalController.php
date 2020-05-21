@@ -54,10 +54,11 @@ class RemovalController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="removal_show")
+     * @Route("/show", name="removal_show")
      */
-    public function show(Removal $removal)
+    public function show(Request $request, RemovalRepository $removalRepository)
     {
+        $removal = $removalRepository->findOneById($request->get('search'));
         return $this->render('admin/removal/show.html.twig', [
             'removal' => $removal,
         ]);

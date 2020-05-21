@@ -89,7 +89,7 @@ class EquipmentController extends AbstractController
     public function show(Request $request, EquipmentRepository $equipmentRepository)
     {
         $equipment = $request->get('search');
-        $equipment = $equipmentRepository->findOneBy(['id' => $equipment]);
+        $equipment = $equipmentRepository->findOneById($equipment);
         return $this->render('admin/equipment/show.html.twig', [
             'equipment' => $equipment,
         ]);
