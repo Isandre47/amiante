@@ -42,10 +42,14 @@ class EquipmentController extends AbstractController
         $formEquipment->handleRequest($request);
 
         if ($formEquipment->isSubmitted() && $formEquipment->isValid()) {
-            if ($siteOrigin != $request->attributes->get('equipment')->getSite()->getName()) {
+            $siteDestination = 'Dépôt';
+            if ($request->attributes->get('equipment')->getSite() != null) {
+                $siteDestination = $request->attributes->get('equipment')->getSite()->getName();
+            }
+            if ($siteOrigin != $siteDestination) {
                 $newSite = [
                     'date_arrived' => new \DateTime(),
-                    'site' => $request->attributes->get('equipment')->getSite()->getName(),
+                    'site' => $siteDestination,
                 ];
                 $new = $equipment->getHistory();
                 $new[] = $newSite;
@@ -72,6 +76,12 @@ class EquipmentController extends AbstractController
 
         if ($formEquipment->isSubmitted() && $formEquipment->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $newSite = [
+                'date_arrived' => new \DateTime(),
+                'site' => 'Depôt',
+            ];
+            $new[] = $newSite;
+            $equipment->setHistory($new);
             $em->persist($equipment);
             $em->flush();
 

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Equipment;
 use App\Entity\Site;
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,7 +19,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/", name="admin")
      */
-    public function index()
+    public function index(UserRepository $userRepository)
     {
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository(User::class)->findAll();
@@ -30,6 +31,7 @@ class AdminController extends AbstractController
             'users' => $users,
             'equipments' => $equipments,
             'sites' => $sites,
+            'nbClient' => $userRepository->count(['site' => null]),
         ]);
     }
 }

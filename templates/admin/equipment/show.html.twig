@@ -1,7 +1,7 @@
 <h2>{{ equipment.name }}</h2>
 {{ equipment.status }} <br>
+Nombre de chantier: {{ equipment.history|length }} <br>
 {% for item in equipment.history %}
-    Nombre de chantier: {{ equipment.history|length }} <br>
     {{ item['site'] }}, à partir du {{ item['date_arrived']['date']|format_date }}
     <br>
 {% endfor %}
