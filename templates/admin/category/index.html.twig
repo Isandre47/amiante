@@ -18,12 +18,12 @@
             <a href="{{ path('category_new') }}">Ajouter une catégorie</a>
             {% if categories is not empty %}
                 <table class="table">
-                    <thead>
-                    <tr>
-                        <td>Nom</td>
-                        <td>Type</td>
-                        <td>Gérer</td>
-                    </tr>
+                    <thead class="thead-light">
+                        <tr>
+                            <td>Nom</td>
+                            <td>Type</td>
+                            <td>Gérer</td>
+                        </tr>
                     </thead>
                     <tbody>
                     {% for categorie in categories %}

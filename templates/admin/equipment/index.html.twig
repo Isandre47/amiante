@@ -18,14 +18,14 @@
             <a href="{{ path('equipment_new') }}">Ajouter un matériel</a>
             {% if equipments is not empty %}
                 <table class="table">
-                    <thead>
-                    <tr>
-                        <td>Nom</td>
-                        <td>Chantier</td>
-                        <td>Type</td>
-                        <td>Quantité</td>
-                        <td>Gérer</td>
-                    </tr>
+                    <thead class="thead-light">
+                        <tr>
+                            <td>Nom</td>
+                            <td>Chantier</td>
+                            <td>Type</td>
+                            <td>Quantité</td>
+                            <td>Gérer</td>
+                        </tr>
                     </thead>
                     <tbody>
                     {% for equipment in equipments %}

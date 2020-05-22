@@ -16,14 +16,14 @@
             <a href="{{ path('removal_new') }}">Ajouter une analyse</a>
             {% if removals is not empty %}
             <table class="table">
-                <thead>
-                <tr>
-                    <td>Lieu du prélèvement</td>
-                    <td>Chantier</td>
-                    <td>Phase</td>
-                    <td>Date</td>
-                    <td>Gérer</td>
-                </tr>
+                <thead class="thead-light">
+                    <tr>
+                        <td>Lieu du prélèvement</td>
+                        <td>Chantier</td>
+                        <td>Phase</td>
+                        <td>Date</td>
+                        <td>Gérer</td>
+                    </tr>
                 </thead>
                 <tbody>
                 {% for removal in removals %}
