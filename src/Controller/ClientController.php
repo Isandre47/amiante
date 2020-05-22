@@ -1,4 +1,11 @@
 <?php
+/**
+ *  Copyright (c) isandre.net
+ *  Created by PhpStorm.
+ *  User: Isandre47
+ *  Date: 22/05/2020 20:06
+ *
+ */
 
 namespace App\Controller;
 
@@ -106,6 +113,8 @@ class ClientController extends AbstractController
         $formClient->handleRequest($request);
 
         if ($formClient->isSubmitted() && $formClient->isValid()) {
+            // Pour conserver le site_id d'un client à null lors de l'édition de sa fiche
+            $user->setSite(null);
             $em = $this->getDoctrine()->getManager();
             $site = $em->getRepository(Site::class)->find($request->request->get('user')['site']);
             $site->setClient($client);
