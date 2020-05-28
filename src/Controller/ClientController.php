@@ -130,4 +130,14 @@ class ClientController extends AbstractController
             'sites' => $client->getSite(),
         ]);
     }
+
+    /**
+     * @Route("/show/{id}", name="client_show")
+     */
+    public function show(Client $client)
+    {
+        return $this->render('admin/client/show.html.twig', [
+            'client' => $client,
+        ]);
+    }
 }

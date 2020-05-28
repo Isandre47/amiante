@@ -55,6 +55,11 @@ class Zone
      */
     private $category;
 
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $fiber = [];
+
     public function __construct()
     {
         $this->initials = new ArrayCollection();
@@ -192,6 +197,18 @@ class Zone
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getFiber(): ?array
+    {
+        return $this->fiber;
+    }
+
+    public function setFiber(array $fiber): self
+    {
+        $this->fiber = $fiber;
 
         return $this;
     }

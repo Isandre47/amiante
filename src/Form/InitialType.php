@@ -28,7 +28,8 @@ class InitialType extends AbstractType
             ->add('location', TextType::class, [
                 'attr' => [
                     'class' => 'form-control m-1'
-                ]
+                ],
+                'label' => 'Lieu de prélèvement',
             ])
             ->add('zone', EntityType::class, [
                 'class' => Site::class,
@@ -50,6 +51,12 @@ class InitialType extends AbstractType
                     'class' => 'form-control m-1',
                 ],
                 'format' => 'dd-MM-yyyy',
+            ])
+            ->add('rate', TextType::class, [
+                'label' => 'Seuil attendu',
+                'attr' => [
+                    'class' => 'form-control m-1',
+                ],
             ])
             ->add('Ajouter', SubmitType::class, [
                 'attr' => [
