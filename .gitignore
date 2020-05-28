@@ -17,4 +17,4 @@
 /.idea
 /.idea/
 /src/Migrations/
-!/.env.test
+/.env.test
