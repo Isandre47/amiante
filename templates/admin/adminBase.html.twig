@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>
-        {% block title %}Welcome !{% endblock %}
+        {% block title %}Accueil{% endblock %}
     </title>
 
     <!-- CSS here -->
@@ -16,7 +16,7 @@
         <div class="col-2 bg-light">
             {% include 'admin/nav.html.twig' %}
         </div>
-        <div class="col-9">
+        <div class="col-9 shadow">
             <br>
             {% block right %}
             {% endblock %}

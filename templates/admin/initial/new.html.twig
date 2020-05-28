@@ -23,8 +23,9 @@
             <div class="col-12">
                 {{ form_start(formInitial) }}
                 <div class="row">
-                    <div class="col-6">{{ form_row(formInitial.date) }}</div>
-                    <div class="col-6">{{ form_row(formInitial.location) }}</div>
+                    <div class="col-4">{{ form_row(formInitial.location) }}</div>
+                    <div class="col-4">{{ form_row(formInitial.rate) }}</div>
+                    <div class="col-4">{{ form_row(formInitial.date) }}</div>
                 </div>
                 {{ form_row(formInitial.zone) }}
                 <br>

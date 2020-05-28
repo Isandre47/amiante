@@ -13,6 +13,9 @@ class Category
 {
     const PHASE = 'Phase Chantier';
     const EQUIPMENT = 'Matériel';
+    const CHRYSOTILE = 'Chrysotile';
+    const AMOSITE = 'Amosite';
+    const CROCIDOLITE = 'Crocidolite';
 
     /**
      * @ORM\Id()

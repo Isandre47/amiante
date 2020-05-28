@@ -34,6 +34,9 @@
                         {% for siteZone in site.zones %}
                             {% if siteZone.category.name is defined %}
                                 <li>{{ siteZone.category.name }}</li>
+                                {% for fiber in siteZone.fiber %}
+                                    {{ fiber }}
+                                {% endfor %}
                                 {% if siteZone.initials.count > 0 %}
                                     Analyse initiale: nb ( {{ siteZone.initials.count }} )
                                     <ul>
