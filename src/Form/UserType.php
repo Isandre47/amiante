@@ -1,9 +1,17 @@
 <?php
+/**
+ *  Copyright (c) isandre.net
+ *  Created by PhpStorm.
+ *  User: Isandre47
+ *  Date: 22/05/2020 20:06
+ *
+ */
 
 namespace App\Form;
 
 use App\Entity\Site;
 use App\Entity\User;
+use App\Repository\SiteRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
@@ -17,6 +25,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserType extends AbstractType
 {
+    private $siteRepository;
+
+    /**
+     * SiteType constructor.
+     * @param SiteRepository $siteRepository
+     */
+    public function __construct(SiteRepository $siteRepository)
+    {
+        $this->siteRepository = $siteRepository;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
