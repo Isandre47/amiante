@@ -1,0 +1,6 @@
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.reference) }}
+    <br>
+    <button class="btn btn-outline-primary">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

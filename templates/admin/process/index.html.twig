@@ -1,0 +1,44 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}Process index{% endblock %}
+
+{% block right %}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Index des processus</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Réference</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for process in processes %}
+            <tr>
+                <td>{{ process.id }}</td>
+                <td>{{ process.name }}</td>
+                <td>{{ process.reference }}</td>
+                <td>
+                    <a href="{{ path('process_show', {'id': process.id}) }}">Voir</a>
+                    <a href="{{ path('process_edit', {'id': process.id}) }}">éditer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucun processus d'enregistré</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('process_new') }}">Créer un nouveau processus</a>
+{% endblock %}

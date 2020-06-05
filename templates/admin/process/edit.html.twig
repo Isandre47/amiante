@@ -1,0 +1,26 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}Edit Process{% endblock %}
+
+{% block right %}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Modification de {{ process.name }}</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {{ include('admin/process/_form.html.twig', {'button_label': 'mettre à jour'}) }}
+
+                <a href="{{ path('process_index') }}">retour à la liste</a>
+
+                {{ include('admin/process/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

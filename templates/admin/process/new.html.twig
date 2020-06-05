@@ -1,0 +1,22 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}New Process{% endblock %}
+
+{% block right %}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Nouveau processus</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                {{ include('admin/process/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+    <a href="{{ path('process_index') }}">Retour à la liste</a>
+{% endblock %}

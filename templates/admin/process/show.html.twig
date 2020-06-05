@@ -1,0 +1,43 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}Process{% endblock %}
+
+{% block right %}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>{{ process.name }}</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ process.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Name</th>
+                        <td>{{ process.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Reference</th>
+                        <td>{{ process.reference }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <a href="{{ path('process_index') }}">Retour à la liste</a>
+
+                <a href="{{ path('process_edit', {'id': process.id}) }}">éditer</a>
+
+                {{ include('admin/process/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

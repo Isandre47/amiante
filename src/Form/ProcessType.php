@@ -1,0 +1,44 @@
+<?php
+/**
+ *  Copyright (c) isandre.net
+ *  Created by PhpStorm.
+ *  User: Isandre47
+ *  Date: 06/06/2020 00:06
+ *
+ */
+
+namespace App\Form;
+
+use App\Entity\Process;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class ProcessType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('name', TextType::class, [
+                'label' => 'Nom du processus',
+                'attr' => [
+                    'class' => 'form-control m-1'
+                ],
+            ])
+            ->add('reference', TextType::class, [
+                'label' => 'Réference',
+                'attr' => [
+                    'class' => 'form-control m-1'
+                ],
+            ])
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Process::class,
+        ]);
+    }
+}
