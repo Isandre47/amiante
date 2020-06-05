@@ -3,7 +3,7 @@
  *  Copyright (c) isandre.net
  *  Created by PhpStorm.
  *  User: Isandre47
- *  Date: 22/05/2020 20:06
+ *  Date: 05/06/2020 21:15
  *
  */
 
@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ZoneController extends AbstractController
 {
     /**
-     * @Route("/", name="zone")
+     * @Route("/", name="zone", methods={"GET"})
      */
     public function index()
     {
@@ -31,7 +31,7 @@ class ZoneController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="zone_delete")
+     * @Route("/delete/{id}", name="zone_delete", methods={"DELETE"})
      */
     public function delete()
     {

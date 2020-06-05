@@ -3,7 +3,7 @@
  *  Copyright (c) isandre.net
  *  Created by PhpStorm.
  *  User: Isandre47
- *  Date: 22/05/2020 20:06
+ *  Date: 05/06/2020 21:15
  *
  */
 
@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class EquipmentController extends AbstractController
 {
     /**
-     * @Route("/", name="equipment_index")
+     * @Route("/", name="equipment_index"), methods={"GET"})
      */
     public function index(EquipmentRepository $equipmentRepository)
     {
@@ -35,7 +35,7 @@ class EquipmentController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="equipment_edit")
+     * @Route("/edit/{id}", name="equipment_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Equipment $equipment): Response
     {
@@ -73,7 +73,7 @@ class EquipmentController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="equipment_new")
+     * @Route("/new", name="equipment_new", methods={"GET","POST"})
      */
     public function new(Request $request)
     {
@@ -101,7 +101,7 @@ class EquipmentController extends AbstractController
     }
 
     /**
-     * @Route("/show", name="equipment_show")
+     * @Route("/show", name="equipment_show", methods={"GET"})
      */
     public function show(Request $request, EquipmentRepository $equipmentRepository)
     {

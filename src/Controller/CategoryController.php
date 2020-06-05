@@ -3,7 +3,7 @@
  *  Copyright (c) isandre.net
  *  Created by PhpStorm.
  *  User: Isandre47
- *  Date: 22/05/2020 20:06
+ *  Date: 05/06/2020 21:15
  *
  */
 
@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryController extends AbstractController
 {
     /**
-     * @Route("/category", name="category_index")
+     * @Route("/category", name="category_index", methods={"GET"}))
      */
     public function index(CategoryRepository $categoryRepository): Response
     {
@@ -30,7 +30,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("category/new-by-site", name="category_new_by_site")
+     * @Route("category/new-by-site", name="category_new_by_site", methods={"GET","POST"})
      */
     public function newBySite(Request $request): Response
     {
@@ -58,7 +58,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("new", name="category_new")
+     * @Route("new", name="category_new", methods={"GET","POST"})
      */
     public function new(Request $request)
     {
@@ -80,7 +80,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/category/edit/{id}", name="category_edit")
+     * @Route("/category/edit/{id}", name="category_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Category $category): Response
     {

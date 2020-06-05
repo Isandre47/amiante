@@ -3,7 +3,7 @@
  *  Copyright (c) isandre.net
  *  Created by PhpStorm.
  *  User: Isandre47
- *  Date: 22/05/2020 20:06
+ *  Date: 05/06/2020 21:15
  *
  */
 
@@ -27,7 +27,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/", name="user_index")
+     * @Route("/", name="user_index"), methods={"GET"})
      */
     public function index(UserRepository $userRepository): Response
     {
@@ -37,7 +37,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="user_edit")
+     * @Route("/edit/{id}", name="user_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, User $user): Response
     {
@@ -70,7 +70,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="user_show_admin")
+     * @Route("/show/{id}", name="user_show_admin", methods={"GET"})
      */
     public function show(User $user)
     {
@@ -80,7 +80,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="user_new")
+     * @Route("/new", name="user_new", methods={"GET","POST"})
      */
     public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {

@@ -3,7 +3,7 @@
  *  Copyright (c) isandre.net
  *  Created by PhpStorm.
  *  User: Isandre47
- *  Date: 22/05/2020 20:06
+ *  Date: 05/06/2020 21:15
  *
  */
 
@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="home", methods={"GET"})
      */
     public function index()
     {
@@ -27,7 +27,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/about", name="about")
+     * @Route("/about", name="about", methods={"GET"})
      */
     public function about()
     {
@@ -37,7 +37,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/services", name="services")
+     * @Route("/services", name="services", methods={"GET"})
      */
     public function services()
     {
@@ -47,7 +47,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/contact", name="contact")
+     * @Route("/contact", name="contact"), methods={"GET"})
      */
     public function contact()
     {
@@ -57,7 +57,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/user-show/{id}", name="user_show")
+     * @Route("/user-show/{id}", name="user_show", methods={"GET"})
      */
     public function show(User $user)
     {

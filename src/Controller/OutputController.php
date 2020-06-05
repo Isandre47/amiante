@@ -3,7 +3,7 @@
  *  Copyright (c) isandre.net
  *  Created by PhpStorm.
  *  User: Isandre47
- *  Date: 22/05/2020 20:06
+ *  Date: 05/06/2020 21:15
  *
  */
 
@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class OutputController extends AbstractController
 {
     /**
-     * @Route("/", name="output")
+     * @Route("/", name="output", methods={"GET"})
      */
     public function index(OutputRepository $outputRepository)
     {
@@ -36,7 +36,7 @@ class OutputController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="output_new")
+     * @Route("/new", name="output_new", methods={"GET","POST"})
      */
     public function new(Request $request, ZoneRepository $zoneRepository)
     {
@@ -61,7 +61,7 @@ class OutputController extends AbstractController
     }
 
     /**
-     * @Route("/show", name="output_show")
+     * @Route("/show", name="output_show", methods={"GET"})
      */
     public function show(Request $request, OutputRepository $outputRepository)
     {

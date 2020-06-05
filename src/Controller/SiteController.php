@@ -3,7 +3,7 @@
  *  Copyright (c) isandre.net
  *  Created by PhpStorm.
  *  User: Isandre47
- *  Date: 22/05/2020 20:06
+ *  Date: 05/06/2020 21:15
  *
  */
 
@@ -32,7 +32,7 @@ class SiteController extends AbstractController
     const PHASE = 'Phase Chantier';
 
     /**
-     * @Route("/", name="site_index")
+     * @Route("/", name="site_index", methods={"GET"})
      */
     public function index(SiteRepository $siteRepository): Response
     {
@@ -42,7 +42,7 @@ class SiteController extends AbstractController
     }
 
     /**
-     * @Route("new", name="site_new")
+     * @Route("new", name="site_new"), methods={"GET","POST"})
      */
     public function new(Request $request , CategoryRepository $categoryRepository): Response
     {
@@ -81,7 +81,7 @@ class SiteController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="site_edit")
+     * @Route("/edit/{id}", name="site_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Site $site, CategoryRepository $categoryRepository): Response
     {
@@ -139,7 +139,7 @@ class SiteController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="delete_zone")
+     * @Route("/delete/{id}", name="delete_zone", methods={"DELETE"})
      */
     public function deleteZone(Request $request, Zone $zone)
     {
@@ -152,7 +152,7 @@ class SiteController extends AbstractController
     }
 
     /**
-     * @Route("/show/{id}", name="show_site")
+     * @Route("/show/{id}", name="show_site", methods={"GET"})
      */
     public function show(Site $site)
     {
