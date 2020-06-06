@@ -28,6 +28,19 @@
                         <th>Reference</th>
                         <td>{{ process.reference }}</td>
                     </tr>
+                        <th>Seuil</th>
+                    {% if process.rate < 100 %}
+                        <td class="bg-info">{{ process.rate }}</td>
+                    {% elseif process.rate < 6000 %}
+                        <td class="bg-warning">{{ process.rate }}</td>
+                    {% elseif process.rate < 25000 %}
+                        <td class="bg-danger">{{ process.rate }}</td>
+                    {% endif %}
+                    <td>
+                    <tr>
+                        <th>Descriptif</th>
+                        <td>{{ process.processing }}</td>
+                    </tr>
                     </tbody>
                 </table>
 

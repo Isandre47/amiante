@@ -60,11 +60,17 @@ class Zone
      */
     private $fiber = [];
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Process::class, mappedBy="zone")
+     */
+    private $processes;
+
     public function __construct()
     {
         $this->initials = new ArrayCollection();
         $this->removals = new ArrayCollection();
         $this->outputs = new ArrayCollection();
+        $this->processes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -209,6 +215,34 @@ class Zone
     public function setFiber(array $fiber): self
     {
         $this->fiber = $fiber;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Process[]
+     */
+    public function getProcesses(): Collection
+    {
+        return $this->processes;
+    }
+
+    public function addProcess(Process $process): self
+    {
+        if (!$this->processes->contains($process)) {
+            $this->processes[] = $process;
+            $process->addZone($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProcess(Process $process): self
+    {
+        if ($this->processes->contains($process)) {
+            $this->processes->removeElement($process);
+            $process->removeZone($this);
+        }
 
         return $this;
     }

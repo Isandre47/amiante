@@ -39,11 +39,6 @@ class Initial
     private $date;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $rate;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $result;
@@ -85,18 +80,6 @@ class Initial
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    public function getRate(): ?string
-    {
-        return $this->rate;
-    }
-
-    public function setRate(string $rate): self
-    {
-        $this->rate = $rate;
 
         return $this;
     }

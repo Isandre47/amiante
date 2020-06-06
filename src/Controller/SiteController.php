@@ -118,7 +118,6 @@ class SiteController extends AbstractController
             $zoneName = $categoryRepository->find($request->request->get('site')["zones"]);
             $zone->setCategory($zoneName);
             $zone->setFiber($request->request->get('site')['fibreType']);
-//            dd($request, $site, $zone);
             $em = $this->getDoctrine()->getManager();
             $em->persist($site);
             // Pour le cas ou l'utilisateur n'ajoute aucune zone à modifier, du coup, ce champ sera vide dans la requête

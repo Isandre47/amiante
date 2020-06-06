@@ -18,6 +18,7 @@
                 <th>Id</th>
                 <th>Nom</th>
                 <th>Réference</th>
+                <th>Seuil</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -27,7 +28,14 @@
                 <td>{{ process.id }}</td>
                 <td>{{ process.name }}</td>
                 <td>{{ process.reference }}</td>
-                <td>
+                {% if process.rate < 100 %}
+                    <td class="bg-info">{{ process.rate }}</td>
+                {% elseif process.rate < 6000 %}
+                    <td class="bg-warning">{{ process.rate }}</td>
+                {% elseif process.rate < 25000 %}
+                    <td class="bg-danger">{{ process.rate }}</td>
+                {% endif %}
+                    <td>
                     <a href="{{ path('process_show', {'id': process.id}) }}">Voir</a>
                     <a href="{{ path('process_edit', {'id': process.id}) }}">éditer</a>
                 </td>

@@ -26,7 +26,6 @@ class ZoneController extends AbstractController
     public function index()
     {
         return $this->render('zone/index.html.twig', [
-            'controller_name' => 'ZoneController',
         ]);
     }
 
