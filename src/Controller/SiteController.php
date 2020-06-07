@@ -10,9 +10,11 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Process;
 use App\Entity\Site;
 use App\Entity\Zone;
 use App\Form\CategoryType;
+use App\Form\ProcessType;
 use App\Form\SiteType;
 use App\Repository\CategoryRepository;
 use App\Repository\SiteRepository;
@@ -51,7 +53,7 @@ class SiteController extends AbstractController
         $zone = new Zone();
         $formSite = $this->createForm(SiteType::class, $site);
         $formCategory = $this->createForm(CategoryType::class, $category, [
-            'action' => '/category/new-by-site'
+//            'action' => '/category/new-by-site'
             ])
             ->remove('type')
             ->add('origin', HiddenType::class, [
@@ -97,12 +99,12 @@ class SiteController extends AbstractController
          * Sa valeur est l'id du site qui sera passé en paramètre de la redirection après ajout du champ
          */
         $formCategory = $this->createForm(CategoryType::class, $category, [
-            'action' => '/category/new-by-site',
-        ])->add('origin', HiddenType::class, [
-                'mapped' => false,
-                'attr' => [
-                    'value' => 'site_edit'
-                ]
+//            'action' => '/category/new-by-site',
+//        ])->add('origin', HiddenType::class, [
+//                'mapped' => false,
+//                'attr' => [
+//                    'value' => 'site_edit'
+//                ]
             ])
             ->add('siteId', HiddenType::class, [
                 'mapped' => false,
