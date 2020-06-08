@@ -3,7 +3,7 @@
  *  Copyright (c) isandre.net
  *  Created by PhpStorm.
  *  User: Isandre47
- *  Date: 05/06/2020 21:15
+ *  Date: 08/06/2020 02:25
  *
  */
 
@@ -33,34 +33,6 @@ class CategoryController extends AbstractController
         return $this->render('admin/category/index.html.twig', [
             'categories' => $categoryRepository->findAll(),
         ]);
-    }
-
-    /**
-     * @Route("/new-by-site", name="category_new_by_site", methods={"GET","POST"})
-     */
-    public function newBySite(Request $request): Response
-    {
-        $category = new Category();
-        $formCategory = $this->createForm(CategoryType::class, $category, [
-            'data_class' => Category::class,
-        ]);
-        $formCategory->handleRequest($request);
-        $em = $this->getDoctrine()->getManager();
-        // Si le formulaire d'ajout de catégorie contient un point d'origine, on le traite
-        if ($request->request->get('category')['origin'] == 'site_new') {
-            $route = 'site_new';
-            $site = [];
-            $category->setType(SiteController::PHASE);
-        } elseif ($request->request->get('category')['origin'] == 'site_edit') {
-            $route = 'site_edit';
-            $site = ['id' => $request->request->get('category')['siteId']];
-            $category->setType(SiteController::PHASE);
-        }
-        $em->persist($category);
-        $em->flush();
-
-        return $this->redirectToRoute($route, $site);
-
     }
 
     /**

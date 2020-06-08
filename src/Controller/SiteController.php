@@ -3,7 +3,7 @@
  *  Copyright (c) isandre.net
  *  Created by PhpStorm.
  *  User: Isandre47
- *  Date: 05/06/2020 21:15
+ *  Date: 08/06/2020 02:25
  *
  */
 
@@ -17,6 +17,7 @@ use App\Form\CategoryType;
 use App\Form\ProcessType;
 use App\Form\SiteType;
 use App\Repository\CategoryRepository;
+use App\Repository\ProcessRepository;
 use App\Repository\SiteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -46,28 +47,23 @@ class SiteController extends AbstractController
     /**
      * @Route("new", name="site_new"), methods={"GET","POST"})
      */
-    public function new(Request $request , CategoryRepository $categoryRepository): Response
+    public function new(Request $request , CategoryRepository $categoryRepository, ProcessRepository $processRepository): Response
     {
         $site = new Site();
         $category = new Category();
         $zone = new Zone();
         $formSite = $this->createForm(SiteType::class, $site);
-        $formCategory = $this->createForm(CategoryType::class, $category, [
-//            'action' => '/category/new-by-site'
-            ])
+        $formCategory = $this->createForm(CategoryType::class, $category)
             ->remove('type')
-            ->add('origin', HiddenType::class, [
-                'attr' => [
-                    'value' => 'site_new'
-                ],
-                'mapped' => false,
-            ]);
+            ;
         $formSite->handleRequest($request);
 
         if ($formSite->isSubmitted()) {
             $zone->setSite($site);
             $zoneName = $categoryRepository->find($request->request->get('site')["zones"]);
             $zone->setCategory($zoneName);
+            $process = $processRepository->find($request->request->get('site')["process"]);
+            $zone->addProcess($process);
             $em = $this->getDoctrine()->getManager();
             $em->persist($site);
             $em->persist($zone);
@@ -98,14 +94,7 @@ class SiteController extends AbstractController
          * Ajout d'une valeur "origin" afin de pouvoir récuperer cette valeur dans le formulaire d'ajout de catégorie
          * Sa valeur est l'id du site qui sera passé en paramètre de la redirection après ajout du champ
          */
-        $formCategory = $this->createForm(CategoryType::class, $category, [
-//            'action' => '/category/new-by-site',
-//        ])->add('origin', HiddenType::class, [
-//                'mapped' => false,
-//                'attr' => [
-//                    'value' => 'site_edit'
-//                ]
-            ])
+        $formCategory = $this->createForm(CategoryType::class, $category)
             ->add('siteId', HiddenType::class, [
                 'mapped' => false,
                 'attr' => [

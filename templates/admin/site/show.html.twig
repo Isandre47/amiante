@@ -45,6 +45,14 @@
                                         {% endfor %}
                                     </ul>
                                 {% endif %}
+                                {% if siteZone.processes.count > 0 %}
+                                    Processus: nb ( {{ siteZone.initials.count }} )
+                                    <ul>
+                                        {% for process in siteZone.processes %}
+                                            <li>{{ process.name }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
                                 {% if siteZone.removals.count > 0 %}
                                     Analyse en cours de retrait: nb ( {{ siteZone.removals.count }} )
                                     <ul>
