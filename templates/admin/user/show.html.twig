@@ -3,43 +3,51 @@
 {% block title %}Fiche utilisateur {% endblock %}
 
 {% block right %}
-    <div class="row">
-        <div class="col-6">
-            {{ user.firstname }} {{ user.lastname }} <br>
-            Chantier actuel : {{ user.site.name }} <br>
-            <hr>
-            Zones en cours:
-            <hr>
-            {% for zone in user.site.zones %}
-                Phase : {{ zone.category.name }}
-                <br>
-                Analyse initiale:
-                <br>
-                {% for initial in zone.initials %}
-                    {{ initial.location }}
-                {% endfor %}
-
-                Analyse en cours de retrait:
-                <br>
-                {% for removal in zone.removals %}
-                    {{ removal.location }}
-                {% endfor %}
-
-                Analyse finale:
-                <br>
-                {% for output in zone.outputs %}
-                    {{ output.location }}
-                {% endfor %}
-                <hr>
-            {% endfor %}
-        </div>
-        <div class="col-4">
-            Historique: <br>
-            {% for item in user.history %}
-                Nombre de chantier: {{ user.history|length }} <br>
-                {{ item['site'] }}, à partir du {{ item['date_arrived']['date']|format_date }}
-                <br>
-            {% endfor %}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>{{ user.firstname }} {{ user.lastname }}</h1>
+            </div>
         </div>
     </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h3>{{ user.site.name }}</h3>
+                 <br>
+                {% for zone in user.site.zones %}
+                    Phase : {{ zone.category.name }}
+                    <br>
+                    Analyse initiale:
+                    <br>
+                    {% for initial in zone.initials %}
+                        {{ initial.location }}
+                    {% endfor %}
+
+                    Analyse en cours de retrait:
+                    <br>
+                    {% for removal in zone.removals %}
+                        {{ removal.location }}
+                    {% endfor %}
+
+                    Analyse finale:
+                    <br>
+                    {% for output in zone.outputs %}
+                        {{ output.location }}
+                    {% endfor %}
+                    <hr>
+                {% endfor %}
+            </div>
+            <div class="col-4">
+                Historique: <br>
+                {% for item in user.history %}
+                    Nombre de chantier: {{ user.history|length }} <br>
+                    {{ item['site'] }}, à partir du {{ item['date_arrived']['date']|format_date }}
+                    <br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
