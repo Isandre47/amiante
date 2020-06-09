@@ -21,6 +21,10 @@
                         {{ form_start(formSite) }}
                         {{ form_row(formSite.name) }}
                         {{ form_row(formSite.zones) }}
+                        {{ form_row(formSite.fibreType) }}
+                        {{ form_row(formSite.process) }}
+                        <br>
+                        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
                         <br>
                         {{ form_end(formSite) }}
                         <hr>
@@ -42,6 +46,7 @@
                     <thead>
                     <tr>
                         <td>Phases en cours</td>
+                        <td>Process</td>
                         <td>Gestion</td>
                     </tr>
                     </thead>
@@ -49,6 +54,13 @@
                     {% for sitePhase in site.zones %}
                         <tr>
                             <td>{{ sitePhase.category.name }}</td>
+                            <td>
+                                <ul>
+                                    {% for process in sitePhase.processes %}
+                                        <li>{{ process.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
                             <td>{{ include('admin/site/_deleteform.html.twig') }}</td>
                         </tr>
                     {% endfor %}

@@ -15,6 +15,7 @@ use App\Entity\Site;
 use App\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -72,14 +73,11 @@ class SiteType extends AbstractType
                 'choice_label' => 'name',
                 'mapped' => false,
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-check'
                 ],
+                'multiple' => true,
+                'expanded' => true,
             ])
-            ->add('Envoyer', SubmitType::class, [
-                'attr' => [
-                    'class' => 'm-1 btn btn-primary'
-                ]
-            ]);
         ;
     }
 

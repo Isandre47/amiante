@@ -19,6 +19,10 @@
                 {{ form_start(formSite) }}
                 {{ form_row(formSite.name) }}
                 {{ form_row(formSite.zones) }}
+                {{ form_row(formSite.process) }}
+                {{ form_row(formSite.fibreType) }}
+                <br>
+                <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
                 <br>
                 {{ form_end(formSite) }}
                 <hr>

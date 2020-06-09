@@ -61,9 +61,12 @@ class SiteController extends AbstractController
         if ($formSite->isSubmitted()) {
             $zone->setSite($site);
             $zoneName = $categoryRepository->find($request->request->get('site')["zones"]);
+            $zone->setFiber($request->request->get('site')['fibreType']);
             $zone->setCategory($zoneName);
-            $process = $processRepository->find($request->request->get('site')["process"]);
-            $zone->addProcess($process);
+            foreach ($request->request->get('site')["process"] as $item) {
+            $process = $processRepository->find($item);
+                $zone->addProcess($process);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($site);
             $em->persist($zone);
@@ -81,7 +84,7 @@ class SiteController extends AbstractController
     /**
      * @Route("/edit/{id}", name="site_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Site $site, CategoryRepository $categoryRepository): Response
+    public function edit(Request $request, Site $site, CategoryRepository $categoryRepository, ProcessRepository $processRepository): Response
     {
         $category = new Category();
         $zone = new Zone();
@@ -109,6 +112,10 @@ class SiteController extends AbstractController
             $zoneName = $categoryRepository->find($request->request->get('site')["zones"]);
             $zone->setCategory($zoneName);
             $zone->setFiber($request->request->get('site')['fibreType']);
+            foreach ($request->request->get('site')["process"] as $item) {
+                $process = $processRepository->find($item);
+                $zone->addProcess($process);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($site);
             // Pour le cas ou l'utilisateur n'ajoute aucune zone à modifier, du coup, ce champ sera vide dans la requête
