@@ -1,0 +1,25 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}Edit Mask{% endblock %}
+
+{% block right %}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Edition du masque</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+
+            {{ include('admin/mask/_form.html.twig', {'button_label': 'Update'}) }}
+
+            <a href="{{ path('mask_index') }}">back to list</a>
+
+            {{ include('admin/mask/_delete_form.html.twig') }}
+        </div>
+    </div>
+
+{% endblock %}

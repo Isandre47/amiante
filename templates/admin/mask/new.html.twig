@@ -1,0 +1,22 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}New Mask{% endblock %}
+
+{% block right %}
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>Ajouter un masque</h1>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            {{ include('admin/mask/_form.html.twig') }}
+
+            <a href="{{ path('mask_index') }}">back to list</a>
+        </div>
+    </div>
+
+{% endblock %}
