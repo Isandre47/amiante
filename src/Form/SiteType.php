@@ -1,16 +1,27 @@
 <?php
+/**
+ *  Copyright (c) isandre.net
+ *  Created by PhpStorm.
+ *  User: Isandre47
+ *  Date: 08/06/2020 02:25
+ *
+ */
 
 namespace App\Form;
 
 use App\Entity\Category;
+use App\Entity\Process;
 use App\Entity\Site;
 use App\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SiteType extends AbstractType
@@ -57,10 +68,15 @@ class SiteType extends AbstractType
                 'multiple' => true,
                 'label' => 'Type de fibre',
             ])
-            ->add('Envoyer', SubmitType::class, [
+            ->add('process', EntityType::class, [
+                'class' => Process::class,
+                'choice_label' => 'name',
+                'mapped' => false,
                 'attr' => [
-                    'class' => 'm-1 btn btn-primary'
-                ]
+                    'class' => 'form-check'
+                ],
+                'multiple' => true,
+                'expanded' => true,
             ])
         ;
     }

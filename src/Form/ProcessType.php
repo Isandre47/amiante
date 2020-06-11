@@ -3,7 +3,7 @@
  *  Copyright (c) isandre.net
  *  Created by PhpStorm.
  *  User: Isandre47
- *  Date: 06/06/2020 00:06
+ *  Date: 08/06/2020 02:25
  *
  */
 
@@ -52,6 +52,7 @@ class ProcessType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Process::class,
+            'inherit_data' => true,
         ]);
     }
 }

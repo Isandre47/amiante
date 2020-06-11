@@ -21,6 +21,10 @@
                         {{ form_start(formSite) }}
                         {{ form_row(formSite.name) }}
                         {{ form_row(formSite.zones) }}
+                        {{ form_row(formSite.fibreType) }}
+                        {{ form_row(formSite.process) }}
+                        <br>
+                        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
                         <br>
                         {{ form_end(formSite) }}
                         <hr>
@@ -31,6 +35,8 @@
                         {{ form_start(formCategory) }}
                         {{ form_row(formCategory.name) }}
                         <br>
+                        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+                        <br>
                         {{ form_end(formCategory) }}
                     </div>
                 </div>
@@ -40,6 +46,7 @@
                     <thead>
                     <tr>
                         <td>Phases en cours</td>
+                        <td>Process</td>
                         <td>Gestion</td>
                     </tr>
                     </thead>
@@ -47,6 +54,13 @@
                     {% for sitePhase in site.zones %}
                         <tr>
                             <td>{{ sitePhase.category.name }}</td>
+                            <td>
+                                <ul>
+                                    {% for process in sitePhase.processes %}
+                                        <li>{{ process.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
                             <td>{{ include('admin/site/_deleteform.html.twig') }}</td>
                         </tr>
                     {% endfor %}
@@ -59,7 +73,28 @@
 {% endblock %}
 
 {% block script %}
-    <script type="text/javascript">
-        console.log('super trop con');
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>
+        $( function () {
+            $('form[name="category"]').submit(function (event) {
+                var category = $('#category_name').val();
+                console.log(category);
+                $.ajax( {
+                    type: 'POST',
+                    url: '{{ path('category_new') }}',
+                    data: {
+                        name: category,
+                        type: 'Phase Chantier'
+                    },
+                    success: function() {
+                        console.log('success');
+                    },
+                    error: function (data) {
+                        console.log('error');
+
+                    }
+                } );
+            })
+        })
     </script>
-{% endblock  %}
+{% endblock %}

@@ -3,7 +3,7 @@
  *  Copyright (c) isandre.net
  *  Created by PhpStorm.
  *  User: Isandre47
- *  Date: 05/06/2020 21:15
+ *  Date: 08/06/2020 02:25
  *
  */
 
@@ -13,14 +13,20 @@ use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class CategoryController
+ * @package App\Controller
+ * @Route("/category")
+ */
 class CategoryController extends AbstractController
 {
     /**
-     * @Route("/category", name="category_index", methods={"GET"}))
+     * @Route("/index", name="category_index", methods={"GET"}))
      */
     public function index(CategoryRepository $categoryRepository): Response
     {
@@ -30,41 +36,25 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("category/new-by-site", name="category_new_by_site", methods={"GET","POST"})
-     */
-    public function newBySite(Request $request): Response
-    {
-        $category = new Category();
-        $formCategory = $this->createForm(CategoryType::class, $category, [
-            'data_class' => Category::class,
-        ]);
-        $formCategory->handleRequest($request);
-        $em = $this->getDoctrine()->getManager();
-        // Si le formulaire d'ajout de catégorie contient un point d'origine, on le traite
-        if ($request->request->get('category')['origin'] == 'site_new') {
-            $route = 'site_new';
-            $site = [];
-            $category->setType(SiteController::PHASE);
-        } elseif ($request->request->get('category')['origin'] == 'site_edit') {
-            $route = 'site_edit';
-            $site = ['id' => $request->request->get('category')['siteId']];
-            $category->setType(SiteController::PHASE);
-        }
-        $em->persist($category);
-        $em->flush();
-
-        return $this->redirectToRoute($route, $site);
-
-    }
-
-    /**
-     * @Route("new", name="category_new", methods={"GET","POST"})
+     * @Route("/new", name="category_new")
      */
     public function new(Request $request)
     {
         $category = new Category();
         $formCategory = $this->createForm(CategoryType::class, $category);
         $formCategory->handleRequest($request);
+
+        if ($request->isXmlHttpRequest()) {
+            $name = $request->request->get('name');
+            $type = $request->request->get('type');
+            $category->setName($name);
+            $category->settype($type);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+
+            return new JsonResponse(['name' => $name, 'type' => $type], 200);
+        }
 
         if ($formCategory->isSubmitted() && $formCategory->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -80,7 +70,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/category/edit/{id}", name="category_edit", methods={"GET","POST"})
+     * @Route("/edit/{id}", name="category_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Category $category): Response
     {

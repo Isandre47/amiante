@@ -31,11 +31,11 @@ class CategoryType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('Envoyer', SubmitType::class, [
-                'attr' => [
-                    'class' => 'm-1 btn btn-primary'
-                ]
-            ])
+//            ->add('Envoyer', SubmitType::class, [
+//                'attr' => [
+//                    'class' => 'm-1 btn btn-primary'
+//                ]
+//            ])
         ;
     }
 

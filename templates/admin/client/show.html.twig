@@ -3,22 +3,31 @@
 {% block title %}Détail client{% endblock %}
 
 {% block right %}
-    <div class="row">
-        <div class="col-6 shadow rounded">
-            Client:
-            {{ client.name }} <br>
-            {{ client.user.firstname }} {{ client.user.lastname }} <br>
-            <hr>
-            {% for sites in client.site %}
-                {{ sites.name }} <br>
-                {% for zone in sites.zones %}
-                    {{ zone.category.name }} <br>
-                {% endfor %}
-                <hr>
-            {% endfor %}
-        </div>
-        <div class="col-4 offset-1 shadow rounded">
-            zone à définir
+    <div class="container-fluid">
+        <div class="row m-3" style="height: 10vh">
+            <div class="col-12 text-center">
+                <h1>{{ client.name }}</h1>
+            </div>
         </div>
     </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                Responsable: {{ client.user.firstname }} {{ client.user.lastname }} <br>
+                <hr>
+                {% for sites in client.site %}
+                    {{ sites.name }} <br>
+                    {% for zone in sites.zones %}
+                        {{ zone.category.name }} <br>
+                    {% endfor %}
+                    <hr>
+                {% endfor %}
+            </div>
+            <div class="col-4 offset-1">
+                zone à définir
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

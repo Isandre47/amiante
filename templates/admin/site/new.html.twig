@@ -19,6 +19,10 @@
                 {{ form_start(formSite) }}
                 {{ form_row(formSite.name) }}
                 {{ form_row(formSite.zones) }}
+                {{ form_row(formSite.process) }}
+                {{ form_row(formSite.fibreType) }}
+                <br>
+                <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
                 <br>
                 {{ form_end(formSite) }}
                 <hr>
@@ -33,8 +37,39 @@
                 {{ form_start(formCategory) }}
                 {{ form_row(formCategory.name) }}
                 <br>
+                <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+                <br>
                 {{ form_end(formCategory) }}
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block script %}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>
+        $( function () {
+            $('form[name="category"]').submit(function (event) {
+                var category = $('#category_name').val();
+                console.log(category);
+                $.ajax( {
+                    type: 'POST',
+                    url: '{{ path('category_new') }}',
+                    data: {
+                        name: category,
+                        type: 'Phase Chantier'
+                    },
+                    success: function(data) {
+                        console.log('success');
+                        console.log(data);
+                        // $('#info').html(html);
+                    },
+                    error: function (data) {
+                        console.log('error');
+
+                    }
+                } );
+            })
+        })
+    </script>
 {% endblock %}
