@@ -9,6 +9,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -79,6 +81,16 @@ class User implements UserInterface
      * @ORM\Column(type="json", nullable=true)
      */
     private $history = [];
+
+    /**
+     * @ORM\OneToMany(targetEntity=Mask::class, mappedBy="user")
+     */
+    private $masks;
+
+    public function __construct()
+    {
+        $this->masks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -248,6 +260,37 @@ class User implements UserInterface
     public function setHistory(?array $history): self
     {
         $this->history = $history;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mask[]
+     */
+    public function getMasks(): Collection
+    {
+        return $this->masks;
+    }
+
+    public function addMask(Mask $mask): self
+    {
+        if (!$this->masks->contains($mask)) {
+            $this->masks[] = $mask;
+            $mask->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMask(Mask $mask): self
+    {
+        if ($this->masks->contains($mask)) {
+            $this->masks->removeElement($mask);
+            // set the owning side to null (unless already changed)
+            if ($mask->getUser() === $this) {
+                $mask->setUser(null);
+            }
+        }
 
         return $this;
     }

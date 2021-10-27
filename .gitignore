@@ -18,3 +18,8 @@
 /.idea/
 /src/Migrations/
 /.env.test
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###

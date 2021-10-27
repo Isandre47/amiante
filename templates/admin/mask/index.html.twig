@@ -18,6 +18,7 @@
                 <th>Id</th>
                 <th>Reference</th>
                 <th>Status</th>
+                <th>Utilisateur</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -27,6 +28,13 @@
                     <td>{{ mask.id }}</td>
                     <td>{{ mask.reference }}</td>
                     <td>{{ mask.status }}</td>
+                    <td>
+                        <ul>
+                            {% for user in mask.user %}
+                            <li>user</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
                     <td>
                         <a href="{{ path('mask_show', {'id': mask.id}) }}">show</a>
                         <a href="{{ path('mask_edit', {'id': mask.id}) }}">edit</a>
