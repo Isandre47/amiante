@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome React!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"> Symfony React Starter </a>
+</nav>
+
+<div id="root"></div>
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+
+    <!-- Include the compiled script-->
+
+{% endblock %}
+</body>
+</html>
