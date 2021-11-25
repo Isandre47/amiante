@@ -1,44 +1,45 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import Welcome from "./Component/Welcome";
+import axios from "axios";
 
-import Items from "./Component/Items";
-
-class App extends React.Component {
-    constructor() {
-        super();
-
+class App extends Component {
+    constructor(props) {
+        super(props);
         this.state = {
-            entries: []
-        };
+            name: 'Idiot',
+            users: []
+        }
     }
 
     componentDidMount() {
-        fetch('https://jsonplaceholder.typicode.com/posts/')
-            .then(response => response.json())
-            .then(entries => {
-                console.log('fecth')
-                this.setState({
-                    entries
-                });
-            });
+        this.getUsers();
+    }
+
+    getUsers() {
+        axios.get('http://amiante/users').then(users => {
+            console.log(users);
+            this.setState({users: users.data})
+        })
     }
 
     render() {
         return (
-            <div className="row">
-                {this.state.entries.map(
-                    ({ id, title, body }) => (
-                        <Items
-                            key={id}
-                            title={title}
-                            body={body}
-                        >
-                        </Items>
-                    )
-                )}
+            <div>
+                <p>
+                    Hello world!
+                </p>
+                <div>
+                    <Welcome nom={this.state.name}/>
+                    <ul>
+                        { this.state.users.map(user =>
+                            <li>{user.name}</li>
+                        )}
+                    </ul>
+                </div>
             </div>
-        );
+        )
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App/>, document.getElementById('root'));
