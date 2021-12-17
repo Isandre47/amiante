@@ -18,7 +18,7 @@ class HomeController extends ApiController
     }
 
     /**
-     * @Route("users", name="users_axios")
+     * @Route("/users", name="users_axios")
      */
     public function getUsers (): JsonResponse
     {
