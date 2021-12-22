@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends ApiController
 {
     /**
-     * @Route("/homepage", name="homepage")
+     * @Route("/dashboard", name="homepage")
      */
     public function homePage(): Response
     {
