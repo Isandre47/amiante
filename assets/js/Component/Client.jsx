@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 
-class AnotherPage extends Component {
+class Client extends Component {
   render() {
     return (
         <div className={'bg-danger'}>
-          Another Page !
+          Clien Page !
         </div>
     )
   }
 }
 
-export default AnotherPage
+export default Client

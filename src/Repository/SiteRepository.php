@@ -11,6 +11,7 @@ namespace App\Repository;
 
 use App\Entity\Site;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -24,6 +25,20 @@ class SiteRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Site::class);
+    }
+
+    /**
+     * @return Query Returns an array of User objects
+     */
+    public function allSitesWithNbUser(): Query
+    {
+        return $this->createQueryBuilder('s')
+            ->leftJoin('s.users', 'users')
+            ->addSelect('COUNT(users.id) as nbUsers')
+            ->orderBy('s.id', 'ASC')
+            ->groupBy('s.name')
+            ->getQuery()
+            ;
     }
 
     // /**

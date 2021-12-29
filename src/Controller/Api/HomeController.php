@@ -2,6 +2,8 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Equipment;
+use App\Entity\Site;
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,8 +56,27 @@ class HomeController extends ApiController
                     'imageURL' => 'https://randomuser.me/api/portraits/men/89.jpg'
                 ]
             ];
-        $users = $this->getDoctrine()->getManager()->getRepository(User::class)->allUsers();
+        $users = $this->getDoctrine()->getManager()->getRepository(User::class)->allUsers()->getArrayResult();
 
         return new JsonResponse($users);
+    }
+
+    /**
+     * @Route("/dashboard_data", name="dashboard_data")
+     */
+    public function dashboardData(): JsonResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        $equipments = $em->getRepository(Equipment::class)->allEquipments()->getArrayResult();
+        $users = $em->getRepository(User::class)->allUsers()->getArrayResult();
+        $sites = $em->getRepository(Site::class)->allSitesWithNbUser()->getScalarResult();
+
+        $data = [
+            'users' => $users,
+            'equipments' => $equipments,
+            'sites' => $sites,
+        ];
+
+        return $this->json($data);
     }
 }

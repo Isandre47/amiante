@@ -2,24 +2,40 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Navbar from "./Component/Navbar";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
-import AnotherPage from "./Component/AnotherPage";
+import Client from "./Component/Client";
 import Dashboard from "./Component/Dashboard";
 import User from "./Component/User";
+import Site from "./Component/Site";
+import Category from './Component/Category';
+import Equipment from "./Component/Equipment";
+import AnalysisInitial from "./Component/AnalysisInitial";
+import AnalysisWithdrawn from "./Component/AnalysisWithdrawn";
+import AnalysisFallback from "./Component/AnalysisFallback";
+import Process from "./Component/Process";
+import Mask from "./Component/Mask";
 
 class App extends Component {
     render() {
       return (
           <div className={'container-fluid'}>
-            <div className={'bg-secondary'}>
+            <div className={'bg-light'}>
               <BrowserRouter>
                 <div className="row">
                   <Navbar />
                   <div className={'col-9 shadow bg-light'}>
                     <br/>
                     <Routes>
-                      <Route path={'/another-page'} element={<AnotherPage />}/>
                       <Route path={'/dashboard'} element={<Dashboard />}/>
                       <Route path={'/users'} element={<User />}/>
+                      <Route path={'/clients'} element={<Client />}/>
+                      <Route path={'/chantiers'} element={<Site />}/>
+                      <Route path={'/materiels'} element={<Equipment />}/>
+                      <Route path={'/categories'} element={<Category />}/>
+                      <Route path={'/analyse-initiale'} element={<AnalysisInitial />}/>
+                      <Route path={'/analyse-retrait'} element={<AnalysisWithdrawn />}/>
+                      <Route path={'/analyse-repli'} element={<AnalysisFallback />}/>
+                      <Route path={'/processus'} element={<Process />}/>
+                      <Route path={'/masques'} element={<Mask />}/>
                     </Routes>
                   </div>
                 </div>

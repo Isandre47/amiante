@@ -1,7 +1,30 @@
 import React, {Component} from "react";
+import axios from "axios";
 
 class Dashboard extends Component {
+  constructor() {
+    super();
+    this.state = {
+      users: [],
+      equipments: [],
+      sites: []
+    }
+  }
+
+  componentDidMount() {
+    this.getUsers();
+  }
+
+  getUsers() {
+    axios.get('/dashboard_data').then(dash => {
+      this.setState({users: dash.data.users})
+      this.setState({equipments: dash.data.equipments})
+      this.setState({sites: dash.data.sites})
+    })
+  }
+
   render() {
+    this.state.sites.map(item => console.log(item))
     return (
         <div className={'container-fluid'}>
           <div className={'row m-3'} style={{ height: '4rem'}}>
@@ -12,23 +35,35 @@ class Dashboard extends Component {
           <hr/>
           <div className={'row justify-content-around m-3'}>
             <div className={'col-4'}>
-              nb utilisateurs dont tant de client
+              nb utilisateurs dont tant de client {this.state.users.length}
             </div>
             <div className={'col-4'}>
-              tant de matos
+              tant de matos: {this.state.equipments.length}
             </div>
             <div className={'col-4'}>
-              que dalle pour le moment
+              Non renseignée
             </div>
           </div>
           <hr/>
+          {this.state.sites.length} chantiers
+          <br/>
           <div className={'row justify-content-around m-3'}>
-            <div className={'col-10'}>
-              nb chantiers
-              <ul>
-                Liste des chantiers et des users
-              </ul>
-            </div>
+            {
+              this.state.sites.map(site =>
+                  <div className="col-md-10 offset-md-1 row-block" key={site.s_id}>
+                    <ul id="sortable" className={'list-unstyled'}>
+                      <li>
+                        <div className="media">
+                          <div className="media-body">
+                            <p>{site.s_name} -
+                              {site.nbUsers > 0 ? site.nbUsers : 'aucun'} utilisateurs affecté !
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>)
+            }
           </div>
         </div>
     )
