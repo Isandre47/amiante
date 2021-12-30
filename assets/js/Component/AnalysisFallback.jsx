@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 
-class Client extends Component {
+class AnalysisWithdrawn extends Component {
   render() {
     return (
         <div className={'bg-danger'}>
-          Client Page !
+          Analyse en cours de retrait Page !
         </div>
     )
   }
 }
 
-export default Client
+export default AnalysisWithdrawn

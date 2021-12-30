@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 
-class Client extends Component {
+class AnalysisInitial extends Component {
   render() {
     return (
         <div className={'bg-danger'}>
-          Client Page !
+          Analyse initiale Page !
         </div>
     )
   }
 }
 
-export default Client
+export default AnalysisInitial

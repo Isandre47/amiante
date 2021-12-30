@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 
-class Client extends Component {
+class Equipment extends Component {
   render() {
     return (
         <div className={'bg-danger'}>
-          Client Page !
+          Equipement Page !
         </div>
     )
   }
 }
 
-export default Client
+export default Equipment
