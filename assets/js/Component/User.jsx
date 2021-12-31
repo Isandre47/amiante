@@ -5,7 +5,7 @@ class User extends Component {
   constructor() {
     super();
     this.state = {
-      users: []
+      users: [],
     }
   }
 
@@ -14,34 +14,47 @@ class User extends Component {
   }
 
   getUsers() {
-    axios.get('/users').then(users => {
-      console.log(users.data)
-      this.setState({users: users.data})
+    axios.get('/users_page').then(users => {
+      console.log('page user', users.data)
+      this.setState({users: users.data.users})
     })
   }
 
   render() {
     return (
-        <div>
-          Gestion des utilisateurs:
-          <div className={'row'}>
-            {
-              this.state.users.map(user =>
-                  <div className="col-md-10 offset-md-1 row-block" key={user.id}>
-                    <ul id="sortable">
-                      <li>
-                        <div className="media">
-                          <div className="media-body">
-                            <p>{user.email}, {user.lastname}</p>
-                          </div>
-                          <div className="media-right align-self-center">
-                            <a href="#" className="btn btn-default">Contact Now</a>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>)
-            }
+        <div className={'container-fluid'}>
+          <div className={'row m-3'} style={{height: '4rem'}}>
+            <div className={'col-12 text-center'}>
+              <h1>Index des utilisateurs</h1>
+            </div>
+          </div>
+          <hr/>
+          <a href="#">Ajouter un utilisateur</a>
+          <div className={'row m-3'}>
+            <table className={'table table-striped table-hover'}>
+              <thead>
+              <tr>
+                <td>email</td>
+                <td>Nom prénom</td>
+                <td>Chantier actuel</td>
+                <td>Gestion</td>
+              </tr>
+              </thead>
+              <tbody>
+              {
+                this.state.users.map(user =>
+                    <tr key={user.id}>
+                      <td>{user.email}</td>
+                      <td>{user.lastname} {user.firstname}</td>
+                      <td className={user.site === null ? 'bg-primary': ''}>
+                        {user.site === null ? <span>gère des chantiers</span> : user.site.name}<
+                      /td>
+                      <td><a href="#">Editer</a> - <a href="#">Plus d'infos</a></td>
+                    </tr>
+                )
+              }
+              </tbody>
+            </table>
           </div>
         </div>
     )

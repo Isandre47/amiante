@@ -20,7 +20,7 @@ class HomeController extends ApiController
     }
 
     /**
-     * @Route("/users", name="users_axios")
+     * @Route("/users_page", name="users_axios")
      */
     public function getUsers (): JsonResponse
     {
@@ -56,9 +56,15 @@ class HomeController extends ApiController
                     'imageURL' => 'https://randomuser.me/api/portraits/men/89.jpg'
                 ]
             ];
-        $users = $this->getDoctrine()->getManager()->getRepository(User::class)->allUsers()->getArrayResult();
 
-        return new JsonResponse($users);
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository(User::class)->allUsersWithSites()->getArrayResult();
+
+        $data = [
+            'users' => $users,
+        ];
+
+        return $this->json($data);
     }
 
     /**
