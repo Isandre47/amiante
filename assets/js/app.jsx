@@ -4,7 +4,7 @@ import Navbar from "./Component/Navbar";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import Client from "./Component/Client";
 import Dashboard from "./Component/Dashboard";
-import User from "./Component/User";
+import UserIndex from "./Component/User/UserIndex";
 import Site from "./Component/Site";
 import Category from './Component/Category';
 import Equipment from "./Component/Equipment";
@@ -13,6 +13,7 @@ import AnalysisWithdrawn from "./Component/AnalysisWithdrawn";
 import AnalysisFallback from "./Component/AnalysisFallback";
 import Process from "./Component/Process";
 import Mask from "./Component/Mask";
+import UserShow from "./Component/User/UserShow";
 
 class App extends Component {
     render() {
@@ -26,7 +27,8 @@ class App extends Component {
                     <br/>
                     <Routes>
                       <Route path={'/dashboard'} element={<Dashboard />}/>
-                      <Route path={'/users'} element={<User />}/>
+                      <Route path={'/users'} element={<UserIndex />}/>
+                        <Route path=":userId" element={<UserShow />}/>
                       <Route path={'/clients'} element={<Client />}/>
                       <Route path={'/chantiers'} element={<Site />}/>
                       <Route path={'/materiels'} element={<Equipment />}/>

@@ -1,7 +1,9 @@
 import React, {Component} from "react";
 import axios from "axios";
+import {Link, Route, Routes} from "react-router-dom";
+import UserShow from "./UserShow";
 
-class User extends Component {
+class UserIndex extends Component {
   constructor() {
     super();
     this.state = {
@@ -25,7 +27,7 @@ class User extends Component {
         <div className={'container-fluid'}>
           <div className={'row m-3'} style={{height: '4rem'}}>
             <div className={'col-12 text-center'}>
-              <h1>Index des utilisateurs</h1>
+              <h1>Index des utilisateurs !</h1>
             </div>
           </div>
           <hr/>
@@ -49,7 +51,11 @@ class User extends Component {
                       <td className={user.site === null ? 'bg-primary': ''}>
                         {user.site === null ? <span>gère des chantiers</span> : user.site.name}<
                       /td>
-                      <td><a href="#">Editer</a> - <a href="#">Plus d'infos</a></td>
+                      <td>
+                        <a href="#">Editer</a>
+                        -
+                        <Link to={`/users/${user.id}`} className={'nav-link'} key={user.id}> Plus d'infos {user.id}</Link>
+                      </td>
                     </tr>
                 )
               }
@@ -61,4 +67,4 @@ class User extends Component {
   }
 }
 
-export default User
+export default UserIndex
