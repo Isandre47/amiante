@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
-import {Link, Route, Routes} from "react-router-dom";
+import {Link, Route, Routes, Outlet} from "react-router-dom";
 import UserShow from "./UserShow";
 
 class UserIndex extends Component {
@@ -54,7 +54,7 @@ class UserIndex extends Component {
                       <td>
                         <a href="#">Editer</a>
                         -
-                        <Link to={`/users/${user.id}`} className={'nav-link'} key={user.id}> Plus d'infos {user.id}</Link>
+                        <Link to={`/users/${user.id}`} className={'nav-link'} key={user.id}> Plus d'infos - -  + {user.id}</Link>
                       </td>
                     </tr>
                 )
