@@ -1,30 +1,26 @@
-import React, {Component} from "react";
+import React, {Component, useEffect, useState} from "react";
 import axios from "axios";
 
-class Dashboard extends Component {
-  constructor() {
-    super();
-    this.state = {
-      users: [],
-      equipments: [],
-      sites: [],
-      loading: true,
-      error: false
-    }
-  }
+function Dashboard() {
 
-  componentDidMount() {
-    this.getUsers();
-  }
+  const [users, setUsers] = useState([])
+  const [sites, setSites] = useState([])
+  const [equipments, setEquipments] = useState([])
+  // const [loading, setLoading] = useState(true)
+  // const [error, setError] = useState(false)
 
-  getUsers() {
+  useEffect(() => {
+    getUsers();
+  }, [])
+
+  function getUsers() {
     axios.get('/dashboard_data').then(dash => {
-      this.setState({users: dash.data.users})
-      this.setState({equipments: dash.data.equipments})
-      this.setState({sites: dash.data.sites})
-      this.setState({loading: false})
+      setUsers(dash.data.users)
+      setEquipments(dash.data.equipments)
+      setSites(dash.data.sites)
+      // setLoading(false)
     }).catch(error => {
-      console.log('error', this.state.users)
+      console.log('error', users)
       if (error.response) {
         console.log('error response', error.response);
       } else if (error.request) {
@@ -32,13 +28,12 @@ class Dashboard extends Component {
       } else {
         console.log('error message', error.message);
       }
-      this.setState({loading: false})
-      this.setState({error: true})
+      // setLoading(false)
+      // setError(true)
     })
   }
 
-  render() {
-    this.state.sites.map(item => console.log(item))
+    // this.state.sites.map(item => console.log(item))
     return (
         <div className={'container-fluid'}>
           <div className={'row m-3'} style={{ height: '4rem'}}>
@@ -54,21 +49,21 @@ class Dashboard extends Component {
           <div>
             <div className={'row justify-content-around m-3'}>
               <div className={'col-4'}>
-                nb utilisateurs dont tant de client {this.state.users.length}
+                nb utilisateurs dont tant de client {users.length}
               </div>
               <div className={'col-4'}>
-                tant de matos: {this.state.equipments.length}
+                tant de matos: {equipments.length}
               </div>
               <div className={'col-4'}>
                 Non renseignée
               </div>
             </div>
             <hr/>
-            {this.state.sites.length} chantiers
+            {sites.length} chantiers
             <br/>
             <div className={'row justify-content-around m-3'}>
               {
-                this.state.sites.map(site =>
+                sites.map(site =>
                     <div className="col-md-10 offset-md-1 row-block" key={site.s_id}>
                       <ul id="sortable" className={'list-unstyled'}>
                         <li>
@@ -88,7 +83,6 @@ class Dashboard extends Component {
           </div>
         </div>
     )
-  }
 }
 
 export default Dashboard

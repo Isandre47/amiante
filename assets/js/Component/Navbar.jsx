@@ -2,8 +2,7 @@ import React, {Component} from "react";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import Logo from '/public/images/logo_dragon.png';
 
-class Navbar extends Component {
-  render() {
+function Navbar() {
     return (
         <div className={'col-2 bg-light'}>
           <div>
@@ -47,7 +46,6 @@ class Navbar extends Component {
           </nav>
         </div>
     )
-  }
 }
 
 export default Navbar

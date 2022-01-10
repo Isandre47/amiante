@@ -15,8 +15,7 @@ import Process from "./Component/Process";
 import Mask from "./Component/Mask";
 import UserShow from "./Component/User/UserShow";
 
-class App extends Component {
-    render() {
+function App() {
       return (
           <div className={'container-fluid'}>
             <div className={'bg-light'}>
@@ -45,7 +44,6 @@ class App extends Component {
             </div>
           </div>
       )
-    }
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
