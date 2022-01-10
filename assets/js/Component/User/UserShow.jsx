@@ -1,20 +1,16 @@
 import React, {Component} from "react";
 import {useParams} from "react-router-dom";
 
-class UserShow extends Component {
-  constructor() {
-    super();
-    let userId = '';
-    console.log('viex page user', userId);
-  }
+function UserShow() {
 
-  render() {
+  let user = useParams();
+  console.log(user);
+
     return (
         <div>
-          View User
+          View User {user.userId}
         </div>
     )
-  }
 }
 
 export default UserShow

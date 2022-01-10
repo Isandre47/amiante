@@ -1,28 +1,23 @@
-import React, {Component} from "react";
+import React, {Component, useEffect, useState} from "react";
 import axios from "axios";
 import {Link, Route, Routes, Outlet} from "react-router-dom";
 import UserShow from "./UserShow";
 
-class UserIndex extends Component {
-  constructor() {
-    super();
-    this.state = {
-      users: [],
-    }
-  }
+function UserIndex () {
 
-  componentDidMount() {
-    this.getUsers();
-  }
+  const [users, setUsers] = useState([]);
 
-  getUsers() {
+  useEffect(() => {
+    getUsers();
+  }, [])
+
+  function getUsers() {
     axios.get('/users_page').then(users => {
       console.log('page user', users.data)
-      this.setState({users: users.data.users})
+      setUsers(users.data.users)
     })
   }
 
-  render() {
     return (
         <div className={'container-fluid'}>
           <div className={'row m-3'} style={{height: '4rem'}}>
@@ -44,7 +39,7 @@ class UserIndex extends Component {
               </thead>
               <tbody>
               {
-                this.state.users.map(user =>
+                users.map(user =>
                     <tr key={user.id}>
                       <td>{user.email}</td>
                       <td>{user.lastname} {user.firstname}</td>
@@ -64,7 +59,6 @@ class UserIndex extends Component {
           </div>
         </div>
     )
-  }
 }
 
 export default UserIndex
