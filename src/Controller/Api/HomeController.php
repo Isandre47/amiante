@@ -79,6 +79,8 @@ class HomeController extends ApiController
     {
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository(User::class)->findOneBy(['id' => $user->getId()]);
+//        $users = $em->getRepository(User::class)->userInfo($user->getId());
+//        dd($users);
         // On spécifie qu'on utilise l'encodeur JSON
         $encoders = [new JsonEncoder()];
 
@@ -103,7 +105,8 @@ class HomeController extends ApiController
         $response->headers->set('Content-Type', 'application/json');
         $trimmed  = trim($jsonContent,"\"" );
 
-        return $this->json('', 200)->setContent($trimmed);
+        return $this->json('', 200)->setContent($jsonContent);
+//        return $response;
     }
 
     /**

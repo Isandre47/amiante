@@ -68,6 +68,24 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
 
+    public function userInfo($userId)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.id = ?1')
+            ->addSelect('site')
+            ->addSelect('zones')
+            ->addSelect('category')
+            ->addSelect('removals')
+            ->addSelect('outputs')
+            ->innerJoin('u.site', 'site')
+            ->innerJoin('site.zones', 'zones')
+            ->innerJoin('zones.category', 'category')
+            ->innerJoin('zones.initials', 'initials')
+            ->innerJoin('zones.removals', 'removals')
+            ->innerJoin('zones.outputs', 'outputs')
+            ->setParameter('1', $userId)
+            ->getQuery()->getResult();
+    }
     /*
     public function findOneBySomeField($value): ?User
     {

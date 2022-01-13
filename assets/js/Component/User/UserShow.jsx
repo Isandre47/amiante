@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 
@@ -14,7 +14,8 @@ function UserShow() {
 
   function getUser() {
     axios.get('/user/'+user.userId).then((userShow) => {
-      console.log('user data', userShow.data)
+      console.log('user data', userShow.data.site)
+      userShow.data.site.zones.map(item => console.log(item))
       setUserInfo(userShow.data);
       setIsLoading(false);
     }).catch(error => {

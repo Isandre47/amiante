@@ -19,19 +19,19 @@
                 {% for zone in user.site.zones %}
                     Phase : {{ zone.category.name }}
                     <br>
-                    Analyse initiale:
+                    <span class="font-weight-bold">Analyse initiale:</span>
                     <br>
                     {% for initial in zone.initials %}
                         {{ initial.location }}
                     {% endfor %}
-
-                    Analyse en cours de retrait:
+                    <br>
+                <span class="font-weight-bold">Analyse en cours de retrait:</span>
                     <br>
                     {% for removal in zone.removals %}
                         {{ removal.location }}
                     {% endfor %}
-
-                    Analyse finale:
+                    <br>
+                    <span class="font-weight-bold">Analyse finale:</span>
                     <br>
                     {% for output in zone.outputs %}
                         {{ output.location }}
