@@ -1,7 +1,6 @@
 import React, {Component, useEffect, useState} from "react";
 import axios from "axios";
 import {Link, Route, Routes, Outlet} from "react-router-dom";
-import UserShow from "./UserShow";
 
 function UserIndex () {
 
@@ -49,7 +48,7 @@ function UserIndex () {
                       <td>
                         <a href="#">Editer</a>
                         -
-                        <Link to={`/users/${user.id}`} className={'nav-link'} key={user.id}> Plus d'infos - -  + {user.id}</Link>
+                        <Link to={`/user/${user.id}`} className={'nav-link'} key={user.id}> Plus d'infos... {user.id}</Link>
                       </td>
                     </tr>
                 )

@@ -6,8 +6,6 @@ function Dashboard() {
   const [users, setUsers] = useState([])
   const [sites, setSites] = useState([])
   const [equipments, setEquipments] = useState([])
-  // const [loading, setLoading] = useState(true)
-  // const [error, setError] = useState(false)
 
   useEffect(() => {
     getUsers();
@@ -18,7 +16,6 @@ function Dashboard() {
       setUsers(dash.data.users)
       setEquipments(dash.data.equipments)
       setSites(dash.data.sites)
-      // setLoading(false)
     }).catch(error => {
       console.log('error', users)
       if (error.response) {
@@ -28,12 +25,9 @@ function Dashboard() {
       } else {
         console.log('error message', error.message);
       }
-      // setLoading(false)
-      // setError(true)
     })
   }
 
-    // this.state.sites.map(item => console.log(item))
     return (
         <div className={'container-fluid'}>
           <div className={'row m-3'} style={{ height: '4rem'}}>
@@ -42,10 +36,6 @@ function Dashboard() {
             </div>
           </div>
           <hr/>
-          {/*<p>*/}
-              {/*{this.state.loading ? 'charge' : 'chargé'} -*/}
-            {/*{this.state.error ? 'erreur': 'pas erreur'}*/}
-          {/*</p>*/}
           <div>
             <div className={'row justify-content-around m-3'}>
               <div className={'col-4'}>

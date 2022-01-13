@@ -12,6 +12,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ZoneRepository")
@@ -22,11 +23,13 @@ class Zone
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("user-show")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("user-show")
      */
     private $name;
 
@@ -37,6 +40,7 @@ class Zone
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Initial", mappedBy="zone")
+     * @Groups("user-show")
      */
     private $initials;
 
@@ -52,16 +56,19 @@ class Zone
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="zones")
+     * @Groups("user-show")
      */
     private $category;
 
     /**
      * @ORM\Column(type="array")
+     * @Groups("user-show")
      */
     private $fiber = [];
 
     /**
      * @ORM\ManyToMany(targetEntity=Process::class, mappedBy="zone")
+     * @Groups("user-show")
      */
     private $processes;
 

@@ -10,6 +10,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OutputRepository")
@@ -20,21 +21,25 @@ class Output
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("user-show")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("user-show")
      */
     private $location;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Zone", inversedBy="outputs")
+     * @Groups("user-show")
      */
     private $Zone;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups("user-show")
      */
     private $date;
 

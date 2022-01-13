@@ -8,6 +8,11 @@ use App\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
+use function Symfony\Component\Translation\t;
 
 class HomeController extends ApiController
 {
@@ -22,7 +27,7 @@ class HomeController extends ApiController
     /**
      * @Route("/users_page", name="users_axios")
      */
-    public function getUsers (): JsonResponse
+    public function getUsers(): JsonResponse
     {
             $users =$users = [
                 [
@@ -65,6 +70,40 @@ class HomeController extends ApiController
         ];
 
         return $this->json($data);
+    }
+
+    /**
+     * @Route("/user/{id}", name="users_show_react")
+     */
+    public function getUserInfo(User $user, SerializerInterface $serializer, ObjectNormalizer $objectNormalizer): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository(User::class)->findOneBy(['id' => $user->getId()]);
+        // On spécifie qu'on utilise l'encodeur JSON
+        $encoders = [new JsonEncoder()];
+
+        // On instancie le "normaliseur" pour convertir la collection en tableau
+        $normalizers = [new ObjectNormalizer()];
+
+        // On instancie le convertisseur
+        $serializer = new Serializer($normalizers, $encoders);
+
+        // On convertit en json
+        $jsonContent = $serializer->serialize($users, 'json', [
+            'circular_reference_limit' => 1,
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+            }
+        ]);
+
+        // On instancie la réponse
+        $response = new Response($jsonContent);
+
+        // On ajoute l'entête HTTP
+        $response->headers->set('Content-Type', 'application/json');
+        $trimmed  = trim($jsonContent,"\"" );
+
+        return $this->json('', 200)->setContent($trimmed);
     }
 
     /**

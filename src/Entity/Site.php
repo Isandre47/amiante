@@ -12,6 +12,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SiteRepository")
@@ -22,11 +23,13 @@ class Site
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups ("user-show")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("user-show")
      */
     private $name;
 
@@ -42,11 +45,13 @@ class Site
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Zone", mappedBy="site")
+     * @Groups("user-show")
      */
     private $zones;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="site")
+     * @Groups("user-show")
      */
     private $client;
 

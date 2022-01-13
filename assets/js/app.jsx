@@ -27,7 +27,7 @@ function App() {
                     <Routes>
                       <Route path={'/dashboard'} element={<Dashboard />}/>
                       <Route path={'/users'} element={<UserIndex />}/>
-                      <Route path={'/users/:userId'} element={<UserShow />}/>
+                      <Route path={'/user/:userId'} element={<UserShow />}/>
                       <Route path={'/clients'} element={<Client />}/>
                       <Route path={'/chantiers'} element={<Site />}/>
                       <Route path={'/materiels'} element={<Equipment />}/>

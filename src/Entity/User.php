@@ -29,16 +29,19 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("user-show")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups("user-show")
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups("user-show")
      */
     private $roles = [];
 
@@ -50,16 +53,19 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("user-show")
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("user-show")
      */
     private $lastname;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="users")
+     * @Groups("user-show")
      */
     private $site;
 
@@ -80,11 +86,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="json", nullable=true)
+     * @Groups("user-show")
      */
     private $history = [];
 
     /**
      * @ORM\OneToMany(targetEntity=Mask::class, mappedBy="user")
+     * @Groups("user-show")
      */
     private $masks;
 

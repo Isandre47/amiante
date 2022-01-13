@@ -10,6 +10,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\InitialRepository")
@@ -20,11 +21,13 @@ class Initial
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("user-show")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("user-show")
      */
     private $location;
 
@@ -35,11 +38,13 @@ class Initial
 
     /**
      * @ORM\Column(type="date")
+     * @Groups("user-show")
      */
     private $date;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("user-show")
      */
     private $result;
 
