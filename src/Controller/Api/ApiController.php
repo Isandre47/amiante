@@ -86,4 +86,19 @@ class ApiController extends AbstractController
         return $this->setStatusCode(404)->respondWithErrors($message);
     }
 
+    /**
+     * Returns a Objet JSON response
+     *
+     * @param string $data
+     * @param array $headers
+     *
+     * @return JsonResponse
+     */
+    public function responseObject(string $data = '', array $headers = []): JsonResponse
+    {
+        $response = new JsonResponse('', $this->getStatusCode(), $headers);
+
+        return $response->setContent($data);
+    }
+
 }

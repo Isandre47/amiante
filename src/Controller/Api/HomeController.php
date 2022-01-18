@@ -77,9 +77,10 @@ class HomeController extends ApiController
      */
     public function getUserInfo(User $user, SerializerInterface $serializer, ObjectNormalizer $objectNormalizer): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository(User::class)->findOneBy(['id' => $user->getId()]);
-//        $users = $em->getRepository(User::class)->userInfo($user->getId());
+        $users = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => $user->getId()]);
+        $userInfo = $serializer->serialize($user, 'json', ['groups' => 'user-show']);
+
+        $users = $this->getDoctrine()->getRepository(User::class)->userInfo($user->getId());
 //        dd($users);
         // On spécifie qu'on utilise l'encodeur JSON
         $encoders = [new JsonEncoder()];
@@ -91,22 +92,14 @@ class HomeController extends ApiController
         $serializer = new Serializer($normalizers, $encoders);
 
         // On convertit en json
-        $jsonContent = $serializer->serialize($users, 'json', [
+        $jsonContent = $serializer->serialize($user, 'json', [
             'circular_reference_limit' => 1,
             'circular_reference_handler' => function ($object) {
                 return $object->getId();
             }
         ]);
 
-        // On instancie la réponse
-        $response = new Response($jsonContent);
-
-        // On ajoute l'entête HTTP
-        $response->headers->set('Content-Type', 'application/json');
-        $trimmed  = trim($jsonContent,"\"" );
-
-        return $this->json('', 200)->setContent($jsonContent);
-//        return $response;
+        return $this->responseObject($jsonContent);
     }
 
     /**
@@ -130,6 +123,6 @@ class HomeController extends ApiController
             'sites' => $sites,
         ];
 
-        return $this->json($data);
+        return $this->response($data);
     }
 }

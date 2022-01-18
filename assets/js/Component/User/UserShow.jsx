@@ -14,8 +14,8 @@ function UserShow() {
 
   function getUser() {
     axios.get('/user/'+user.userId).then((userShow) => {
-      console.log('user data', userShow.data.site)
-      userShow.data.site.zones.map(item => console.log(item))
+      console.log('user data', userShow.data)
+      userShow.data.site.zones.map(item => item.initials.map(value => console.log('inistals',value)))
       setUserInfo(userShow.data);
       setIsLoading(false);
     }).catch(error => {
@@ -38,12 +38,53 @@ function UserShow() {
             </div>
           </div>
           <hr/>
-          <div className={'row'}>
-            <div className={'col-6'}>
-              {/*<h3>{userInfo.site.map(item => <span>item.name</span>)}</h3>*/}
+          <div className={'container'}>
+            <div className={'row'}>
+              <div className={'col-6'}>
+                <h3>{userInfo.site.name}</h3>
+                <br/>
+                {
+                  userInfo.site.zones.map((zone) => (
+                          <div key={zone.id}>
+                            <h4 key={zone.category.id}>Phase: {zone.category.name}</h4>
+                            <span className={'font-weight-bold'}>Analyse initiale:</span>
+                            <br/>
+                            {zone.initials.map((init) => (
+                                    <div key={init.id}>{init.location} <br/></div>
+                                )
+                            )}
+                            <span className={'font-weight-bold'}>Analyse en cours:</span>
+                            <br/>
+                            {zone.removals.map((removal) => (
+                                    <div key={removal.id}>{removal.location}<br/></div>
+                                )
+                            )}
+                            <span className={'font-weight-bold'}>Analyse de fin:</span>
+                            <br/>
+                            {zone.outputs.map((output) => (
+                                    <div key={output.id}>{output.location} <br/></div>
+                                )
+                            )}
+                            <hr/>
+                          </div>
+                      )
+                  )
+                }
+              </div>
+              <div className={'col-4'}>
+                Historique : <br/>
+                {userInfo.history.map((item) => (
+                    // console.log('date', new Date(item.date_arrived.date).toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }))
+                    <div>
+                      Nombre de chantiers: {userInfo.length} <br/>
+                      {item.site}, à partir du {
+                          new Date(item.date_arrived.date).toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+                    }
+                    </div>
+                ))}
+              </div>
             </div>
           </div>
-          View User {user.userId}
         </div>
     )
 }
