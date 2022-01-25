@@ -5,6 +5,8 @@ import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import Client from "./Component/Client";
 import Dashboard from "./Component/Dashboard";
 import UserIndex from "./Component/User/UserIndex";
+import UserShow from "./Component/User/UserShow";
+import UserAdd from "./Component/User/UserAdd";
 import Site from "./Component/Site";
 import Category from './Component/Category';
 import Equipment from "./Component/Equipment";
@@ -13,7 +15,6 @@ import AnalysisWithdrawn from "./Component/AnalysisWithdrawn";
 import AnalysisFallback from "./Component/AnalysisFallback";
 import Process from "./Component/Process";
 import Mask from "./Component/Mask";
-import UserShow from "./Component/User/UserShow";
 
 function App() {
       return (
@@ -28,6 +29,7 @@ function App() {
                       <Route path={'/dashboard'} element={<Dashboard />}/>
                       <Route path={'/users'} element={<UserIndex />}/>
                       <Route path={'/user/:userId'} element={<UserShow />}/>
+                      <Route path={'/user/add'} element={<UserAdd />}/>
                       <Route path={'/clients'} element={<Client />}/>
                       <Route path={'/chantiers'} element={<Site />}/>
                       <Route path={'/materiels'} element={<Equipment />}/>

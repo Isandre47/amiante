@@ -25,7 +25,7 @@ function UserIndex () {
             </div>
           </div>
           <hr/>
-          <a href="#">Ajouter un utilisateur</a>
+          <Link to={'/user/add'} className={'nav-link'} >Ajouter un utilisateur</Link>
           <div className={'row m-3'}>
             <table className={'table table-striped table-hover'}>
               <thead>

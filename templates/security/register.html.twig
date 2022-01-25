@@ -13,40 +13,25 @@
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="slider-area">
-                                <form method="post">
+                                {% for flashError in app.flashes('verify_email_error') %}
+                                    <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                                {% endfor %}
+                                {% if app.user %}
+                                    <div class="mb-3">
+                                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                                    </div>
+                                {% endif %}
+                                <h1>Register</h1>
 
-                                    {% if app.user %}
-                                        <div class="mb-3">
-                                            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-                                        </div>
-                                    {% endif %}
+                                {{ form_start(registrationForm) }}
+                                {{ form_row(registrationForm.email) }}
+                                {{ form_row(registrationForm.plainPassword, {
+                                    label: 'Password'
+                                }) }}
+                                {{ form_row(registrationForm.agreeTerms) }}
 
-                                    <h1 class="h3 mb-3 font-weight-normal">Register</h1>
-                                    <label for="firstname" class="sr-only">Nom Complet</label>
-                                    <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Prénom" required autofocus>
-                                    <label for="lastname" class="sr-only">Nom Complet</label>
-                                    <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Nom" required autofocus>
-                                    <label for="inputEmail" class="sr-only">Email</label>
-                                    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
-                                    <label for="inputPassword" class="sr-only">Password</label>
-                                    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                                    <br>
-
-                                    {#
-                                        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                                        See https://symfony.com/doc/current/security/remember_me.html
-
-                                        <div class="checkbox mb-3">
-                                            <label>
-                                                <input type="checkbox" name="_remember_me"> Remember me
-                                            </label>
-                                        </div>
-                                    #}
-
-                                    <button class="btn btn-lg btn-primary" type="submit">
-                                        Sign in
-                                    </button>
-                                </form>
+                                <button type="submit" class="btn">Register</button>
+                                {{ form_end(registrationForm) }}
                             </div>
                         </div>
                     </div>
