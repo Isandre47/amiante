@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useEffect} from "react";
+import axios from "axios";
 
 function UserAdd() {
   return (
@@ -10,11 +11,38 @@ function UserAdd() {
         </div>
         <hr/>
         <div>
-          <form className={'form-group'}>
-            <label htmlFor="">Nom
-              <input type="text"/>
-            </label>
-            <input className={'form-control'} type="submit" value={'Envoyer'}/>
+          <form>
+            <div className={'mb-3'}>
+              <div className={'row'}>
+                <div className={'col-6'}>
+                  <label className={'form-label'} htmlFor="prenom">Prénom</label>
+                  <input className={'form-control'} type="text" id={'prenom'}/>
+                </div>
+                <div className={'col-6'}>
+                  <label className={'form-label'} htmlFor="nom">Nom</label>
+                  <input className={'form-control'} type="text" id={'nom'}/>
+                </div>
+              </div>
+            </div>
+            <div className={'mb-3'}>
+              <label className={'form-label'} htmlFor="password">Mot de passe</label>
+              <input className={'form-control form-check'} type="password" id={'password'}/>
+            </div>
+            <div className={'mb-3'}>
+              <label className={'form-label'} htmlFor="email">Email</label>
+              <input className={'form-control form-check'} type="email" id={'email'}/>
+            </div>
+            <div className={'mb-3'}>
+              <label className={'form-label'} htmlFor="role">Droit</label>
+              <input className={'form-control form-check'} type='text' id={'role'}/>
+            </div>
+            <div className={'mb-3'}>
+              <label className={'form-label'} htmlFor="chantier">Chantier</label>
+              <input className={'form-control form-check'} type="text" id={'chantier'}/>
+            </div>
+            <div className={'mb-3 text-center'}>
+                <input className={'btn btn-primary m-auto col-4'} type="submit" value={'Envoyer'}/>
+            </div>
           </form>
         </div>
       </div>

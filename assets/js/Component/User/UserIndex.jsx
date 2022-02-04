@@ -11,7 +11,7 @@ function UserIndex () {
   }, [])
 
   function getUsers() {
-    axios.get('/users_page').then(users => {
+    axios.get('/api/user/users_page').then(users => {
       console.log('page user', users.data)
       setUsers(users.data.users)
     })
@@ -48,7 +48,7 @@ function UserIndex () {
                       <td>
                         <a href="#">Editer</a>
                         -
-                        <Link to={`/user/${user.id}`} className={'nav-link'} key={user.id}> Plus d'infos... {user.id}</Link>
+                        <Link to={`/api/user/${user.id}`} className={'nav-link'} key={user.id}> Plus d'infos... {user.id}</Link>
                       </td>
                     </tr>
                 )
