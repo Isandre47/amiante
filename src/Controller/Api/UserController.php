@@ -2,10 +2,15 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Site;
 use App\Entity\User;
+use Doctrine\DBAL\Exception;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -17,7 +22,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class UserController extends ApiController
 {
     /**
-     * @Route("/users_page", name="users_axios")
+     * @Route("/users_page", name="api_users")
      */
     public function getUsers(): JsonResponse
     {
@@ -65,7 +70,7 @@ class UserController extends ApiController
     }
 
     /**
-     * @Route("/{id}", name="users_show_react")
+     * @Route("/show/{id}", name="api_users_show")
      */
     public function getUserInfo(User $user, SerializerInterface $serializer, ObjectNormalizer $objectNormalizer): Response
     {
@@ -92,5 +97,41 @@ class UserController extends ApiController
         ]);
 
         return $this->responseObject($jsonContent);
+    }
+
+    /**
+     * @Route("/add", name="api_user_add", methods={"POST"})
+     */
+    public function new(Request $request, ManagerRegistry $managerRegistry, SerializerInterface $serializer, UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        $em = $managerRegistry->getManager();
+        if ($request->isMethod('POST')) {
+
+            $user = $serializer->deserialize($request->getContent(), User::class, 'json');
+            $user->setRoles([json_decode($request->getContent())->role]);
+            $user->setSite($em->getRepository(Site::class)->findOneBy(['id'=>json_decode($request->getContent())->site]));
+            $user->setPassword($passwordEncoder->encodePassword($user, json_decode($request->getContent())->password));
+
+            $em->persist($user);
+            try {
+                $em->flush();
+            } catch (Exception $exception) {
+                return $this->json('Error');
+            }
+        }
+
+        return $this->json('Created');
+    }
+
+    /**
+     * @Route("/roles_list", name="api_users_role_list", methods={"GET"})
+     */
+    public function getListRole(): JsonResponse
+    {
+        return $this->json([
+            ['name'=>'Utilisateur', 'id'=> User::ROLE_USER],
+            ['name'=>'Administrateur', 'id'=> User::ROLE_ADMIN],
+            ['name'=>'Client', 'id'=> User::ROLE_CLIENT],
+            ]);
     }
 }

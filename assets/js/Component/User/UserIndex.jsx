@@ -48,7 +48,7 @@ function UserIndex () {
                       <td>
                         <a href="#">Editer</a>
                         -
-                        <Link to={`/api/user/${user.id}`} className={'nav-link'} key={user.id}> Plus d'infos... {user.id}</Link>
+                        <Link to={`/api/user/show/${user.id}`} className={'nav-link'} key={user.id}> Plus d'infos... {user.id}</Link>
                       </td>
                     </tr>
                 )

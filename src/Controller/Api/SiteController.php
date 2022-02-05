@@ -3,7 +3,7 @@
 namespace App\Controller\Api;
 
 use App\Repository\SiteRepository;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -12,12 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class SiteController extends ApiController
 {
     /**
-     * @Route("/index", name="site_index", methods={"GET"})
+     * @Route("/index", name="api_site_index", methods={"GET"})
      */
-    public function index(SiteRepository $siteRepository): Response
+    public function index(SiteRepository $siteRepository): JsonResponse
     {
-        return $this->render('admin/site/index.html.twig', [
-            'sites' => $siteRepository->findAll(),
-        ]);
+        return $this->json($siteRepository->indexSite());
     }
 }

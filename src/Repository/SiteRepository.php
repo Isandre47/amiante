@@ -41,6 +41,17 @@ class SiteRepository extends ServiceEntityRepository
             ;
     }
 
+    public function indexSite()
+    {
+        return $this->createQueryBuilder('s')
+            ->select('s.name')
+            ->addSelect('s.id')
+            ->orderBy('s.name')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Site[] Returns an array of Site objects
     //  */
