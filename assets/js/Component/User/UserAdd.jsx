@@ -2,10 +2,16 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
-function UserAdd() {
+function UserAdd(props) {
+
   const [roles, setRoles] = useState([])
   const [sites, setSites] = useState([])
   const [isLoading, setIsLoading] = useState(true);
+  const [edit, setEdit] = useState(false);
+  if (props.edit) {
+    console.log('porp', props)
+    setEdit(true);
+  }
 
   const history = useNavigate()
 
@@ -48,7 +54,6 @@ function UserAdd() {
   function getSiteIndex() {
     axios.get('/api/site/index').then((response) => {
       console.log('sites data', response)
-      response.data.map(item => console.log('inistals',item))
       setSites(response.data);
       setIsLoading(false);
     }).catch(error => {
