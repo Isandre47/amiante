@@ -46,9 +46,9 @@ function UserIndex () {
                         {user.site === null ? <span>gère des chantiers</span> : user.site.name}<
                       /td>
                       <td>
-                        <a href="#">Editer</a>
+                        <Link to={`/user/edit/${user.id}`} className={'nav-link'} edit={'true'}>Editer</Link>
                         -
-                        <Link to={`/api/user/show/${user.id}`} className={'nav-link'} key={user.id}> Plus d'infos... {user.id}</Link>
+                        <Link to={`/user/show/${user.id}`} className={'nav-link'} key={user.id}> Plus d'infos... {user.id}</Link>
                       </td>
                     </tr>
                 )

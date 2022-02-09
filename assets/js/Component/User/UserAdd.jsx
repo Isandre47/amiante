@@ -1,28 +1,40 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 function UserAdd(props) {
 
-  const [roles, setRoles] = useState([])
-  const [sites, setSites] = useState([])
-  const [isLoading, setIsLoading] = useState(true);
-  const [edit, setEdit] = useState(false);
-  if (props.edit) {
-    console.log('porp', props)
-    setEdit(true);
-  }
-
-  const history = useNavigate()
-
-  const [user, setUser] = useState({
+  let userId = useParams();
+  const initialUser = {
     firstname: '',
     lastname: '',
     password: '',
     email: '',
     role: '',
     site: ''
-  });
+  }
+  const [roles, setRoles] = useState([])
+  const [sites, setSites] = useState([])
+  const [isLoading, setIsLoading] = useState(true);
+  const [edit, setEdit] = useState(false);
+  const history = useNavigate()
+  const [user, setUser] = useState(initialUser);
+
+  function getUser() {
+    axios.get('/api/user/show/' + userId.userId).then((userShow) => {
+      console.log('user data', userShow.data)
+      setUser(userShow.data)
+    }).catch(error => {
+      console.log('error', error)
+      if (error.response) {
+        console.log('error response', error.response);
+      } else if (error.request) {
+        console.log('error request', error.request);
+      } else {
+        console.log('error message', error.message);
+      }
+    })
+  }
 
   const handleChange = (event) => {
     setUser({...user, [event.target.name]: event.target.value});
@@ -31,6 +43,7 @@ function UserAdd(props) {
   useEffect(() => {
     getRolesList();
     getSiteIndex();
+    getUser();
   }, [])
 
   function getRolesList() {

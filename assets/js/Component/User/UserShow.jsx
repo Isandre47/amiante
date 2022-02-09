@@ -15,7 +15,7 @@ function UserShow() {
   function getUser() {
     axios.get('/api/user/show/'+user.userId).then((userShow) => {
       console.log('user data', userShow.data)
-      userShow.data.site.zones.map(item => item.initials.map(value => console.log('inistals',value)))
+      // userShow.data.site.zones.map(item => item.initials.map(value => console.log('inistals',value)))
       setUserInfo(userShow.data);
       setIsLoading(false);
     }).catch(error => {
