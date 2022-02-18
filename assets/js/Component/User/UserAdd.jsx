@@ -17,41 +17,50 @@ function UserAdd(props) {
   const [sites, setSites] = useState([])
   const [isLoading, setIsLoading] = useState(true);
   const [edit, setEdit] = useState(false);
+  const [title, setTitle] = useState('Chargement en cours');
   const history = useNavigate()
-  const [user, setUser] = useState(initialUser);
-
-  function getUser() {
-    axios.get('/api/user/show/' + userId.userId).then((userShow) => {
-      console.log('user data', userShow.data)
-      setUser(userShow.data)
-    }).catch(error => {
-      console.log('error', error)
-      if (error.response) {
-        console.log('error response', error.response);
-      } else if (error.request) {
-        console.log('error request', error.request);
-      } else {
-        console.log('error message', error.message);
-      }
-    })
-  }
+  const [userInfo, setUserInfo] = useState(initialUser);
 
   const handleChange = (event) => {
-    setUser({...user, [event.target.name]: event.target.value});
+    setUserInfo({...userInfo, [event.target.name]: event.target.value});
+    console.log('user change', userInfo)
   }
 
   useEffect(() => {
     getRolesList();
     getSiteIndex();
-    getUser();
   }, [])
+
+  useEffect(() => {
+    if (userId.userId === undefined) {
+      console.log('aucun user');
+      setTitle('Ajout d\'un utilisateur')
+      setIsLoading(false);
+    } else {
+      axios.get('/api/user/show/' + userId.userId).then(response => {
+        setUserInfo({...userInfo,
+          firstname: response.data.firstname,
+          lastname: response.data.lastname,
+          password: response.data.password,
+          email: response.data.email,
+          role: response.data.roles[0],
+          site: response.data.site.id
+        })
+        console.log(response.data, response.data.roles[0], response.data.site.name)
+        setEdit(true);
+        setTitle('Edition d\'un utilisateur')
+        setIsLoading(false);
+      })
+      console.log('res', userInfo)
+    }
+  }, [])
+
 
   function getRolesList() {
     axios.get('/api/user/roles_list').then((response) => {
       console.log('roles data', response)
       response.data.map(item => console.log('role',item))
       setRoles(response.data);
-      setIsLoading(false);
     }).catch(error => {
       console.log('error', error)
       if (error.response) {
@@ -68,7 +77,6 @@ function UserAdd(props) {
     axios.get('/api/site/index').then((response) => {
       console.log('sites data', response)
       setSites(response.data);
-      setIsLoading(false);
     }).catch(error => {
       console.log('error', error)
       if (error.response) {
@@ -83,14 +91,25 @@ function UserAdd(props) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log(user)
-    axios.post('/api/user/add', user
-    ).then((response) => {
-      console.log('user data', response);
-      faireRedirection();
-    }).catch(error => {
-      console.log('error', error)
-    })
+    console.log(userInfo)
+    if (edit) {
+      console.log('edition')
+      axios.post('/api/user/edit/'+ userId.userId, userInfo
+      ).then((response) => {
+        console.log('user data', response);
+        faireRedirection();
+      }).catch(error => {
+        console.log('error', error)
+      })
+    } else {
+      axios.post('/api/user/add', userInfo
+      ).then((response) => {
+        console.log('user data', response);
+        faireRedirection();
+      }).catch(error => {
+        console.log('error', error)
+      })
+    }
   }
   let url = "/users"
 
@@ -103,7 +122,7 @@ function UserAdd(props) {
       <div className={'container-fluid'}>
         <div className={'row m-3'} style={{height: '4rem'}}>
           <div className={'col-12 text-center'}>
-            <h1>Ajout d'un utilisateur</h1>
+            <h1>{title}</h1>
           </div>
         </div>
         <hr/>
@@ -113,25 +132,29 @@ function UserAdd(props) {
               <div className={'row'}>
                 <div className={'col-6'}>
                   <label className={'form-label'} htmlFor="fisrtname">Prénom</label>
-                  <input className={'form-control'} type="text" name={'firstname'} onChange={handleChange}/>
+                  <input className={'form-control'} type="text" name={'firstname'} onChange={handleChange} value={userInfo.firstname}/>
                 </div>
                 <div className={'col-6'}>
                   <label className={'form-label'} htmlFor="lastname">Nom</label>
-                  <input className={'form-control'} type="text" name={'lastname'} onChange={handleChange}/>
+                  <input className={'form-control'} type="text" name={'lastname'} onChange={handleChange} value={userInfo.lastname}/>
                 </div>
               </div>
             </div>
-            <div className={'mb-3'}>
-              <label className={'form-label'} htmlFor="password">Mot de passe</label>
-              <input className={'form-control form-check'} type="password" name={'password'} onChange={handleChange}/>
-            </div>
+            {!edit ?
+                <div className={'mb-3'}>
+                  <label className={'form-label'} htmlFor="password">Mot de passe</label>
+                  <input className={'form-control form-check'} type="password" name={'password'} onChange={handleChange}/>
+                </div>
+                : ''
+            }
+
             <div className={'mb-3'}>
               <label className={'form-label'} htmlFor="email">Email</label>
-              <input className={'form-control form-check'} type="email" name={'email'} onChange={handleChange}/>
+              <input className={'form-control form-check'} type="email" name={'email'} onChange={handleChange} value={userInfo.email}/>
             </div>
             <div className={'mb-3'}>
               <label className={'form-label'} htmlFor="role">Droit</label>
-              <select className={'form-control'} name="role" onChange={handleChange}>
+              <select className={'form-control'} name="role" onChange={handleChange} value={userInfo.role}>
                 <option value="">Selectionner un rôle</option>
                 {
                   roles.map(role => <option key={role.id} value={role.id}>{role.name}</option>)
@@ -140,7 +163,7 @@ function UserAdd(props) {
             </div>
             <div className={'mb-3'}>
               <label className={'form-label'} htmlFor="site">Chantier</label>
-              <select className={'form-control'} name="site" onChange={handleChange}>
+              <select className={'form-control'} name="site" onChange={handleChange} value={userInfo.site}>
                 <option value="">Selectionner un chantier</option>
                 {
                   sites.map(site => <option key={site.id} value={site.id}>{site.name}</option>)

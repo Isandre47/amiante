@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -121,6 +122,25 @@ class UserController extends ApiController
         }
 
         return $this->json('Created');
+    }
+
+    /**
+     * @Route("/edit/{id}", name="api_user_edit")
+     */
+    public function edit(User $user, ManagerRegistry $managerRegistry, Request $request, SerializerInterface $serializer)
+    {
+        $em = $managerRegistry->getManager();
+        if ($request->isMethod('POST')) {
+            $userEdit = $serializer->deserialize($request->getContent(), User::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $user]);
+            $userEdit->setRoles([json_decode($request->getContent())->role]);
+            $userEdit->setSite($em->getRepository(Site::class)->findOneBy(['id'=>json_decode($request->getContent())->site]));
+            try {
+                $em->flush();
+            } catch (Exception $exception) {
+                return $this->json('Error');
+            }
+        }
+        return $this->json('Edited');
     }
 
     /**
