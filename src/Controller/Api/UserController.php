@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class UserController extends ApiController
 {
     /**
-     * @Route("/users_page", name="api_users")
+     * @Route("/users_index", name="api_users_index ")
      */
     public function getUsers(): JsonResponse
     {
@@ -73,10 +73,10 @@ class UserController extends ApiController
     /**
      * @Route("/show/{id}", name="api_users_show")
      */
-    public function getUserInfo(User $user, SerializerInterface $serializer, ObjectNormalizer $objectNormalizer): Response
+    public function getUserInfo(User $user, ObjectNormalizer $objectNormalizer): Response
     {
         $users = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => $user->getId()]);
-        $userInfo = $serializer->serialize($user, 'json', ['groups' => 'user-show']);
+//        $userInfo = $serializer->serialize($user, 'json', ['groups' => 'user-show']);
 
         $users = $this->getDoctrine()->getRepository(User::class)->userInfo($user->getId());
 //        dd($users);

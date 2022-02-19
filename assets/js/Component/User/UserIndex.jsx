@@ -1,6 +1,6 @@
-import React, {Component, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {Link, Route, Routes, Outlet} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function UserIndex () {
 
@@ -11,7 +11,7 @@ function UserIndex () {
   }, [])
 
   function getUsers() {
-    axios.get('/api/user/users_page').then(users => {
+    axios.get('/api/user/users_index').then(users => {
       console.log('page user', users.data)
       setUsers(users.data.users)
     })
@@ -48,7 +48,7 @@ function UserIndex () {
                       <td>
                         <Link to={`/user/edit/${user.id}`} className={'nav-link'} edit={'true'}>Editer</Link>
                         -
-                        <Link to={`/user/show/${user.id}`} className={'nav-link'} key={user.id}> Plus d'infos... {user.id}</Link>
+                        <Link to={`/user/show/${user.id}`} className={'nav-link'}> Plus d'infos... {user.id}</Link>
                       </td>
                     </tr>
                 )

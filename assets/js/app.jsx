@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import Navbar from "./Component/Navbar";
-import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
-import Client from "./Component/Client";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Dashboard from "./Component/Dashboard";
 import UserIndex from "./Component/User/UserIndex";
 import UserShow from "./Component/User/UserShow";
@@ -15,6 +14,8 @@ import AnalysisWithdrawn from "./Component/AnalysisWithdrawn";
 import AnalysisFallback from "./Component/AnalysisFallback";
 import Process from "./Component/Process";
 import Mask from "./Component/Mask";
+import ClientIndex from "./Component/Client/ClientIndex";
+import ClientShow from "./Component/Client/ClientShow";
 
 function App() {
       return (
@@ -30,8 +31,9 @@ function App() {
                       <Route path={'/users'} element={<UserIndex />}/>
                         <Route path={'/user/show/:userId'} element={<UserShow />}/>
                         <Route path={'/user/edit/:userId'} element={<UserAdd />}/>
-                        <Route path={'/user/add'} element={<UserAdd />}/>
-                      <Route path={'/clients'} element={<Client />}/>
+                      <Route path={'/user/add'} element={<UserAdd />}/>
+                      <Route path={'/clients'} element={<ClientIndex />}/>
+                        <Route path={'/client/show/:userId'} element={<ClientShow />}/>
                       <Route path={'/chantiers'} element={<Site />}/>
                       <Route path={'/materiels'} element={<Equipment />}/>
                       <Route path={'/categories'} element={<Category />}/>

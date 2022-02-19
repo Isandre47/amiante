@@ -11,6 +11,7 @@ namespace App\Repository;
 
 use App\Entity\Client;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -24,6 +25,19 @@ class ClientRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Client::class);
+    }
+
+    /**
+     * @return Query
+     */
+    public function clientIndex(): Query
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.site', 'site')
+            ->addSelect('site')
+            ->orderBy('c.name', 'ASC')
+            ->getQuery()
+            ;
     }
 
     // /**
