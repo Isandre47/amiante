@@ -16,6 +16,7 @@ import Process from "./Component/Process";
 import Mask from "./Component/Mask";
 import ClientIndex from "./Component/Client/ClientIndex";
 import ClientShow from "./Component/Client/ClientShow";
+import ClientAdd from "./Component/Client/ClientAdd";
 
 function App() {
       return (
@@ -29,10 +30,11 @@ function App() {
                     <Routes>
                       <Route path={'/dashboard'} element={<Dashboard />}/>
                       <Route path={'/users'} element={<UserIndex />}/>
+                        <Route path={'/user/add'} element={<UserAdd />}/>
                         <Route path={'/user/show/:userId'} element={<UserShow />}/>
                         <Route path={'/user/edit/:userId'} element={<UserAdd />}/>
-                      <Route path={'/user/add'} element={<UserAdd />}/>
                       <Route path={'/clients'} element={<ClientIndex />}/>
+                        <Route path={'/client/add'} element={<ClientAdd />}/>
                         <Route path={'/client/show/:userId'} element={<ClientShow />}/>
                       <Route path={'/chantiers'} element={<Site />}/>
                       <Route path={'/materiels'} element={<Equipment />}/>

@@ -46,7 +46,7 @@ function UserShow() {
                 {
                   userInfo.site.zones.map((zone) => (
                           <div key={zone.id}>
-                            <h4 key={zone.category.id}>Phase: {zone.category.name}</h4>
+                            <h4>Phase: {zone.category.name}</h4>
                             <span className={'font-weight-bold'}>Analyse initiale:</span>
                             <br/>
                             {zone.initials.map((init) => (
@@ -75,7 +75,7 @@ function UserShow() {
                 Historique : <br/>
                 {userInfo.history.map((item) => (
                     // console.log('date', new Date(item.date_arrived.date).toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }))
-                    <div>
+                    <div key={userInfo.history[0]}>
                       Nombre de chantiers: {userInfo.length} <br/>
                       {item.site}, à partir du {
                           new Date(item.date_arrived.date).toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })

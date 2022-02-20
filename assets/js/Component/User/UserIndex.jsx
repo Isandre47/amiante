@@ -11,9 +11,9 @@ function UserIndex () {
   }, [])
 
   function getUsers() {
-    axios.get('/api/user/users_index').then(users => {
+    axios.get('/api/user/index').then(users => {
       console.log('page user', users.data)
-      setUsers(users.data.users)
+      setUsers(users.data)
     })
   }
 
@@ -46,9 +46,8 @@ function UserIndex () {
                         {user.site === null ? <span>gère des chantiers</span> : user.site.name}<
                       /td>
                       <td>
-                        <Link to={`/user/edit/${user.id}`} className={'nav-link'} edit={'true'}>Editer</Link>
-                        -
-                        <Link to={`/user/show/${user.id}`} className={'nav-link'}> Plus d'infos... {user.id}</Link>
+                        <Link to={`/user/edit/${user.id}`} className={'nav-link d-inline'} edit={'true'}>Editer</Link>/
+                        <Link to={`/user/show/${user.id}`} className={'nav-link d-inline'}> Plus d'infos... {user.id}</Link>
                       </td>
                     </tr>
                 )

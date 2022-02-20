@@ -68,7 +68,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
 
-    public function userInfo($userId)
+    /**
+     * @param $userId
+     * @return array|float|int|string
+     */
+    public function userInfo($userId): array|float|int|string
     {
         return $this->createQueryBuilder('u')
             ->where('u.id = ?1')
@@ -84,7 +88,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->innerJoin('zones.removals', 'removals')
             ->innerJoin('zones.outputs', 'outputs')
             ->setParameter('1', $userId)
-            ->getQuery()->getResult();
+            ->getQuery()->getArrayResult();
     }
 
     /*

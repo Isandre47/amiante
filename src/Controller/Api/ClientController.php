@@ -3,9 +3,14 @@
 namespace App\Controller\Api;
 
 use App\Entity\Client;
+use App\Entity\User;
+use Doctrine\DBAL\Exception;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -44,5 +49,37 @@ class ClientController extends ApiController
         ]);
 
         return $this->responseObject($jsonContent);
+    }
+
+    /**
+     * @Route("/add", name="api_client_add", methods={"POST"})
+     */
+    public function new(Request $request, ManagerRegistry $managerRegistry, SerializerInterface $serializer, UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        $em = $managerRegistry->getManager();
+        if ($request->isMethod('POST')) {
+            $client = $serializer->deserialize($request->getContent(), Client::class, 'json');
+            $em->persist($client);
+            try {
+                $em->flush();
+            } catch (Exception $exception) {
+                return $this->json('Error client');
+            }
+
+            $user = $serializer->deserialize($request->getContent(), User::class, 'json');
+            $user->setClient($em->getRepository(Client::class)->findOneByName($client->getName()));
+            $user->setRoles(["ROLE_CLIENT"]);
+            $user->setPassword($passwordEncoder->encodePassword($user, json_decode($request->getContent())->password));
+            $em->persist($user);
+
+            try {
+                $em->flush();
+            } catch (Exception $exception) {
+                return $this->json('Error user');
+            }
+
+        }
+
+        return $this->json('Created');
     }
 }
