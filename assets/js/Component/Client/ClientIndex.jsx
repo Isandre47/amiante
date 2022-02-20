@@ -21,7 +21,7 @@ function ClientIndex () {
       <div className={'container-fluid'}>
         <div className={'row m-3'} style={{height: '4rem'}}>
           <div className={'col-12 text-center'}>
-            <h1>Index des clients !</h1>
+            <h1>Index des clients</h1>
           </div>
         </div>
         <hr/>

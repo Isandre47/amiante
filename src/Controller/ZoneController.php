@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/zone")
+ * @Route("/admin/zone")
  */
 class ZoneController extends AbstractController
 {

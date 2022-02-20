@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/process")
+ * @Route("/admin/process")
  */
 class ProcessController extends AbstractController
 {

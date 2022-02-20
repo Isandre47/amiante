@@ -13,7 +13,7 @@ function ClientShow() {
   }, [])
 
   function getClient() {
-    axios.get('/api/client/show/'+client.userId).then((clientShow) => {
+    axios.get('/api/client/show/'+client.clientId).then((clientShow) => {
       console.log('client data', clientShow.data)
       setClientInfo(clientShow.data);
       setIsLoading(false);
@@ -29,48 +29,35 @@ function ClientShow() {
     })
   }
 
-  if (isLoading) return 'Chargemet en cours';
+  if (isLoading) return 'Chargement en cours';
   return (
       <div className={'container-fluid'}>
         <div className={'row m-3'} style={{height: '10vh'}}>
           <div className="col-12 text-center">
-            {/*<h1>Salut {clientInfo.firstname} {clientInfo.lastname} !</h1>*/}
+            <h1>Salut {clientInfo.name}</h1>
           </div>
         </div>
         <hr/>
         <div className={'container'}>
           <div className={'row'}>
-            {/*<div className={'col-6'}>*/}
-            {/*  <h3>{userInfo.site.name}</h3>*/}
-            {/*  <br/>*/}
-            {/*  {*/}
-            {/*    userInfo.site.zones.map((zone) => (*/}
-            {/*            <div key={zone.id}>*/}
-            {/*              <h4 key={zone.category.id}>Phase: {zone.category.name}</h4>*/}
-            {/*              <span className={'font-weight-bold'}>Analyse initiale:</span>*/}
-            {/*              <br/>*/}
-            {/*              {zone.initials.map((init) => (*/}
-            {/*                      <div key={init.id}>{init.location} <br/></div>*/}
-            {/*                  )*/}
-            {/*              )}*/}
-            {/*              <span className={'font-weight-bold'}>Analyse en cours:</span>*/}
-            {/*              <br/>*/}
-            {/*              {zone.removals.map((removal) => (*/}
-            {/*                      <div key={removal.id}>{removal.location}<br/></div>*/}
-            {/*                  )*/}
-            {/*              )}*/}
-            {/*              <span className={'font-weight-bold'}>Analyse de fin:</span>*/}
-            {/*              <br/>*/}
-            {/*              {zone.outputs.map((output) => (*/}
-            {/*                      <div key={output.id}>{output.location} <br/></div>*/}
-            {/*                  )*/}
-            {/*              )}*/}
-            {/*              <hr/>*/}
-            {/*            </div>*/}
-            {/*        )*/}
-            {/*    )*/}
-            {/*  }*/}
-            {/*</div>*/}
+            <div className={'col-6'}>
+              <h3>{clientInfo.user.firstname} {clientInfo.user.lastname}</h3>
+              <hr/>
+              <br/>
+              {
+                clientInfo.site.map((site) => (
+                        <div key={site.id}>
+                          <h4>Chantier: {site.name}</h4>
+                          {site.zones.map((zone) => (
+                                  <div key={zone.id}>Zone: {zone.category.name} <br/></div>
+                              )
+                          )}
+                          <hr/>
+                        </div>
+                    )
+                )
+              }
+            </div>
             {/*<div className={'col-4'}>*/}
             {/*  Historique : <br/>*/}
             {/*  {userInfo.history.map((item) => (*/}

@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class RemovalController
  * @package App\Controller
- * @Route("/removal")
+ * @Route("/admin/removal")
  */
 class RemovalController extends AbstractController
 {

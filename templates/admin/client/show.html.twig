@@ -17,9 +17,9 @@
                 Responsable: {{ client.user.firstname }} {{ client.user.lastname }} <br>
                 <hr>
                 {% for sites in client.site %}
-                    {{ sites.name }} <br>
+                    Chantier :{{ sites.name }} <br>
                     {% for zone in sites.zones %}
-                        {{ zone.category.name }} <br>
+                        Zone: {{ zone.category.name }} <br>
                     {% endfor %}
                     <hr>
                 {% endfor %}

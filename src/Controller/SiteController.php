@@ -28,7 +28,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class SiteController
  * @package App\Controller
- * @Route("/site")
+ * @Route("/admin/site")
  */
 class SiteController extends AbstractController
 {

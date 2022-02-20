@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class InitialController
  * @package App\Controller
- * @Route("/initial")
+ * @Route("/admin/initial")
  */
 class InitialController extends AbstractController
 {

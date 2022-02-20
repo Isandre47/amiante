@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class OutputController
  * @package App\Controller
- * @Route("/output")
+ * @Route("/admin/output")
  */
 class OutputController extends AbstractController
 {

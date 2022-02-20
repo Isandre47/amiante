@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class EquipmentController
  * @package App\Controller
- * @Route("/equipment")
+ * @Route("/admin/equipment")
  */
 class EquipmentController extends AbstractController
 {

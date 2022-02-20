@@ -35,7 +35,8 @@ function App() {
                         <Route path={'/user/edit/:userId'} element={<UserAdd />}/>
                       <Route path={'/clients'} element={<ClientIndex />}/>
                         <Route path={'/client/add'} element={<ClientAdd />}/>
-                        <Route path={'/client/show/:userId'} element={<ClientShow />}/>
+                        <Route path={'/client/show/:clientId'} element={<ClientShow />}/>
+                        <Route path={'/client/edit/:clientId'} element={<ClientAdd />}/>
                       <Route path={'/chantiers'} element={<Site />}/>
                       <Route path={'/materiels'} element={<Equipment />}/>
                       <Route path={'/categories'} element={<Category />}/>
