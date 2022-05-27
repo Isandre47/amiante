@@ -12,8 +12,10 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,7 +41,7 @@ class UserController extends AbstractController
     /**
      * @Route("/edit/{id}", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $user): Response
+    public function edit(Request $request, User $user, ManagerRegistry $managerRegistry): Response
     {
         $siteOrigin = $user->getSite()->getName();
         $formUser = $this->createForm(UserType::class, $user);
@@ -57,7 +59,7 @@ class UserController extends AbstractController
                 $new[] = $newSite;
                 $user->setHistory($new);
             }
-            $this->getDoctrine()->getManager()->flush();
+            $managerRegistry->getManager()->flush();
 
             return $this->redirectToRoute('user_index');
         }
@@ -72,7 +74,7 @@ class UserController extends AbstractController
     /**
      * @Route("/show/{id}", name="user_show_admin", methods={"GET"})
      */
-    public function show(User $user)
+    public function show(User $user): Response
     {
         return $this->render('admin/user/show.html.twig', [
             'user' => $user,
@@ -82,7 +84,7 @@ class UserController extends AbstractController
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
      */
-    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder, ManagerRegistry $managerRegistry): RedirectResponse|Response
     {
         $user = new User();
         $formUser = $this->createForm(UserType::class, $user);
@@ -95,7 +97,7 @@ class UserController extends AbstractController
         $formUser->handleRequest($request);
 
         if ($formUser->isSubmitted() && $formUser->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $managerRegistry->getManager();
             $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
             $user->setRoles(["ROLE_USER"]);
             $em->persist($user);

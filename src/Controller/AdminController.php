@@ -13,7 +13,9 @@ use App\Entity\Equipment;
 use App\Entity\Site;
 use App\Entity\User;
 use App\Repository\UserRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -26,9 +28,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/", name="admin", methods={"GET"})
      */
-    public function index(UserRepository $userRepository)
+    public function index(UserRepository $userRepository, ManagerRegistry $managerRegistry): Response
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $managerRegistry->getManager();
         $users = $em->getRepository(User::class)->findAll();
         $equipments = $em->getRepository(Equipment::class)->findAll();
         $sites = $em->getRepository(Site::class)->findAll();

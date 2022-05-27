@@ -19,8 +19,10 @@ use App\Form\SiteType;
 use App\Repository\CategoryRepository;
 use App\Repository\ProcessRepository;
 use App\Repository\SiteRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -47,7 +49,7 @@ class SiteController extends AbstractController
     /**
      * @Route("new", name="site_new"), methods={"GET","POST"})
      */
-    public function new(Request $request , CategoryRepository $categoryRepository, ProcessRepository $processRepository): Response
+    public function new(Request $request , CategoryRepository $categoryRepository, ProcessRepository $processRepository, ManagerRegistry $managerRegistry): Response
     {
         $site = new Site();
         $category = new Category();
@@ -67,7 +69,7 @@ class SiteController extends AbstractController
             $process = $processRepository->find($item);
                 $zone->addProcess($process);
             }
-            $em = $this->getDoctrine()->getManager();
+            $em = $managerRegistry->getManager();
             $em->persist($site);
             $em->persist($zone);
             $em->flush();
@@ -84,7 +86,7 @@ class SiteController extends AbstractController
     /**
      * @Route("/edit/{id}", name="site_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Site $site, CategoryRepository $categoryRepository, ProcessRepository $processRepository): Response
+    public function edit(Request $request, Site $site, CategoryRepository $categoryRepository, ProcessRepository $processRepository, ManagerRegistry $managerRegistry): Response
     {
         $category = new Category();
         $zone = new Zone();
@@ -116,7 +118,7 @@ class SiteController extends AbstractController
                 $process = $processRepository->find($item);
                 $zone->addProcess($process);
             }
-            $em = $this->getDoctrine()->getManager();
+            $em = $managerRegistry->getManager();
             $em->persist($site);
             // Pour le cas ou l'utilisateur n'ajoute aucune zone à modifier, du coup, ce champ sera vide dans la requête
             // Et aucun besoin de modifier l'entité Zone
@@ -138,10 +140,10 @@ class SiteController extends AbstractController
     /**
      * @Route("/delete/{id}", name="delete_zone", methods={"DELETE"})
      */
-    public function deleteZone(Request $request, Zone $zone)
+    public function deleteZone(Request $request, Zone $zone, ManagerRegistry $managerRegistry): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$zone->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $managerRegistry->getManager();
             $em->remove($zone);
             $em->flush();
         }
@@ -151,7 +153,7 @@ class SiteController extends AbstractController
     /**
      * @Route("/show/{id}", name="show_site", methods={"GET"})
      */
-    public function show(Site $site)
+    public function show(Site $site): Response
     {
         return $this->render('admin/site/show.html.twig', [
             'site' => $site,

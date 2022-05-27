@@ -12,6 +12,7 @@ namespace App\Controller;
 use App\Entity\Process;
 use App\Form\ProcessType;
 use App\Repository\ProcessRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,14 +36,14 @@ class ProcessController extends AbstractController
     /**
      * @Route("/new", name="process_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ManagerRegistry $managerRegistry): Response
     {
         $process = new Process();
         $form = $this->createForm(ProcessType::class, $process);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $managerRegistry->getManager();
             $entityManager->persist($process);
             $entityManager->flush();
 
@@ -68,13 +69,13 @@ class ProcessController extends AbstractController
     /**
      * @Route("/{id}/edit", name="process_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Process $process): Response
+    public function edit(Request $request, Process $process, ManagerRegistry $managerRegistry): Response
     {
         $form = $this->createForm(ProcessType::class, $process);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $managerRegistry->getManager()->flush();
 
             return $this->redirectToRoute('process_index');
         }
@@ -88,10 +89,10 @@ class ProcessController extends AbstractController
     /**
      * @Route("/{id}", name="process_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Process $process): Response
+    public function delete(Request $request, Process $process, ManagerRegistry $managerRegistry): Response
     {
         if ($this->isCsrfTokenValid('delete'.$process->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $managerRegistry->getManager();
             $entityManager->remove($process);
             $entityManager->flush();
         }

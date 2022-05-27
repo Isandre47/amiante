@@ -13,6 +13,7 @@ use App\Entity\Zone;
 use App\Form\ZoneType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -23,7 +24,7 @@ class ZoneController extends AbstractController
     /**
      * @Route("/", name="zone", methods={"GET"})
      */
-    public function index()
+    public function index(): Response
     {
         return $this->render('zone/index.html.twig', [
         ]);

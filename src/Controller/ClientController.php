@@ -14,11 +14,14 @@ use App\Entity\Site;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\ClientRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -32,7 +35,7 @@ class ClientController extends AbstractController
     /**
      * @Route("/", name="client_index", methods={"GET"})
      */
-    public function index(ClientRepository $clientRepository)
+    public function index(ClientRepository $clientRepository): Response
     {
         return $this->render('admin/client/index.html.twig', [
             'clients' => $clientRepository->findAll(),
@@ -42,7 +45,7 @@ class ClientController extends AbstractController
     /**
      * @Route("/new", name="client_new", methods={"GET","POST"})
      */
-    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder, ManagerRegistry $managerRegistry): RedirectResponse|Response
     {
         $client = new Client();
         $user = new User();
@@ -67,7 +70,7 @@ class ClientController extends AbstractController
         if ($formClient->isSubmitted() && $formClient->isValid()) {
             $client->setName($request->request->get('user')['name']);
             $user->setRoles(["ROLE_CLIENT"]);
-            $em = $this->getDoctrine()->getManager();
+            $em = $managerRegistry->getManager();
             $em->persist($client);
             $em->flush();
             $user->setClient($em->getRepository(Client::class)->findOneByName($client->getName()));
@@ -86,7 +89,7 @@ class ClientController extends AbstractController
     /**
      * @Route("/edit/{id}", name="client_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Client $client)
+    public function edit(Request $request, Client $client, ManagerRegistry $managerRegistry): RedirectResponse|Response
     {
         $user = $client->getUser();
         $formClient = $this->createForm(UserType::class, $user);
@@ -115,11 +118,11 @@ class ClientController extends AbstractController
         if ($formClient->isSubmitted() && $formClient->isValid()) {
             // Pour conserver le site_id d'un client à null lors de l'édition de sa fiche
             $user->setSite(null);
-            $em = $this->getDoctrine()->getManager();
+            $em = $managerRegistry->getManager();
             $site = $em->getRepository(Site::class)->find($request->request->get('user')['site']);
             $site->setClient($client);
             $client->setName($request->request->get('user')['name']);
-            $em = $this->getDoctrine()->getManager();
+            $em = $managerRegistry->getManager();
             $em->flush();
 
             return $this->redirectToRoute('client_index');
@@ -134,7 +137,7 @@ class ClientController extends AbstractController
     /**
      * @Route("/show/{id}", name="client_show", methods={"GET"})
      */
-    public function show(Client $client)
+    public function show(Client $client): Response
     {
         return $this->render('admin/client/show.html.twig', [
             'client' => $client,

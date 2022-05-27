@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use App\Entity\Site;
 use App\Entity\User;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,7 +23,7 @@ class HomeController extends AbstractController
      * @return Response
      */
     #[Route('/', name: 'home')]
-    public function index()
+    public function index(): Response
     {
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
@@ -32,7 +33,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/about", name="about", methods={"GET"})
      */
-    public function about()
+    public function about(): Response
     {
         return $this->render('home/about.html.twig', [
             'controller_name' => 'HomeController',
@@ -42,7 +43,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/services", name="services", methods={"GET"})
      */
-    public function services()
+    public function services(): Response
     {
         return $this->render('home/services.html.twig', [
             'controller_name' => 'HomeController',
@@ -52,7 +53,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/contact", name="contact"), methods={"GET"})
      */
-    public function contact()
+    public function contact(): Response
     {
         return $this->render('home/contact.html.twig', [
             'controller_name' => 'HomeController',
@@ -62,12 +63,12 @@ class HomeController extends AbstractController
     /**
      * @Route("/user-show/{id}", name="user_show", methods={"GET"})
      */
-    public function show(User $user)
+    public function show(User $user, ManagerRegistry $managerRegistry): Response
     {
         $siteClient = "";
 
         if ($user->getRoles()[0] == 'ROLE_CLIENT') {
-            $em = $this->getDoctrine()->getManager();
+            $em = $managerRegistry->getManager();
             $siteClient = $em->getRepository(Site::class)->findBy([
                 'client' => $user->getClient()->getId(),
                 ]

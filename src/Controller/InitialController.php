@@ -15,8 +15,11 @@ use App\Entity\Zone;
 use App\Form\InitialType;
 use App\Repository\InitialRepository;
 use App\Repository\ZoneRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -29,7 +32,7 @@ class InitialController extends AbstractController
     /**
      * @Route("/", name="initial", methods={"GET"})
      */
-    public function index(InitialRepository $initialRepository)
+    public function index(InitialRepository $initialRepository): Response
     {
         return $this->render('admin/initial/index.html.twig', [
             'controller_name' => 'InitialController',
@@ -40,7 +43,7 @@ class InitialController extends AbstractController
     /**
      * @Route("/new", name="initial_new", methods={"GET","POST"})
      */
-    public function new(Request $request, ZoneRepository $zoneRepository)
+    public function new(Request $request, ZoneRepository $zoneRepository, ManagerRegistry $managerRegistry): RedirectResponse|Response
     {
         $initial =  new Initial();
         $formInitial = $this->createForm(InitialType::class, $initial);
@@ -50,7 +53,7 @@ class InitialController extends AbstractController
             $initial->setZone($zoneRepository->findOneBy([
                 'category' => $request->request->get('phase-select')
             ]));
-            $em = $this->getDoctrine()->getManager();
+            $em = $managerRegistry->getManager();
             $em->persist($initial);
             $em->flush();
 
@@ -65,7 +68,7 @@ class InitialController extends AbstractController
     /**
      * @Route("/show", name="initial_show", methods={"GET"})
      */
-    public function show(Request $request, InitialRepository $initialRepository)
+    public function show(Request $request, InitialRepository $initialRepository): Response
     {
         $initial = $request->get('search');
         $initial = $initialRepository->findOneById($initial);
@@ -77,9 +80,9 @@ class InitialController extends AbstractController
     /**
      * @Route("/zonebysiteid/{id}", name="zonebysiteid", methods={"GET"})
      */
-    public function zoneBySiteId(Site $site)
+    public function zoneBySiteId(Site $site, ManagerRegistry $managerRegistry): Response
     {
-        $listPhaseBySite = $this->getDoctrine()->getRepository(Zone::class)->findBy(['site'=> $site->getId()]);
+        $listPhaseBySite = $managerRegistry->getRepository(Zone::class)->findBy(['site'=> $site->getId()]);
 
         return $this->render('admin/initial/select.html.twig', ['list' => $listPhaseBySite]);
     }

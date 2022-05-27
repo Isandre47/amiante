@@ -13,8 +13,11 @@ use App\Entity\Output;
 use App\Form\OutputType;
 use App\Repository\OutputRepository;
 use App\Repository\ZoneRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -27,7 +30,7 @@ class OutputController extends AbstractController
     /**
      * @Route("/", name="output", methods={"GET"})
      */
-    public function index(OutputRepository $outputRepository)
+    public function index(OutputRepository $outputRepository): Response
     {
         return $this->render('admin/output/index.html.twig', [
             'controller_name' => 'OutputController',
@@ -38,7 +41,7 @@ class OutputController extends AbstractController
     /**
      * @Route("/new", name="output_new", methods={"GET","POST"})
      */
-    public function new(Request $request, ZoneRepository $zoneRepository)
+    public function new(Request $request, ZoneRepository $zoneRepository, ManagerRegistry $managerRegistry): RedirectResponse|Response
     {
         $output =  new Output();
         $formOutput = $this->createForm(OutputType::class, $output);
@@ -48,7 +51,7 @@ class OutputController extends AbstractController
             $output->setZone($zoneRepository->findOneBy([
                 'category' => $request->request->get('phase-select')
             ]));
-            $em = $this->getDoctrine()->getManager();
+            $em = $managerRegistry->getManager();
             $em->persist($output);
             $em->flush();
 
@@ -63,7 +66,7 @@ class OutputController extends AbstractController
     /**
      * @Route("/show", name="output_show", methods={"GET"})
      */
-    public function show(Request $request, OutputRepository $outputRepository)
+    public function show(Request $request, OutputRepository $outputRepository): Response
     {
         $output = $request->get('search');
         $output = $outputRepository->findOneById($output);

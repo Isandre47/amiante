@@ -13,8 +13,11 @@ use App\Entity\Removal;
 use App\Form\RemovalType;
 use App\Repository\RemovalRepository;
 use App\Repository\ZoneRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -27,7 +30,7 @@ class RemovalController extends AbstractController
     /**
      * @Route("/", name="removal", methods={"GET"})
      */
-    public function index(RemovalRepository $removalRepository)
+    public function index(RemovalRepository $removalRepository): Response
     {
         return $this->render('admin/removal/index.html.twig', [
             'controller_name' => 'RemovalController',
@@ -38,7 +41,7 @@ class RemovalController extends AbstractController
     /**
      * @Route("/new", name="removal_new", methods={"GET","POST"})
      */
-    public function new(Request $request, ZoneRepository $zoneRepository)
+    public function new(Request $request, ZoneRepository $zoneRepository, ManagerRegistry $managerRegistry): RedirectResponse|Response
     {
         $removal =  new Removal();
         $formRemoval = $this->createForm(RemovalType::class, $removal);
@@ -48,7 +51,7 @@ class RemovalController extends AbstractController
             $removal->setZone($zoneRepository->findOneBy([
                 'category' => $request->request->get('phase-select')
             ]));
-            $em = $this->getDoctrine()->getManager();
+            $em = $managerRegistry->getManager();
             $em->persist($removal);
             $em->flush();
 
@@ -63,7 +66,7 @@ class RemovalController extends AbstractController
     /**
      * @Route("/show", name="removal_show", methods={"GET"})
      */
-    public function show(Request $request, RemovalRepository $removalRepository)
+    public function show(Request $request, RemovalRepository $removalRepository): Response
     {
         $removal = $removalRepository->findOneById($request->get('search'));
         return $this->render('admin/removal/show.html.twig', [

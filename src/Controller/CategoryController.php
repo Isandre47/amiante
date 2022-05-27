@@ -12,8 +12,10 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,7 +40,7 @@ class CategoryController extends AbstractController
     /**
      * @Route("/new", name="category_new")
      */
-    public function new(Request $request)
+    public function new(Request $request, ManagerRegistry $managerRegistry): RedirectResponse|JsonResponse|Response
     {
         $category = new Category();
         $formCategory = $this->createForm(CategoryType::class, $category);
@@ -49,7 +51,7 @@ class CategoryController extends AbstractController
             $type = $request->request->get('type');
             $category->setName($name);
             $category->settype($type);
-            $em = $this->getDoctrine()->getManager();
+            $em = $managerRegistry->getManager();
             $em->persist($category);
             $em->flush();
 
@@ -57,7 +59,7 @@ class CategoryController extends AbstractController
         }
 
         if ($formCategory->isSubmitted() && $formCategory->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $managerRegistry->getManager();
             $em->persist($category);
             $em->flush();
 
@@ -72,13 +74,13 @@ class CategoryController extends AbstractController
     /**
      * @Route("/edit/{id}", name="category_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Category $category): Response
+    public function edit(Request $request, Category $category, ManagerRegistry $managerRegistry): Response
     {
         $formCategory = $this->createForm(CategoryType::class, $category);
         $formCategory->handleRequest($request);
 
         if ($formCategory->isSubmitted() && $formCategory->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $managerRegistry->getManager()->flush();
 
             return $this->redirectToRoute('category_index');
         }

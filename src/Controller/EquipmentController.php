@@ -12,7 +12,9 @@ namespace App\Controller;
 use App\Entity\Equipment;
 use App\Form\EquipmentType;
 use App\Repository\EquipmentRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,7 +29,7 @@ class EquipmentController extends AbstractController
     /**
      * @Route("/", name="equipment_index"), methods={"GET"})
      */
-    public function index(EquipmentRepository $equipmentRepository)
+    public function index(EquipmentRepository $equipmentRepository): Response
     {
         return $this->render('admin/equipment/index.html.twig', [
             'equipments' => $equipmentRepository->findAll(),
@@ -37,7 +39,7 @@ class EquipmentController extends AbstractController
     /**
      * @Route("/edit/{id}", name="equipment_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Equipment $equipment): Response
+    public function edit(Request $request, Equipment $equipment, ManagerRegistry $managerRegistry): Response
     {
         if ($equipment->getSite() != null) {
             $siteOrigin = $equipment->getSite()->getName();
@@ -62,7 +64,7 @@ class EquipmentController extends AbstractController
                 $new[] = $newSite;
                 $equipment->setHistory($new);
             }
-            $this->getDoctrine()->getManager()->flush();
+            $managerRegistry->getManager()->flush();
 
             return $this->redirectToRoute('equipment_index');
         }
@@ -75,14 +77,14 @@ class EquipmentController extends AbstractController
     /**
      * @Route("/new", name="equipment_new", methods={"GET","POST"})
      */
-    public function new(Request $request)
+    public function new(Request $request, ManagerRegistry $managerRegistry): RedirectResponse|Response
     {
         $equipment = new Equipment();
         $formEquipment = $this->createForm(EquipmentType::class, $equipment);
         $formEquipment->handleRequest($request);
 
         if ($formEquipment->isSubmitted() && $formEquipment->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $managerRegistry->getManager();
             $newSite = [
                 'date_arrived' => new \DateTime(),
                 'site' => 'Depôt',
@@ -103,7 +105,7 @@ class EquipmentController extends AbstractController
     /**
      * @Route("/show", name="equipment_show", methods={"GET"})
      */
-    public function show(Request $request, EquipmentRepository $equipmentRepository)
+    public function show(Request $request, EquipmentRepository $equipmentRepository): Response
     {
         $equipment = $request->get('search');
         $equipment = $equipmentRepository->findOneById($equipment);

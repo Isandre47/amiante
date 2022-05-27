@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Mask;
 use App\Form\MaskType;
 use App\Repository\MaskRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,14 +29,14 @@ class MaskController extends AbstractController
     /**
      * @Route("/new", name="mask_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ManagerRegistry $managerRegistry): Response
     {
         $mask = new Mask();
         $form = $this->createForm(MaskType::class, $mask);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $managerRegistry->getManager();
             $entityManager->persist($mask);
             $entityManager->flush();
 
@@ -61,13 +62,13 @@ class MaskController extends AbstractController
     /**
      * @Route("/{id}/edit", name="mask_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Mask $mask): Response
+    public function edit(Request $request, Mask $mask, ManagerRegistry $managerRegistry): Response
     {
         $form = $this->createForm(MaskType::class, $mask);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $managerRegistry->getManager()->flush();
 
             return $this->redirectToRoute('mask_index');
         }
@@ -81,10 +82,10 @@ class MaskController extends AbstractController
     /**
      * @Route("/{id}", name="mask_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Mask $mask): Response
+    public function delete(Request $request, Mask $mask, ManagerRegistry $managerRegistry): Response
     {
         if ($this->isCsrfTokenValid('delete'.$mask->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $managerRegistry->getManager();
             $entityManager->remove($mask);
             $entityManager->flush();
         }

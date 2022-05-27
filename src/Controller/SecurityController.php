@@ -10,7 +10,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,7 +45,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/register_old", name="app_register_old")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, ManagerRegistry $managerRegistry): Response
     {
         if ($request->isMethod('POST')){
             $user = new User();
@@ -52,7 +54,7 @@ class SecurityController extends AbstractController
             $user->setLastname($request->request->get('lastname'));
             $user->setRoles(["ROLE_USER"]);
             $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
-            $em = $this->getDoctrine()->getManager();
+            $em = $managerRegistry->getManager();
             $em->persist($user);
             $em->flush();
             return $this->redirectToRoute('home');
@@ -63,7 +65,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/logout", name="app_logout")
      */
-    public function logout()
+    public function logout(): RedirectResponse
     {
         return $this->redirectToRoute('home');
     }
