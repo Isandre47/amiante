@@ -41,14 +41,16 @@ class SiteRepository extends ServiceEntityRepository
             ;
     }
 
-    public function indexSite()
+    /**
+     * @return Query
+     */
+    public function indexSite(): Query
     {
         return $this->createQueryBuilder('s')
             ->select('s.name')
             ->addSelect('s.id')
             ->orderBy('s.name')
             ->getQuery()
-            ->getResult()
             ;
     }
 

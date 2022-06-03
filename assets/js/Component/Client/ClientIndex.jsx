@@ -59,4 +59,4 @@ function ClientIndex () {
   )
 }
 
-export default ClientIndex
+export default ClientIndex;

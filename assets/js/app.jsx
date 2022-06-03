@@ -17,6 +17,7 @@ import Mask from "./Component/Mask";
 import ClientIndex from "./Component/Client/ClientIndex";
 import ClientShow from "./Component/Client/ClientShow";
 import ClientAdd from "./Component/Client/ClientAdd";
+import SiteIndex from "./Component/Site/SiteIndex";
 
 function App() {
       return (
@@ -37,7 +38,7 @@ function App() {
                         <Route path={'/client/add'} element={<ClientAdd />}/>
                         <Route path={'/client/show/:clientId'} element={<ClientShow />}/>
                         <Route path={'/client/edit/:clientId'} element={<ClientAdd />}/>
-                      <Route path={'/chantiers'} element={<Site />}/>
+                      <Route path={'/chantiers'} element={<SiteIndex />}/>
                       <Route path={'/materiels'} element={<Equipment />}/>
                       <Route path={'/categories'} element={<Category />}/>
                       <Route path={'/analyse-initiale'} element={<AnalysisInitial />}/>

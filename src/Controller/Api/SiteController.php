@@ -2,7 +2,9 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Site;
 use App\Repository\SiteRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,8 +16,11 @@ class SiteController extends ApiController
     /**
      * @Route("/index", name="api_site_index", methods={"GET"})
      */
-    public function index(SiteRepository $siteRepository): JsonResponse
+    public function index(SiteRepository $siteRepository, ManagerRegistry $managerRegistry): JsonResponse
     {
-        return $this->json($siteRepository->indexSite());
+        $em = $managerRegistry->getManager();
+        $sites = $em->getRepository(Site::class)->indexSite()->getArrayResult();
+
+        return $this->json(['sites' => $sites]);
     }
 }
