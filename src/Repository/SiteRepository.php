@@ -47,9 +47,10 @@ class SiteRepository extends ServiceEntityRepository
     public function indexSite(): Query
     {
         return $this->createQueryBuilder('s')
-            ->select('s.name')
-            ->addSelect('s.id')
-            ->orderBy('s.name')
+            ->leftJoin('s.users', 'users')
+            ->addSelect('COUNT(users.id) as nbUsers')
+            ->orderBy('s.id', 'ASC')
+            ->groupBy('s.name')
             ->getQuery()
             ;
     }

@@ -18,6 +18,8 @@ import ClientIndex from "./Component/Client/ClientIndex";
 import ClientShow from "./Component/Client/ClientShow";
 import ClientAdd from "./Component/Client/ClientAdd";
 import SiteIndex from "./Component/Site/SiteIndex";
+import SiteAdd from "./Component/Site/SiteAdd";
+import SiteShow from "./Component/Site/SiteShow";
 
 function App() {
       return (
@@ -39,6 +41,9 @@ function App() {
                         <Route path={'/client/show/:clientId'} element={<ClientShow />}/>
                         <Route path={'/client/edit/:clientId'} element={<ClientAdd />}/>
                       <Route path={'/chantiers'} element={<SiteIndex />}/>
+                        <Route path={'chantier/add'}  element={<SiteAdd />}/>
+                        <Route path={'chantier/show/:siteId'}  element={<SiteShow />}/>
+                        <Route path={'chantier/edit/:siteId'}  element={<SiteAdd />}/>
                       <Route path={'/materiels'} element={<Equipment />}/>
                       <Route path={'/categories'} element={<Category />}/>
                       <Route path={'/analyse-initiale'} element={<AnalysisInitial />}/>
